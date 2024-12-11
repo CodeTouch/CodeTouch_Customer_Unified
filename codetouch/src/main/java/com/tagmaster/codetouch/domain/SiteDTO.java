@@ -27,4 +27,6 @@ public class SiteDTO {
         this.favicon=favicon;
         this.main_image=main_image;
     }
+
+
 }

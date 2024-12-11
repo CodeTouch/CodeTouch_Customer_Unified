@@ -20,21 +20,21 @@ public interface UserMapper {
     // 사용자 개인정보 수정
 
     @Update("update User set role=#{role} where user_id=#{userId}")
-    void updateRole(@Param("userId") int userId, @Param("role") String role);
+    void updateRole(UserDTO dto);
     // 권한 수정
 
     @Update("update User set password=#{password},name=#{name},nickname=#{nickname}," +
-            "phone=#{phone},role=#{role},agree=#{agree},business_num=#{business_num},report_num=#{report_num})")
-    void update(UserDTO dto);
+            "phone=#{phone},agree=#{agree},business_num=#{business_num},report_num=#{report_num})")
+    void updateAdmin(UserDTO dto);
     // 관리자 정보 수정 (사업자등록번호,통신판매번호 등)
 
     @Select("select user.email,user.name,user.nickname,user.phone,user.gender,user.birth,user.role,user.mileage " +
             "from user where site_id=#{site_id}")
-    UserDTO showAllUser(UserDTO dto);
+    List<UserDTO> showAllUser(int siteId);
     // 사이트 모든 이용자 출력
 
     @Select("select user.email from user where site_id=#{siteId}")
-    List<String> sendMail(@Param("siteId") int siteId);
+    UserDTO sendMail(@Param("siteId") int siteId);
     // 사이트 모든 이용자 메일발송
 
     @Select("select * from user where user_id=#{userId}")
