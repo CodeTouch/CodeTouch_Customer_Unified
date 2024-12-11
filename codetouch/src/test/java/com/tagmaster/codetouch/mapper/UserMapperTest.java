@@ -33,8 +33,18 @@ public class UserMapperTest{
         dto.setRole("USER,ADMIN"); //service 에서 처리하기
         dto.setAgree(1);
         userMapper.insertUser(dto);
-}/*
+}
+    // 사용자 정보 수정 //
     @Test
     @Rollback(value = false)
-    void updateUser */
+    void updateUserTest(){
+        UserDTO dto=new UserDTO();
+        dto.setPassword("5678");
+        dto.setName("지오니");
+        dto.setNickname("띵");
+        dto.setPhone("010-2222-2222");
+        dto.setAddress("suwon,13687"); //json 바꾸기
+        dto.setAgree(2);
+        userMapper.updateUser(dto);
+    }
 }
