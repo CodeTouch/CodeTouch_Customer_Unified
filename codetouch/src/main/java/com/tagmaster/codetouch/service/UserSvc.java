@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class UserSvc {
+public class UserSvc {/*
     UserMapper userMapper;
     @Autowired
 public UserSvc (UserMapper userMapper){
@@ -26,12 +26,12 @@ public String SaveUser(UserDTO dto) { //사이트 유저 생성
     //개인정보 수정
     public String UpdateUser(UserDTO dto){
     try{
-        UserDTO updateUser=userMapper.findByUserId(dto.getUserId());
+        UserDTO updateUser=userMapper.findByUserId(dto.getUser_id());
 
     } catch (Exception e) {
         return "수정 실패";
     }
     return "수정 성공";
-    }
+    }*/
 }
 
