@@ -17,14 +17,10 @@ public class SiteDTO {
     private String name;
     private String favicon;
     private String main_image;
-    private int pay_state; // ?
-    private JSONObject agree;
-    private JSONObject agree_content;
-
-    public SiteDTO(int user_id, String name,String favicon,String main_image){
-        this.user_id=user_id;
-        this.name=name;
-        this.favicon=favicon;
-        this.main_image=main_image;
-    }
+    private int pay_state;
+    private JSONObject agree; //?
+    private JSONObject agree_content; //?
 }
+
+//
+

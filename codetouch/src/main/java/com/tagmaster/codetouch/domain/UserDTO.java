@@ -15,8 +15,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    private int userId;
-    private int siteId;
+    private int user_id;
+    private int site_id;
     private String email;
     private String password;
     private String name;
@@ -28,18 +28,7 @@ public class UserDTO {
     private String role;
     private int mileage;
     private int agree;
-    private int business_num; //site table
-    private int report_num; // site table
-    //복합키 어카지 email , site // email 1개당 site 1개
-
-    public UserDTO(int userId,String id, String password, String email,String name,String phone,int gender,int role){
-    }
-    // 일반유저
-    // 수정할것 : pw , 이름 , 별명 , 전화, 주소, 동의
-
-
-    // 관리자
-    // 수정할것 : pw , 이름 ,별명 , 전화 ,주소, 권한, 동의, 사업자번호, 통신판매번호
-
+    private int business_num;
+    private int report_num;
 
 }
