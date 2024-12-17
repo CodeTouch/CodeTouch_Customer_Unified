@@ -61,7 +61,7 @@ public class UserMapperTest{
         dto.setEmail("rnrmfwldwlddl@gmail.com");
         dto.setSite_id(1);
         dto.setRole("USER,ADMIN");
-        userMapper.updateRole(dto);
+        userMapper.updateRole(dto.getSite_id(), dto.getEmail(),dto.getRole());
         System.out.println(dto);
     }
 
@@ -100,7 +100,7 @@ public class UserMapperTest{
     @Test
     @Rollback(value = false)
     public void deleteUserTest(){
-        int del= userMapper.deleteUser(1,"rnrmfwldwlddl@gmail.com");
+        String del= userMapper.deleteUser(1,"rnrmfwldwlddl@gmail.com");
         System.out.println(del);
     }
 
