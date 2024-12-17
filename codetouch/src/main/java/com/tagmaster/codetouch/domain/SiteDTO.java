@@ -14,10 +14,10 @@ import org.w3c.dom.Text;
 public class SiteDTO {
     private int site_id;
     private int user_id;
-    private String name;
-    private String favicon;
-    private String main_image;
-    private int pay_state;
+    //private String name;
+    //private String favicon;
+    //private String main_image;
+    //private int pay_state;
 }
 
 
