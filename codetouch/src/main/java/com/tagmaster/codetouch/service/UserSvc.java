@@ -1,6 +1,7 @@
 
 package com.tagmaster.codetouch.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tagmaster.codetouch.domain.UserDTO;
 import com.tagmaster.codetouch.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,23 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
 
+import java.util.HashMap;
 import java.util.List;
-
 
 @Service
 public class UserSvc {
     UserMapper userMapper;
+    @Autowired
+    public UserSvc (UserMapper userMapper){
+        this.userMapper=userMapper;
+    }
+
+    // 사용자 생성
     public String SaveUser(UserDTO dto) {
+        HashMap<String,String> jsonAddress = new HashMap<>();
         try {
+            jsonAddress.put(dto.getAddress(),dto.getAddress()); // 키 값 구분 못할텐데 어쩌징
+            ObjectMapper maper=new ObjectMapper();
                 UserDTO save = userMapper.insertUser(dto);
                 System.out.println("Mapper result: " + save);
             return "저장성공";
@@ -27,12 +37,6 @@ public class UserSvc {
             return "저장실패";
         }
     }
-
-    @Autowired
-public UserSvc (UserMapper userMapper){
-        this.userMapper=userMapper;
-    }
-    //사용자 생성
 
     // 사용자 개인정보 수정
     public String UpdateUser(UserDTO dto){
@@ -54,10 +58,12 @@ public UserSvc (UserMapper userMapper){
     }
 
     //권한 수정
-    public String UpdateRole(UserDTO dto) {
+    public String UpdateRole(int site_id, String email, String role) {
         try{
-            UserDTO update=userMapper.updateRole(dto);
-            update.setRole(dto.getRole());
+            UserDTO update=userMapper.updateRole(site_id, email, role);
+            update.setSite_id(site_id);
+            update.setEmail(email);
+            update.setRole(role);
             userMapper.updateUser(update);
             return "권한 부여 성공";
         } catch (Exception e) {
@@ -94,43 +100,24 @@ public UserSvc (UserMapper userMapper){
         }
     }
 
-    //사이트 모든 이용자 메일 발송 // 수정필요함
-    public String sendMail(int site_id,String title,String text){
-        try{
-            List<String> allMail = userMapper.sendMail(site_id);
-
-            for (String email : allMail){
-                SimpleMailMessage message =new SimpleMailMessage();
-                message.setTo(email); // 수신자 설정
-                message.setSubject(title); // 제목 설정
-                message.setText(text); // 메일 내용
-                //메일수신 //수정필요
-            }
-            return "메일 전송 성공";
-        } catch (Exception e) {
-            return "메일 전송 실패";
-        }
-    }
-
     //회원 탈퇴
     public String deleteUser(int site_id,String email){
         try{
             userMapper.deleteUser(site_id,email);
-            return "회원 탈퇴";
-    } catch (Exception e) {
+            return "회원 탈퇴 완료";
+        } catch (Exception e) {
             return "회원 탈퇴 실패";
         }
     }
 
-    //사이트 이용자 조회
-    public UserDTO searchUser (int site_id, String email){
-        try{
-            UserDTO result =userMapper.searchUser(site_id,email);
-            return result;
+    // 사용자 정보 조회
+    public UserDTO searchUser(int site_id, String email) {
+        try {
+            UserDTO dto=userMapper.searchUser(site_id, email);
+            return dto;
         } catch (Exception e) {
             return null;
         }
     }
-
 }
 

@@ -18,9 +18,6 @@ public class SiteDTO {
     private String favicon;
     private String main_image;
     private int pay_state;
-    private JSONObject agree; //?
-    private JSONObject agree_content; //?
 }
 
-//
 

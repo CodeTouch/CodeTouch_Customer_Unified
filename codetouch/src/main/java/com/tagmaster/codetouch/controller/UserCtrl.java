@@ -12,8 +12,9 @@ import java.util.List;
 @RequestMapping("/user")
 @CrossOrigin(origins = "*")
 public class UserCtrl {
+    private final UserSvc userSvc;
+
     @Autowired
-    UserSvc userSvc;
     public UserCtrl(UserSvc userSvc) {
         this.userSvc = userSvc;
     }
@@ -37,8 +38,8 @@ public class UserCtrl {
 
     // 권한 수정
     @PostMapping("/updateRole")
-    public ModelAndView updateRole(@RequestBody UserDTO userDTO) {
-        String result = userSvc.UpdateRole(userDTO);
+    public ModelAndView updateRole(@RequestBody int site_id, @RequestBody String email, @RequestBody String role) {
+        String result = userSvc.UpdateRole(site_id, email, role);
         ModelAndView modelAndView = new ModelAndView("user/updateRole");
         modelAndView.addObject("message", result);
         return modelAndView;
@@ -54,9 +55,9 @@ public class UserCtrl {
     }
 
     // 사이트 모든 이용자 출력
-    @GetMapping("/{siteId}")
-    public ModelAndView getAllUsers(@PathVariable int siteId) {
-        List<UserDTO> users = userSvc.showAllUser(siteId);
+    @GetMapping("/{site_id}")
+    public ModelAndView getAllUsers(@PathVariable int site_id) {
+        List<UserDTO> users = userSvc.showAllUser(site_id);
         ModelAndView modelAndView = new ModelAndView("user/list");
         modelAndView.addObject("users", users);
         return modelAndView;
@@ -65,20 +66,20 @@ public class UserCtrl {
     // 회원 탈퇴
     @PostMapping("/delete")
     public ModelAndView deleteUser(
-            @RequestParam int siteId,
+            @RequestParam int site_id,
             @RequestParam String email) {
-        String result = userSvc.deleteUser(siteId, email);
+        String result = userSvc.deleteUser(site_id, email);
         ModelAndView modelAndView = new ModelAndView("user/delete");
         modelAndView.addObject("message", result);
         return modelAndView;
     }
 
     // 사이트 이용자 조회
-    @GetMapping("/{siteId}/{email}")
+    @GetMapping("/{site_id}/{email}")
     public ModelAndView getUser(
-            @PathVariable int siteId,
+            @PathVariable int site_id,
             @PathVariable String email) {
-        UserDTO user = userSvc.searchUser(siteId, email);
+        UserDTO user = userSvc.searchUser(site_id, email);
         ModelAndView modelAndView = new ModelAndView("user/detail");
         modelAndView.addObject("user", user);
         return modelAndView;

@@ -4,6 +4,7 @@ import com.tagmaster.codetouch.domain.UserDTO;
 import lombok.Locked;
 import org.apache.ibatis.annotations.*;
 import org.springframework.security.core.parameters.P;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface UserMapper {
     // 사용자 개인정보 수정
 
     @Update("update User set role=#{role} where site_id=#{site_id} and email=#{email}")
-    UserDTO updateRole(UserDTO dto);
+    UserDTO updateRole(int site_id, String email ,String role);
     // 권한 수정
 
     @Update("update User set password=#{password},name=#{name},nickname=#{nickname}," +
@@ -40,10 +41,10 @@ public interface UserMapper {
 
 
     @Delete("delete from user where site_id=#{site_id} and email=#{email}")
-    int deleteUser(int site_id , String email);
+    String deleteUser(int site_id , String email);
     // 회원탈퇴
 
-    @Select("select SQL_NO_CACHE user_id,site_id from user where site_id=#{site_id} and email=#{email}")
+    @Select("select SQL_NO_CACHE email,name,nickname,phone,birth,gender,address,role,mileage from user where site_id=#{site_id} and email=#{email}")
     UserDTO searchUser(int site_id , String email);
     //사이트 이용자 조회
 }

@@ -18,6 +18,6 @@ public interface SiteMapper {
     int deleteSite(int site_id);
     //사이트 삭제
 
-    //약관 설정 편집
+
 
 }

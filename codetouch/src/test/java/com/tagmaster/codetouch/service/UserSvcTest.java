@@ -80,11 +80,8 @@ public class UserSvcTest {
             dto.setPassword("password123");
             dto.setRole("USER");
             userSvc.SaveUser(dto);
-
             dto.setRole("ADMIN");
-
-            String result = userSvc.UpdateRole(dto);
-
+            String result = userSvc.UpdateRole(dto.getSite_id(), dto.getEmail(), dto.getRole());
             assertEquals("권한 부여 성공", result);
         }
 
