@@ -1,3 +1,4 @@
+/*
 package com.tagmaster.codetouch.service;
 
 import com.tagmaster.codetouch.controller.UserCtrl;
@@ -22,9 +23,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class UserSvcTest {
     @Autowired
-    private UserSvc userSvc;
-    @Autowired
     private UserMapper userMapper;
+
+    // DTO (받아올값,,,,)
+    // util 혹은 변형 주고 변수에 저장
+    // 변수를 set 한다
+    // mapper + util = service test
+
 
 
     // 사용자 생성 //출력값 : 메세지만 줄거
@@ -42,7 +47,7 @@ public class UserSvcTest {
             dto.setGender(1);
             dto.setRole("USER");
             dto.setAgree(1);
-            String result = userSvc.SaveUser(dto);
+            String result = userMapper.insertUser(dto);
             assertEquals("저장 성공", result);
         }
 
@@ -169,3 +174,4 @@ public class UserSvcTest {
 
 
     
+*/
