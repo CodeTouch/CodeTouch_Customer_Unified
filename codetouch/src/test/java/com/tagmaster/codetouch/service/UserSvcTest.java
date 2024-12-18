@@ -1,4 +1,3 @@
-/*
 package com.tagmaster.codetouch.service;
 
 import com.tagmaster.codetouch.controller.UserCtrl;
@@ -16,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,8 +29,6 @@ public class UserSvcTest {
     // util 혹은 변형 주고 변수에 저장
     // 변수를 set 한다
     // mapper + util = service test
-
-
 
     // 사용자 생성 //출력값 : 메세지만 줄거
     @Test
@@ -47,6 +45,13 @@ public class UserSvcTest {
             dto.setGender(1);
             dto.setRole("USER");
             dto.setAgree(1);
+            //
+            HashMap<String, String> addressMap = new HashMap<>();
+            addressMap.put("시/도", "서울특별시");
+            addressMap.put("시/군/구", "강남구");
+            addressMap.put("읍/면/동", "삼성동");
+            addressMap.put("도로명", "테헤란로");
+            addressMap.put("상세주소", "123번지");
             String result = userMapper.insertUser(dto);
             assertEquals("저장 성공", result);
         }
@@ -64,7 +69,6 @@ public class UserSvcTest {
             dto.setPhone("01011112222");
             dto.setAgree(1);
             userSvc.SaveUser(dto);
-
             dto.setPassword("8765");
             dto.setName("Updated User");
             dto.setNickname("Updated");
@@ -174,4 +178,3 @@ public class UserSvcTest {
 
 
     
-*/

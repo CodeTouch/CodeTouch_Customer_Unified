@@ -1,19 +1,11 @@
-
 package com.tagmaster.codetouch.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tagmaster.codetouch.domain.UserDTO;
 import com.tagmaster.codetouch.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.mail.SimpleMailMessage;
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
+import com.tagmaster.codetouch.util.Util;
 
-
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -23,20 +15,19 @@ public class UserSvc {
     public UserSvc (UserMapper userMapper){
         this.userMapper=userMapper;
     }
-
     // 사용자 생성
+    // DTO type ->
     public String SaveUser(UserDTO dto) {
-        HashMap<String,String> jsonAddress = new HashMap<>();
         try {
-            jsonAddress.put(dto.getAddress(),dto.getAddress()); // 키 값 구분 못할텐데 어쩌징
-            ObjectMapper maper=new ObjectMapper();
-                UserDTO save = userMapper.insertUser(dto);
-                System.out.println("Mapper result: " + save);
+            Util.objectToJson(dto);
+            UserDTO save = userMapper.insertUser(dto);
+            System.out.println("Mapper result: " + save);
             return "저장성공";
         } catch (Exception e) {
             return "저장실패";
         }
     }
+
 
     // 사용자 개인정보 수정
     public String UpdateUser(UserDTO dto){
@@ -120,4 +111,5 @@ public class UserSvc {
         }
     }
 }
+
 

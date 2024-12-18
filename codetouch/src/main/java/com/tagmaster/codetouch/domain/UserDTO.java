@@ -30,5 +30,4 @@ public class UserDTO {
     private int agree;
     private int business_num;
     private int report_num;
-
 }
