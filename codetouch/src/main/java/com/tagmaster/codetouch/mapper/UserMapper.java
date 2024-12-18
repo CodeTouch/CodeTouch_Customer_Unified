@@ -22,7 +22,7 @@ public interface UserMapper {
     // 사용자 개인정보 수정
 
     @Update("update User set role=#{role} where site_id=#{site_id} and email=#{email}")
-    UserDTO updateRole(int site_id, String email ,String role);
+    UserDTO updateRole(int site_id, String email, String role);
     // 권한 수정
 
     @Update("update User set password=#{password},name=#{name},nickname=#{nickname}," +

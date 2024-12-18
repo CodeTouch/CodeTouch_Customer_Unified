@@ -6,7 +6,7 @@ import org.springframework.data.jdbc.repository.query.Query;
 
 @Mapper
 public interface SiteMapper {
-    @Insert("insert into Site ( user_id ,name,favicon,main_image)values(#{user_id},#{name},#{favicon},#{main_image})")
+    @Insert("insert into Site ( user_id ,name, favicon, main_image)values(#{user_id},#{name},#{favicon},#{main_image})")
     void insertSiteSet(SiteDTO dto);
     //사이트 생성
 
