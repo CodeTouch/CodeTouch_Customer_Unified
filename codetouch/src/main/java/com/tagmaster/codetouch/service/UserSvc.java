@@ -19,7 +19,10 @@ public class UserSvc {
     // DTO type ->
     public String SaveUser(UserDTO dto) {
         try {
-            Util.objectToJson(dto);
+            // address 필드만 JSON으로 변환
+            String addressJson = Util.objectToJson(dto.getAddress());
+            // JSON 변환된 address를 dto에 다시 세팅
+            dto.setAddress(addressJson);
             UserDTO save = userMapper.insertUser(dto);
             System.out.println("Mapper result: " + save);
             return "저장성공";
@@ -28,11 +31,12 @@ public class UserSvc {
         }
     }
 
-
     // 사용자 개인정보 수정
     public String UpdateUser(UserDTO dto){
     try{
          if(dto!=null){
+             String addressJson = Util.objectToJson(dto.getAddress());
+             dto.setAddress(addressJson);
             UserDTO update = userMapper.updateUser(dto);
             update.setPassword(dto.getPassword());
             update.setName(dto.getName());
@@ -111,5 +115,3 @@ public class UserSvc {
         }
     }
 }
-
-
