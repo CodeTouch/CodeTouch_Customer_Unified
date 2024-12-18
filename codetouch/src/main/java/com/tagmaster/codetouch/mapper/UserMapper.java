@@ -30,7 +30,7 @@ public interface UserMapper {
     UserDTO updateAdmin(UserDTO dto);
     // 관리자 정보 수정 (사업자등록번호,통신판매번호 등)
 
-    @Select("select user.email,user.name,user.nickname,user.phone,user.gender,user.birth,user.role,user.mileage " +
+    @Select("select email,name,nickname,phone,gender,birth,role,mileage " +
             "from user where site_id=#{site_id}")
     List<UserDTO> showAllUser(int site_id);
     // 사이트 모든 이용자 출력

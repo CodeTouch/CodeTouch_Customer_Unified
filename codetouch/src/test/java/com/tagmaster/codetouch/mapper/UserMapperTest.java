@@ -35,7 +35,7 @@ public class UserMapperTest{
         dto.setPhone("01012345678");
         dto.setBirth(LocalDate.of(1997,2,24)); //svc
         dto.setGender(2); //svc
-        dto.setRole("USER,ADMIN"); //service 에서 처리하기
+        //dto.setRole("USER,ADMIN"); //service 에서 처리하기
         dto.setAgree(1);
         userMapper.insertUser(dto);
 }
@@ -60,8 +60,8 @@ public class UserMapperTest{
         UserDTO dto =new UserDTO();
         dto.setEmail("rnrmfwldwlddl@gmail.com");
         dto.setSite_id(1);
-        dto.setRole("USER,ADMIN");
-        userMapper.updateRole(dto.getSite_id(), dto.getEmail(),dto.getRole());
+        //dto.setRole("USER,ADMIN");
+        //userMapper.updateRole(dto.getSite_id(), dto.getEmail(),dto.getRole());
         System.out.println(dto);
     }
 
@@ -75,8 +75,8 @@ public class UserMapperTest{
         dto.setName("adminJioni");
         dto.setNickname("adminThing");
         dto.setPhone("01099999999");
-        dto.setBusiness_num(987678);
-        dto.setReport_num(2345);
+        //dto.setBusiness_num(987678);
+        //dto.setReport_num(2345);
         userMapper.updateAdmin(dto);
     }
 
