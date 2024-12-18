@@ -17,7 +17,7 @@ public class StieMapperTest {
 
     @Test
     public void insertSiteSetTest(){
-        SiteDTO dto = new SiteDTO(1,"1","1","1");
+        SiteDTO dto = new SiteDTO();
         siteMapper.insertSiteSet(dto);
     }
 }

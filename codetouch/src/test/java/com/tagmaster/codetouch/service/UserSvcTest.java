@@ -1,9 +1,9 @@
-/*
 package com.tagmaster.codetouch.service;
 
 import com.tagmaster.codetouch.controller.UserCtrl;
 import com.tagmaster.codetouch.domain.UserDTO;
 import com.tagmaster.codetouch.mapper.UserMapper;
+import com.tagmaster.codetouch.util.Util;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,27 +32,21 @@ public class UserSvcTest {
     // 변수를 set 한다
     // mapper + util = service test
 
-
-
     // 사용자 생성 //출력값 : 메세지만 줄거
     @Test
     @Rollback(value = false)
         public void saveUserTest() {
-            UserDTO dto = new UserDTO();
-            dto.setEmail("jioni@e.com");
-            dto.setSite_id(1);
-            dto.setPassword("123");
-            dto.setName("jioni");
-            dto.setNickname("jioning");
-            dto.setPhone("01012345678");
-            dto.setBirth(LocalDate.of(1997, 2, 22));
-            dto.setGender(1);
-            dto.setRole("USER");
-            dto.setAgree(1);
-            String result = userMapper.insertUser(dto);
-            assertEquals("저장 성공", result);
-        }
+        String test = "{\"시/도\":\"서울특별시\"}";
+        HashMap<String, String> test2 = Util.jsonToMap(test);
+        System.out.println(test2.get("시/도"));
 
+        UserDTO dto=new UserDTO();
+        dto.setEmail("email@.com");
+        String test3=Util.objectToJson(dto);
+        System.out.println(test3);
+    }}
+/*
+    }
         // 사용자 정보 수정 테스트
         @Test
         @Rollback(value = true)
@@ -63,15 +59,12 @@ public class UserSvcTest {
             dto.setNickname("king");
             dto.setPhone("01011112222");
             dto.setAgree(1);
-            userSvc.SaveUser(dto);
-
+            //userSvc.SaveUser(dto);
             dto.setPassword("8765");
             dto.setName("Updated User");
             dto.setNickname("Updated");
             dto.setPhone("01099998888");
-
-            String result = userSvc.UpdateUser(dto);
-
+            //String result = userSvc.UpdateUser(dto);
             assertEquals("정보 수정 성공", result);
         }
 
@@ -110,9 +103,7 @@ public class UserSvcTest {
             dto.setPhone("01098765432");
             dto.setBusiness_num(98765432);
             dto.setReport_num(12345678);
-
             String result = userSvc.UpdateAdmin(dto);
-
             assertEquals("관리자 정보 수정 성공", result);
         }
 
@@ -169,9 +160,4 @@ public class UserSvcTest {
             assertEquals("thing", result.getName());
         }
     }
-                
-    
-
-
-    
 */
