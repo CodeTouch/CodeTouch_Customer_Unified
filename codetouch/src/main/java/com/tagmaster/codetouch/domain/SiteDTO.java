@@ -19,6 +19,9 @@ public class SiteDTO {
     //private String favicon;
     //private String main_image;
     //private int pay_state;
+    //private LocalDateTime expiry;
+    //private String url;
+    //private int is_delete;
 }
 
 
