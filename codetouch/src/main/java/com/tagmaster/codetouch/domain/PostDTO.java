@@ -2,6 +2,7 @@ package com.tagmaster.codetouch.domain;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,8 +10,9 @@ import java.time.LocalDateTime;
 @Data
 @Getter
 @Setter
+@NoArgsConstructor
 public class PostDTO {
-    private int pay_id;
+    private int post_id;
     private int pd_id;
     private int user_id;
     private int site_id;

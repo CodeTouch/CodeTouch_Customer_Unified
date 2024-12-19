@@ -12,7 +12,6 @@ import java.util.Set;
 @Setter
 @ToString
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
     private int user_id;

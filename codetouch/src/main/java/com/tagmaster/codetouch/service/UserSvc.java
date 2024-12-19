@@ -58,7 +58,7 @@ public class UserSvc {
             UserDTO update=userMapper.updateRole(site_id, email, role);
             update.setSite_id(site_id);
             update.setEmail(email);
-            update.setRole(role);
+            //update.setRole(role);
             userMapper.updateUser(update);
             return "권한 부여 성공";
         } catch (Exception e) {
@@ -76,8 +76,8 @@ public class UserSvc {
             update.setPhone(dto.getPhone());
             update.setAddress(dto.getAddress());
             update.setAgree(dto.getAgree());
-            update.setBusiness_num(dto.getBusiness_num());
-            update.setReport_num(dto.getReport_num());
+            //update.setBusiness_num(dto.getBusiness_num());
+            //update.setReport_num(dto.getReport_num());
             userMapper.updateAdmin(update);
             return "관리자 정보 수정 성공";
         } catch (Exception e) {

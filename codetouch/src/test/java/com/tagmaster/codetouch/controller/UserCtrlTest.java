@@ -30,7 +30,7 @@ public class UserCtrlTest {
         userDTO.setPhone("01012345678");
         userDTO.setBirth(LocalDate.of(1990, 1, 1));
         userDTO.setGender(1);
-        userDTO.setRole("USER");
+        //userDTO.setRole("USER");
         userDTO.setAgree(1);
         ResponseEntity<String> response = restTemplate.postForEntity("/user", userDTO, String.class);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -57,7 +57,7 @@ public class UserCtrlTest {
         UserDTO userDTO = new UserDTO();
         userDTO.setSite_id(1);
         userDTO.setEmail("testuser@example.com");
-        userDTO.setRole("ADMIN");
+        //userDTO.setRole("ADMIN");
         ResponseEntity<String> response = restTemplate.postForEntity("/user/updateRole", userDTO, String.class);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertEquals("권한 부여 성공", response.getBody());

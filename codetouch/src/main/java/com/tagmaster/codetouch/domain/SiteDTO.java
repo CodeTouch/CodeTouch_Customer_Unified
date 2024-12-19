@@ -11,6 +11,7 @@ import org.w3c.dom.Text;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class SiteDTO {
     private int site_id;
     private int user_id;
