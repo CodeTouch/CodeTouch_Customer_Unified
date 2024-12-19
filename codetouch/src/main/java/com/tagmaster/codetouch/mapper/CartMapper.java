@@ -15,20 +15,20 @@ public interface CartMapper {
     @Update("UPDATE cart SET user_id=#{user_id}, pd_id=#{pd_id}, count=#{count} WHERE cart_id=#{cart_id}")
     int UpdateCart(CartDTO dto);
     //장바구니 삭제
-    @Delete("DELETE FROM cart WHERE cart_id=#{cart_id}")
-    int DeleteCart(int cart_id);
+    @Delete("DELETE FROM cart WHERE user_id=#{user_id}")
+    int DeleteCart(int user_id);
     //장바구니 조회
-    @Select("SELECT user_id, pd_id, count FROM cart WHERE cart_id=#{cart_id}")
-    CartDTO FindCartById(int cart_id);
+    @Select("SELECT user_id, pd_id, count FROM cart WHERE user_id=#{user_id}")
+    CartDTO FindCartById(int user_id);
     //카트 아이디로 상품 아이디 찾기
-    @Select("SELECT pd_id FROM cart WHERE cart_id=#{cart_id}")
-    List<Integer> FindProductById(int cart_id);
+    @Select("SELECT pd_id FROM cart WHERE user_id=#{user_id}")
+    List<Integer> FindProductById(int user_id);
     //특정 카트의 상품과 수량 뽑기
-    @Select("SELECT pd_id, count FROM cart WHERE cart_id = #{cart_id}")
-    List<CartDTO> FindProductsByCartId(int cart_id);
+    @Select("SELECT pd_id, count FROM cart WHERE user_id = #{user_id}")
+    List<CartDTO> FindProductsById(int user_id);
     //Count -> category / pd_id 별로 count 해주기
-    @Select("SELECT pd_id, count(*) AS product_count FROM cart WHERE cart_id=#{cart_id} GROUP BY pd_id")
-    List<Map<String, Object>> FindProductsGroupByCartId(int cart_id);
+    @Select("SELECT user_id, pd_id, count AS product_count FROM cart WHERE user_id=#{user_id} GROUP BY pd_id")
+    List<Map<String, Object>> FindProductsGroupById(int user_id);
 
     //유저 아이디로 장바구니 조회
     //@Select("SELECT pd_id, count FROM cart WHERE user_id=#{user_id}")

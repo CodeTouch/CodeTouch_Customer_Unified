@@ -58,14 +58,14 @@ public class CartMapperTest {
     @Test
     @Rollback(false)
     public void findProductsByCartIdTest(){
-        List<CartDTO> dtoList = cartMapper.FindProductsByCartId(2);
+        List<CartDTO> dtoList = cartMapper.FindProductsById(2);
         System.out.println(dtoList);
     }
 
     @Test
     @Rollback(false)
-    public void findProductsGroupByCartIdTest() {
-        List<Map<String, Object>> productList = cartMapper.FindProductsGroupByCartId(2);
+    public void findProductsGroupByIdTest() {
+        List<Map<String, Object>> productList = cartMapper.FindProductsGroupById(1);
         System.out.println(productList);
     }
 }

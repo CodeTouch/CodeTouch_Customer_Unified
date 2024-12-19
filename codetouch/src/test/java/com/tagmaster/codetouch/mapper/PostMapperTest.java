@@ -41,6 +41,7 @@ public class PostMapperTest {
         dto.setImage("image1.jpg");
         dto.setRating(3);
         postMapper.updatePost(dto);
+        System.out.println(dto);
     }
 
     @Test
