@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
+import java.util.Map;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -19,7 +20,7 @@ public class PayHistoryMapperTest {
     @Rollback(value = false)
     public void insertPayHistoryTest() {
         PayHistoryDTO payHistoryDTO = new PayHistoryDTO();
-        payHistoryDTO.setCart_id(1);
+        payHistoryDTO.setPd_id(2);
         payHistoryDTO.setOrder_num(122341);
         payHistoryDTO.setTotal_price(1000000);
         payHistoryMapper.insertPayHistory(payHistoryDTO);
@@ -57,6 +58,12 @@ public class PayHistoryMapperTest {
     public void getPayHistoryDESC(){
         List<PayHistoryDTO> dto = payHistoryMapper.getPayHistoryDESC();
         System.out.println(dto);
+    }
+    @Test
+    @Rollback(value = false)
+    public void getReceiptDetailsByPayId(){
+        List<Map<String, Object>> receiptDetails = payHistoryMapper.getReceiptByCartId("3,4,5,6,7");
+        System.out.println(receiptDetails);
     }
 
 }

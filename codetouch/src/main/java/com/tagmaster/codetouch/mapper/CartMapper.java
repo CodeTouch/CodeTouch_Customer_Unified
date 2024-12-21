@@ -30,6 +30,8 @@ public interface CartMapper {
     @Select("SELECT user_id, pd_id, count AS product_count FROM cart WHERE user_id=#{user_id} GROUP BY pd_id")
     List<Map<String, Object>> FindProductsGroupById(int user_id);
 
+
+
     //유저 아이디로 장바구니 조회
     //@Select("SELECT pd_id, count FROM cart WHERE user_id=#{user_id}")
     //List<CartDTO> SelectCartByUserId(int user_id);

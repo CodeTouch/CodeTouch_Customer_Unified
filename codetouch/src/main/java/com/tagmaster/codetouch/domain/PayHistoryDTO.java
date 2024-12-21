@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PayHistoryDTO {
     private int pay_id;
-    private int cart_id;
-    private Integer order_num;
+    private int pd_id;
+    private Integer merchant_id;
     private Integer total_price;
     private LocalDateTime create_at;
 }

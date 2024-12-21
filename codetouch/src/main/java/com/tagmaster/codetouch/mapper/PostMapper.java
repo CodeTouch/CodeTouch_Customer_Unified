@@ -11,7 +11,7 @@ public interface PostMapper {
     @Insert("INSERT INTO post (pd_id, user_id, type, content, image, rating) VALUES (#{pd_id}, #{user_id}, #{type}, #{content}, #{image}, #{rating})")
     int insertPost(PostDTO dto);
     //수정
-    @Update("UPDATE post SET pd_id=#{pd_id}, user_id=#{user_id}, type=#{type}, content=#{content}, image=#{image}, rating=#{rating} WHERE post_id=#{post_id}")
+    @Update("UPDATE post SET pd_id=#{pd_id}, type=#{type}, content=#{content}, image=#{image}, rating=#{rating} WHERE post_id=#{post_id}")
     int updatePost(PostDTO dto);
     //삭제
     @Delete("DELETE FROM post WHERE post_id=#{post_id}")
@@ -34,5 +34,5 @@ public interface PostMapper {
     //별점 낮은 순으로 게시글 가져오기
     @Select("SELECT pd_id, type, user_id, content, image FROM post WHERE pd_id=#{pd_id} ORDER BY rating ASC")
     List<PostDTO> getPostsByLowRated(int pd_id);
-
+ //join 으로 이메일 뽑아오기 //todo
 }
