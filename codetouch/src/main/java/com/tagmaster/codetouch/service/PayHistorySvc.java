@@ -30,27 +30,30 @@ public class PayHistorySvc {
     // 결제 내역 수정
     public String updatePay(PayHistoryDTO dto) {
         try {
-            PayHistoryDTO updated = payHistoryMapper.updatePayHistory(dto);
-            return updated != null ? "결제 내역 수정 성공" : "결제 내역 수정 실패";
+            int updated = payHistoryMapper.updatePayHistory(dto);
+            return updated > 0 ? "결제 내역 수정 성공" : "결제 내역 수정 실패";
         } catch (Exception e) {
             return "결제 내역 수정 실패: " + e.getMessage();
         }
     }
 
     // 결제 내역 삭제
-    public String deletePay(int payId) {
+    public String deletePay(int pay_id) {
         try {
-            int result = payHistoryMapper.deletePayHistory(new PayHistoryDTO() {{
-                setPay_id(payId);
-            }});
-            return result > 0 ? "결제 내역 삭제 성공" : "결제 내역 삭제 실패";
+            PayHistoryDTO payResult = payHistoryMapper.getPayHistory(pay_id);
+            if (payResult != null) {
+                payHistoryMapper.deletePayHistory(pay_id);
+                return "결제 내역 삭제 성공";
+            } else {
+                return "결제 내역 삭제 실패";
+            }
         } catch (Exception e) {
-            return "결제 내역 삭제 실패: " + e.getMessage();
+            return "결제 내역 삭제 에러: " + e.getMessage();
         }
     }
 
     // 특정 장바구니의 결제 내역 가져오기
-    public List<PayHistoryDTO> getPayByCartId(int cartId) {
+    public PayHistoryDTO getPayByCartId(int cartId) {
         try {
             return payHistoryMapper.getPayHistoryByCartId(cartId);
         } catch (Exception e) {

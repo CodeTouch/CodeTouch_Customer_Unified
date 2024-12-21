@@ -61,7 +61,7 @@ public class CartSvc {
     // 특정 장바구니의 상품 그룹 조회
     public List<Map<String, Object>> getProduct(int cartId) {
         try {
-            return cartMapper.FindProductsGroupByCartId(cartId);
+            return cartMapper.FindProductsGroupById(cartId);
         } catch (Exception e) {
             System.err.println("그룹 조회 실패: " + e.getMessage());
             return null;

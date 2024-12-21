@@ -15,7 +15,7 @@ public class SiteSvc {
     //사이트 기본 설정 생성
     public String createSetting(SiteDTO siteDTO){
         try {
-            siteMapper.createSet(siteDTO);
+            siteMapper.insertSite(siteDTO);
             return "사이트의 기본 설정 정보추가 완료";
         } catch (Exception e) {
          return e.getMessage();
@@ -24,9 +24,9 @@ public class SiteSvc {
     // 수정
     public String updateSetting(SiteDTO siteDTO){
         try{
-            SiteDTO update = siteMapper.updateSet(siteDTO);
-            update.setName(siteDTO.getName());
-            siteMapper.updateSet(update);
+            siteMapper.updateSite(siteDTO);
+//            update.setName(siteDTO.getName());
+//            siteMapper.updateSet(update);
             //update.setFavicon(siteDTO.getFavicon());
             //update.setMain_image(siteDTO.getMain_image());
             return "사이트 기본 설정 업데이트 완료";

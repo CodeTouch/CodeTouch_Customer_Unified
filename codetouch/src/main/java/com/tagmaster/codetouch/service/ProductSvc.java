@@ -47,12 +47,11 @@ public class ProductSvc {
         }
     }
 
-    // 상품 삭제
-    public String deleteProduct(int productId) {
+    // 상품 삭제 // 수정해라
+    public String deleteProduct(int product_id) {
         try {
-            ProductDTO dto = new ProductDTO();
-            dto.setPd_id(productId);
-            int result = productMapper.deleteProduct(dto);
+
+            int result = productMapper.deleteProduct(product_id);
             return result > 0 ? "삭제 성공" : "삭제 실패";
         } catch (Exception e) {
             return "삭제 실패 " + e.getMessage();
