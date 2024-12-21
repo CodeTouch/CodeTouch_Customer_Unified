@@ -39,7 +39,6 @@ public class UserSvcTest {
         String test = "{\"시/도\":\"서울특별시\"}";
         HashMap<String, String> test2 = Util.jsonToMap(test);
         System.out.println(test2.get("시/도"));
-
         UserDTO dto=new UserDTO();
         dto.setEmail("email@.com");
         String test3=Util.objectToJson(dto);

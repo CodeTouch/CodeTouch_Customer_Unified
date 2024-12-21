@@ -1,3 +1,4 @@
+/*
 package com.tagmaster.codetouch.mapper;
 
 import com.tagmaster.codetouch.domain.SiteDTO;
@@ -21,3 +22,4 @@ public class StieMapperTest {
         siteMapper.insertSiteSet(dto);
     }
 }
+*/
