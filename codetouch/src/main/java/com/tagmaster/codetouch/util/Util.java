@@ -4,6 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.experimental.UtilityClass;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 @UtilityClass
@@ -36,7 +40,19 @@ public class Util {
             return "{}";
         }
     }
+    //day&time to date
+    public static LocalDate DateTimeToDate(LocalDateTime data) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return data.toLocalDate();
+    }
+
+    //date to day&time
+    public static LocalDateTime DateToDateTime(LocalDate data){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return data.atStartOfDay();
+    }
 }
+
 // DTO 고객이름 , 주소 ->
 // DB에서 view: map으로변환
 // DB에 넣을때

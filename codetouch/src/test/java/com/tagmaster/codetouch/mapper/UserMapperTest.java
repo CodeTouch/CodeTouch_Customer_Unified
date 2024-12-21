@@ -100,7 +100,7 @@ public class UserMapperTest{
     @Test
     @Rollback(value = false)
     public void deleteUserTest(){
-        String del= userMapper.deleteUser(1,"rnrmfwldwlddl@gmail.com");
+        int del= userMapper.deleteUser(1,"rnrmfwldwlddl@gmail.com");
         System.out.println(del);
     }
 
