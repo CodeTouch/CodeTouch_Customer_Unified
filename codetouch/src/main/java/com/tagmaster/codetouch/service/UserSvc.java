@@ -15,51 +15,47 @@ public class UserSvc {
     public UserSvc (UserMapper userMapper){
         this.userMapper=userMapper;
     }
+
     // 사용자 생성
-    // DTO type ->
+    // DTO type ->s
     public String SaveUser(UserDTO dto) {
         try {
             // address 필드만 JSON으로 변환
-            String addressJson = Util.objectToJson(dto.getAddress());
+            //String addressJson = Util.objectToJson(dto.getAddress());
             // JSON 변환된 address를 dto에 다시 세팅
-            dto.setAddress(addressJson);
+            //dto.setAddress(addressJson);
             int save = userMapper.insertUser(dto);
             System.out.println("Mapper result: " + save);
-            return "저장 성공";
+            return "회원가입 성공";
         } catch (Exception e) {
-            return "저장 실패 "+e.getMessage();
+            return "회원가입 실패 "+e.getMessage();
         }
     }
 
     // 사용자 개인정보 수정
     public String updateUser(UserDTO dto){
     try{
-         if(dto!=null){
              UserDTO update = userMapper.searchUser(dto.getSite_id(), dto.getEmail());
              String addressJson = Util.objectToJson(dto.getAddress());
              update.setAddress(addressJson);
              userMapper.updateUser(update);
-             return "정보 수정 성공";
-         }
-         else {
-             return "사용자를 찾을 수 없습니다.";
-         }
+             return "개인정보 수정 성공";
     } catch (Exception e) {
         return "개인정보 수정 실패 "+e.getMessage();
     }
     }
 
     //권한 수정
+    // 이메일 존재 체크 매퍼 : 존재 t.F else 예외
     public String updateRole(int site_id, String email, String role) {
         try{
-            if(site_id >0 && email != null && role !=null){
                 UserDTO update = userMapper.updateRole(site_id, email, role);
                 update.setSite_id(site_id);
                 update.setEmail(email);
                 //update.setRole(role);
                 userMapper.updateUser(update);
                 return "권한 부여 성공";
-            } return "사용자가 유효하지 않습니다";
+
         } catch (Exception e) {
             return "권한 부여 실패"+e.getMessage();
         }

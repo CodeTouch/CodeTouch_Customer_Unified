@@ -3,12 +3,16 @@ package com.tagmaster.codetouch.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jdk.dynalink.beans.StaticClass;
 import lombok.experimental.UtilityClass;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 @UtilityClass
 public class Util {
@@ -42,23 +46,28 @@ public class Util {
     }
     //day&time to date
     public static LocalDate DateTimeToDate(LocalDateTime data) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return data.toLocalDate();
     }
 
     //date to day&time
     public static LocalDateTime DateToDateTime(LocalDate data){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return data.atStartOfDay();
     }
+
+    //string to local date time
+    public static LocalDateTime StringToLocalDateTime(String Str, String format) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        return LocalDateTime.parse(Str, formatter);
+    }
+
+    // Null or emptyList check
+    public static <T> List<T> checkNull(List<T> list) {
+        return (list == null || list.isEmpty()) ? Collections.emptyList() : list;
+        //null이거나 빈리스트는 emptyList 로 리턴한다
+    }
+    // 일반 오브젝트 null 체크 메서드
+    public static <T> T checkNull(T obj) {
+        return obj == null ? null : obj;
+    }
 }
-
-// DTO 고객이름 , 주소 ->
-// DB에서 view: map으로변환
-// DB에 넣을때
-
-//from json to map (toView)
-
-// from object() to json (toDB)
-// DTO 새로 만들어주기
 

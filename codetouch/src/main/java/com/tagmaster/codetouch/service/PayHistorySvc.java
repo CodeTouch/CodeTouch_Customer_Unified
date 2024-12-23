@@ -57,7 +57,8 @@ public class PayHistorySvc {
         try {
             return payHistoryMapper.getPayHistoryByCartId(cartId);
         } catch (Exception e) {
-            throw new RuntimeException("결제 내역 조회 실패: " + e.getMessage(), e);
+            System.err.println("결제 내역 조회 실패: " + e.getMessage());
+            return null;
         }
     }
 
@@ -66,7 +67,8 @@ public class PayHistorySvc {
         try {
             return payHistoryMapper.getPayHistoryDESC();
         } catch (Exception e) {
-            throw new RuntimeException("결제 내역 조회 실패: " + e.getMessage(), e);
+            System.err.println("결제 내역 조회 실패: " + e.getMessage());
+            return null;
         }
     }
 }
