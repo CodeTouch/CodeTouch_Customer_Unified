@@ -21,10 +21,6 @@ public class ProductSvc {
     public String saveProduct(ProductDTO dto) {
         try {
             // 상품 설명을 JSON 형식으로 변환하여 저장
-            if (dto.getDescription() != null) {
-                String descriptionJson = Util.objectToJson(dto.getDescription());
-                dto.setDescription(descriptionJson);
-            }
             productMapper.insertProduct(dto);
             return "저장 성공";
         } catch (Exception e) {
@@ -36,10 +32,6 @@ public class ProductSvc {
     public String updateProduct(ProductDTO dto) {
         try {
             // 상품 설명 JSON 처리
-            if (dto.getDescription() != null) {
-                String descriptionJson = Util.objectToJson(dto.getDescription());
-                dto.setDescription(descriptionJson);
-            }
             productMapper.updateProduct(dto);
             return "수정 성공";
         } catch (Exception e) {
@@ -50,18 +42,18 @@ public class ProductSvc {
     // 상품 삭제 // 수정해라
     public String deleteProduct(int product_id) {
         try {
-
-            int result = productMapper.deleteProduct(product_id);
-            return result > 0 ? "삭제 성공" : "삭제 실패";
+            productMapper.deleteProduct(product_id);
+            return "삭제 성공";
         } catch (Exception e) {
             return "삭제 실패 " + e.getMessage();
         }
     }
 
     // 상품 조회 (상품ID 기준)
-    public ProductDTO findProductById(int productId) {
+    public ProductDTO findProductById(int product_id){
         try {
-            return productMapper.findProductById(productId);
+            ProductDTO result = productMapper.findProductById(product_id);
+            return result;
         } catch (Exception e) {
             System.err.println("조회 실패: " + e.getMessage());
             return null;
@@ -78,3 +70,4 @@ public class ProductSvc {
         }
     }
 }
+

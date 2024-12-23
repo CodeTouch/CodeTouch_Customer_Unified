@@ -18,6 +18,8 @@ public class PostDTO {
     private int site_id;
     private String title;
     private String type;
+    private String title; //추가
+    private String writer; //추가
     private String content;
     private String image;
     private int rating;

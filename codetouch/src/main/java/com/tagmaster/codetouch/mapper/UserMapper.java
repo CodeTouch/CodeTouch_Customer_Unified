@@ -11,9 +11,8 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    @Insert("insert into User (site_id,email,password,name,nickname,phone,birth,gender,role,agree)" +
-            "values(#{site_id},#{email},#{password},#{name},#{nickname},#{phone},#{birth},#{gender}," +
-            "#{role},#{agree})")
+    @Insert("insert into User (site_id,email,password,name,nickname,phone,birth,gender)" +
+            "values(#{site_id},#{email},#{password},#{name},#{nickname},#{phone},#{birth},#{gender}")
     int insertUser(UserDTO dto);
     //사용자 생성
 
