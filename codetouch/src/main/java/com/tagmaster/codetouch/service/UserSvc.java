@@ -1,11 +1,15 @@
 package com.tagmaster.codetouch.service;
 
+import com.tagmaster.codetouch.domain.SignupDTO;
+import com.tagmaster.codetouch.domain.UpdateDTO;
+import com.tagmaster.codetouch.domain.UpdateRoleDTO;
 import com.tagmaster.codetouch.domain.UserDTO;
 import com.tagmaster.codetouch.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tagmaster.codetouch.util.Util;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -17,13 +21,18 @@ public class UserSvc {
     }
     // 사용자 생성
     // DTO type ->
-    public String SaveUser(UserDTO dto) {
+    public String SaveUser(SignupDTO dto) {
         try {
             // address 필드만 JSON으로 변환
-            String addressJson = Util.objectToJson(dto.getAddress());
-            // JSON 변환된 address를 dto에 다시 세팅
-            dto.setAddress(addressJson);
-            int save = userMapper.insertUser(dto);
+            UserDTO userDTO = new UserDTO();
+            userDTO.setName(dto.getName());
+            userDTO.setEmail(dto.getEmail());
+            userDTO.setPassword(dto.getPassword());
+            userDTO.setPhone(dto.getPhone());
+            userDTO.setNickname(dto.getNickname());
+            userDTO.setBirth(LocalDate.parse(dto.getBirth()));
+            userDTO.setGender(dto.getGender());
+            int save = userMapper.insertUser(userDTO);
             System.out.println("Mapper result: " + save);
             return "저장 성공";
         } catch (Exception e) {
@@ -50,9 +59,9 @@ public class UserSvc {
     }
 
     //권한 수정
-    public String updateRole(int site_id, String email, String role) {
+    public String updateRole(UpdateRoleDTO dto) {
         try{
-            if(site_id >0 && email != null && role !=null){
+            if(dto.getSite_id() >0 && dto.getEmail() != null && dto.getRole() !=null){
                 UserDTO update = userMapper.updateRole(site_id, email, role);
                 update.setSite_id(site_id);
                 update.setEmail(email);

@@ -8,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
-import java.util.Map;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -21,7 +20,7 @@ public class PayHistoryMapperTest {
     public void insertPayHistoryTest() {
         PayHistoryDTO payHistoryDTO = new PayHistoryDTO();
         payHistoryDTO.setPd_id(2);
-        payHistoryDTO.setOrder_num(122341);
+        payHistoryDTO.setMerchant_id(122341);
         payHistoryDTO.setTotal_price(1000000);
         payHistoryMapper.insertPayHistory(payHistoryDTO);
     }
@@ -31,8 +30,8 @@ public class PayHistoryMapperTest {
     public void updatePayHistoryTest() {
         PayHistoryDTO payHistoryDTO = new PayHistoryDTO();
         payHistoryDTO.setPay_id(2);
-        payHistoryDTO.setCart_id(1);
-        payHistoryDTO.setOrder_num(555353);
+        payHistoryDTO.setPd_id(1);
+        payHistoryDTO.setMerchant_id(555353);
         payHistoryDTO.setTotal_price(1000000);
         payHistoryMapper.updatePayHistory(payHistoryDTO);
     }
@@ -59,11 +58,11 @@ public class PayHistoryMapperTest {
         List<PayHistoryDTO> dto = payHistoryMapper.getPayHistoryDESC();
         System.out.println(dto);
     }
-    @Test
-    @Rollback(value = false)
-    public void getReceiptDetailsByPayId(){
-        List<Map<String, Object>> receiptDetails = payHistoryMapper.getReceiptByCartId("3,4,5,6,7");
-        System.out.println(receiptDetails);
-    }
+//    @Test
+//    @Rollback(value = false)
+//    public void getReceiptDetailsByPayId(){
+//        List<Map<String, Object>> receiptDetails = payHistoryMapper.getReceiptByCartId("3,4,5,6,7");
+//        System.out.println(receiptDetails);
+//    }
 
 }
