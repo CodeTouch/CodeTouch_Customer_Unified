@@ -17,9 +17,9 @@ public class ProductDTO {
     private String name;
     private String category;
     private Integer price;
-    // private Integer sale_percentage;
+    private Integer sale_percentage;
     private String image;
-    // private Integer sale_state;
+    private Integer sale_state;
     private int stock;
     private String description;
     // private LocalDateTime create_at;
