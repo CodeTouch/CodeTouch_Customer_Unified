@@ -25,5 +25,4 @@ public class PayHistoryCtrl {
         throw new BadRequestException("");
         }
     }
-//    @PostMapping("/수정")
 }
