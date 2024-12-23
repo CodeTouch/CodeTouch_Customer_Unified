@@ -16,5 +16,4 @@ public class PayHistoryDTO {
     private int pd_id;
     private Integer merchant_id;
     private Integer total_price;
-    private LocalDateTime create_at;
 }
