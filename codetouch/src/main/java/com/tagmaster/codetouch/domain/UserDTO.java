@@ -12,7 +12,6 @@ import java.util.Set;
 @Setter
 @ToString
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
     private int user_id;
@@ -28,7 +27,7 @@ public class UserDTO {
     private String role;
     private int mileage;
     private int agree;
-    private int business_num;
-    private int report_num;
+    // private int business_num;
+    // private int report_num;
 
 }
