@@ -25,10 +25,6 @@ public class SiteSvc {
     public String updateSetting(SiteDTO siteDTO){
         try{
             siteMapper.updateSite(siteDTO);
-//            update.setName(siteDTO.getName());
-//            siteMapper.updateSet(update);
-            //update.setFavicon(siteDTO.getFavicon());
-            //update.setMain_image(siteDTO.getMain_image());
             return "사이트 기본 설정 업데이트 완료";
         } catch (Exception e) {
             return e.getMessage();

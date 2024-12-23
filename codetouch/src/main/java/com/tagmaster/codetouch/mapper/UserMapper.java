@@ -1,5 +1,6 @@
 package com.tagmaster.codetouch.mapper;
 
+import com.tagmaster.codetouch.domain.SignupDTO;
 import com.tagmaster.codetouch.domain.UserDTO;
 import lombok.Locked;
 import org.apache.ibatis.annotations.*;
@@ -19,6 +20,12 @@ public interface UserMapper {
             "phone=#{phone},address=#{address},agree=#{agree} where site_id=#{site_id} and email=#{email}")
     int updateUser(UserDTO dto);
     // 사용자 개인정보 수정
+
+    @Select("SELECT email,name,nickname,phone,gender,birth,role,mileage From USER where email=#{email}")
+    int existByEmail(String email);
+
+    @Select("SELECT email,name,nickname,phone,gender,birth,role,mileage From USER where email=#{email}")
+    UserDTO getUserByEmail(String email);
 
     @Update("update User set role=#{role} where site_id=#{site_id} and email=#{email}")
     UserDTO updateRole(int site_id, String email, String role);
