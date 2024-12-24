@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/고객")
 public class VisitorCtrl {
-    private final DesignEditSvc designEditSvc;
+    private final VisitorSvc visitorSvc;
     @Autowired
-    public VisitorCtrl(DesignEditSvc designEditSvc){
-        this.designEditSvc = designEditSvc;
+    public VisitorCtrl(VisitorSvc visitorSvc){
+        this.visitorSvc = visitorSvc;
     }
 
     @ResponseBody

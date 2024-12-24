@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/고객")
 public class ProductCtrl {
@@ -18,12 +20,21 @@ public class ProductCtrl {
         this.productSvc = productSvc;
     }
     @ResponseBody
-    @PostMapping("/상품")
+    @PostMapping("/상품/등록")
     public String saveProduct(@ModelAttribute RegisterProductDTO registerProductDTO) {
         try {
             return productSvc.saveProduct(registerProductDTO);
         } catch (Exception e) {
             throw new BadRequestException(e.getMessage());
+        }
+    }
+    @ResponseBody
+    @PostMapping("/상품리스트/조회")
+    public List<String> readProduct(@ModelAttribute int site_id) {
+        try{
+            return productSvc.readProducts(site_id);
+        } catch (Exception e) {
+            throw new BadRequestException("");
         }
     }
     @ResponseBody
