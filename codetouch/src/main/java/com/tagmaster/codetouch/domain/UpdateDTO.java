@@ -10,6 +10,4 @@ public class UpdateDTO {
     private String phone;
     private String nickname;
     private String password;
-    private String birth;
-    private Integer gender;
 }
