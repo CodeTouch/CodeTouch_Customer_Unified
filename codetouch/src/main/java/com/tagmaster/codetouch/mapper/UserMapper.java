@@ -11,13 +11,13 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    @Insert("insert into User (site_id,email,password,name,nickname,phone,birth,gender)" +
-            "values(#{site_id},#{email},#{password},#{name},#{nickname},#{phone},#{birth},#{gender}")
-    int insertUser(UserDTO dto);
+    @Insert("insert into User (site_id,email,name,phone,nickname,password,birth,gender)" +
+            "values(#{site_id},#{email},#{name},#{phone},#{nickname},#{password},#{birth},#{gender})")
+    int insertUser(SignupDTO dto);
     //사용자 생성
 
     @Update("update User set password=#{password},name=#{name},nickname=#{nickname}," +
-            "phone=#{phone},address=#{address},agree=#{agree} where site_id=#{site_id} and email=#{email}")
+            "phone=#{phone},address=#{address} where site_id=#{site_id} and email=#{email}")
     int updateUser(UserDTO dto);
     // 사용자 개인정보 수정
 

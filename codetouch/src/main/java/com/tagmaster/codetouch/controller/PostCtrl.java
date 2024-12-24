@@ -1,3 +1,4 @@
+/*
 package com.tagmaster.codetouch.controller;
 
 import com.tagmaster.codetouch.domain.PostAllReadDTO;
@@ -44,3 +45,4 @@ public class PostCtrl {
         }
     }
 }
+*/

@@ -1,6 +1,6 @@
 package com.tagmaster.codetouch.service;
 
-import com.tagmaster.codetouch.controller.UserCtrl;
+import com.tagmaster.codetouch.domain.SignupDTO;
 import com.tagmaster.codetouch.domain.UserDTO;
 import com.tagmaster.codetouch.mapper.UserMapper;
 import com.tagmaster.codetouch.util.Util;
@@ -27,47 +27,46 @@ public class UserSvcTest {
     @Autowired
     private UserMapper userMapper;
 
-    // DTO (받아올값,,,,)
-    // util 혹은 변형 주고 변수에 저장
-    // 변수를 set 한다
-    // mapper + util = service test
+    //        String test = "{\"시/도\":\"서울특별시\"}";
+    //        HashMap<String, String> trans = Util.jsonToMap(test);
+    //        System.out.println(trans.get("시/도"));
+    //        String result =Util.objectToJson(dto);
 
     // 사용자 생성 //출력값 : 메세지만 줄거
     @Test
     @Rollback(value = false)
-        public void saveUserTest() {
-        String test = "{\"시/도\":\"서울특별시\"}";
-        HashMap<String, String> test2 = Util.jsonToMap(test);
-        System.out.println(test2.get("시/도"));
-
-        UserDTO dto=new UserDTO();
+    public void saveUserTest() {
+        SignupDTO dto = new SignupDTO();
         dto.setEmail("email@.com");
-        String test3=Util.objectToJson(dto);
-        System.out.println(test3);
-    }}
-/*
+        dto.setName("testName");
+        dto.setPhone("01011111111");
+        dto.setNickname("테스트");
+        dto.setPassword("1111");
+        dto.setBirth(LocalDate.of(2001, 5, 11));
+        dto.setGender(1);
+        userMapper.insertUser(dto);
     }
-        // 사용자 정보 수정 테스트
-        @Test
-        @Rollback(value = true)
-        public void updateUserTest() {
-            UserDTO dto = new UserDTO();
-            dto.setEmail("thing@e.com");
-            dto.setSite_id(1);
-            dto.setPassword("password123");
-            dto.setName("thing");
-            dto.setNickname("king");
-            dto.setPhone("01011112222");
-            dto.setAgree(1);
-            //userSvc.SaveUser(dto);
-            dto.setPassword("8765");
-            dto.setName("Updated User");
-            dto.setNickname("Updated");
-            dto.setPhone("01099998888");
-            //String result = userSvc.UpdateUser(dto);
-            assertEquals("정보 수정 성공", result);
-        }
+}
+    // 사용자 정보 수정 테스트
+/*    @Test
+    @Rollback(value = true)
+    public void updateUserTest() {
+        int site_id = 111;
+        String email = "example@.com";
+        UserDTO dto = userMapper.searchUser(site_id,email);
+        dto.setName("thing");
+        dto.setPhone("01011112222");
+        dto.setNickname("DDING");
+        dto.setPassword("password123");
+        dto.setAddress("{\"시/도\":\"서울특별시\"}");
+        String origin =dto.getAddress();
+        String result =Util.objectToJson(origin);
+        dto.setAddress(result);
+        userMapper.updateUser(dto);
+    }
+}*/
 
+/*
         // 권한 수정 테스트
         @Test
         @Rollback(value = true)
@@ -159,5 +158,4 @@ public class UserSvcTest {
             assertNotNull(result);
             assertEquals("thing", result.getName());
         }
-    }
-*/
+    }*/
