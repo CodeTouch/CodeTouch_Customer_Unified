@@ -1,6 +1,7 @@
 package com.tagmaster.codetouch.controller;
 
 import com.tagmaster.codetouch.domain.MailSendDTO;
+import com.tagmaster.codetouch.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,15 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/고객")
 public class MailCtrl {
-    private final DesignEditSvc designEditSvc;
+    private final MailSvc mailSvc;
     @Autowired
-    public MailSendCtrl(DesignEditSvc designEditSvc){
-        this.designEditSvc = designEditSvc;
+    public MailSendCtrl(MailSvc mailSvc){
+        this.mailSvc = mailSvc;
     }
 
     public String MailSendCtrl(@ModelAttribute MailSendDTO mailSendDTO) {
         try{
-            return designEditSvc.updateDesign(site_id);
+            return mailSvc.updateDesign(mailSendDTO);
+        } catch (Exception e) {
+            throw new BadRequestException("");
         }
     }
 }
