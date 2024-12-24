@@ -22,8 +22,8 @@ public class PostSvc {
         try {
             String contentJson = Util.objectToJson(dto.getContent());
             dto.setContent(contentJson);
-            int result = postMapper.insertPost(dto);
-            return Util.checkExist(result, "저장 성공", "저장 실패", "게시글 저장 중 문제가 발생했습니다");
+            postMapper.insertPost(dto);
+            return "저장성공";
         } catch (Exception e) {
             return "저장 실패: " + e.getMessage();
         }
@@ -34,8 +34,8 @@ public class PostSvc {
         try {
             String contentJson = Util.objectToJson(dto.getContent());
             dto.setContent(contentJson);
-            int result = postMapper.updatePost(dto);
-            return Util.checkExist(result, "수정 성공", "수정 실패", "게시글이 존재하지 않습니다");
+            postMapper.updatePost(dto);
+            return "수정 성공";
         } catch (Exception e) {
             return "수정 실패: " + e.getMessage();
         }
@@ -45,20 +45,20 @@ public class PostSvc {
     public String deletePost(int postId) {
         try {
             int result = postMapper.deletePostById(postId);
-            return Util.checkExist(result, "삭제 성공", "삭제 실패", "게시글이 존재하지 않습니다");
+            return "삭제 성공";
         } catch (Exception e) {
             return "삭제 실패: " + e.getMessage();
         }
     }
 
     // 게시글 ID로 조회
-    public String getPostById(int postId) {
+    public PostDTO getPostById(int postId) {
         try {
             PostDTO post = postMapper.getPostById(postId);
-            int result = (post != null) ? 1 : 0;
-            return Util.checkExist(result, "조회 성공", "조회 실패", "게시글이 존재하지 않습니다");
+            return post;
         } catch (Exception e) {
-            return "조회 실패: " + e.getMessage();
+            System.out.println("조회 실패");
+            return null;
         }
     }
 

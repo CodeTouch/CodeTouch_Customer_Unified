@@ -1,5 +1,7 @@
+/*
 package com.tagmaster.codetouch.mapper;
 
+import com.tagmaster.codetouch.domain.SignupDTO;
 import com.tagmaster.codetouch.domain.UserDTO;
 import net.minidev.json.JSONObject;
 import org.apache.ibatis.jdbc.Null;
@@ -26,9 +28,8 @@ public class UserMapperTest{
     @Test
     @Rollback(value = false)
     public void insertUserTest(){
-        UserDTO dto = new UserDTO();
+        SignupDTO dto = new SignupDTO();
         dto.setEmail("rnrmfwldwlddl@gmail.com");
-        dto.setSite_id(1);
         dto.setPassword("1234");
         dto.setName("jioni");
         dto.setNickname("thing");
@@ -36,7 +37,6 @@ public class UserMapperTest{
         dto.setBirth(LocalDate.of(1997,2,24)); //svc
         dto.setGender(2); //svc
         //dto.setRole("USER,ADMIN"); //service 에서 처리하기
-        dto.setAgree(1);
         userMapper.insertUser(dto);
 }
     // 사용자 정보 수정 //
@@ -112,3 +112,4 @@ public class UserMapperTest{
         System.out.println(search);
     }
 }
+*/

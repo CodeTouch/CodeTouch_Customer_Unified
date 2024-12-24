@@ -21,13 +21,12 @@ public class UserSvc {
     }
 
     // 사용자 생성
-    // DTO type ->s
-    public String SaveUser(UserDTO dto) {
+    // address 필드만 JSON으로 변환
+    //String addressJson = Util.objectToJson(dto.getAddress());
+    // JSON 변환된 address를 dto에 다시 세팅
+    //dto.setAddress(addressJson);
+    public String SaveUser(SignupDTO dto) {
         try {
-            // address 필드만 JSON으로 변환
-            //String addressJson = Util.objectToJson(dto.getAddress());
-            // JSON 변환된 address를 dto에 다시 세팅
-            //dto.setAddress(addressJson);
             int save = userMapper.insertUser(dto);
             System.out.println("Mapper result: " + save);
             return "회원가입 성공";
@@ -42,7 +41,8 @@ public class UserSvc {
              UserDTO update = userMapper.searchUser(dto.getSite_id(), dto.getEmail());
              String addressJson = Util.objectToJson(dto.getAddress());
              update.setAddress(addressJson);
-             userMapper.updateUser(update);
+             int alter =userMapper.updateUser(update);
+             System.out.println("Mapper result : " +alter );
              return "개인정보 수정 성공";
     } catch (Exception e) {
         return "개인정보 수정 실패 "+e.getMessage();
@@ -57,29 +57,30 @@ public class UserSvc {
                 update.setSite_id(site_id);
                 update.setEmail(email);
                 //update.setRole(role);
-                userMapper.updateUser(update);
+                int alter = userMapper.updateUser(update);
+                System.out.println("Mapper result : " +alter );
                 return "권한 부여 성공";
-
         } catch (Exception e) {
             return "권한 부여 실패"+e.getMessage();
         }
     }
 
     //관리자 개인정보 수정
-    public String updateAdmin(UserDTO dto){
+   /* public String updateAdmin(UserDTO dto){
         try{
             UserDTO update = userMapper.updateAdmin(dto);
-            userMapper.updateAdmin(update);
+            int alter =userMapper.updateAdmin(update);
             return "관리자 정보 수정 성공";
         } catch (Exception e) {
             return "관리자 정보 수정 실패"+e.getMessage();
         }
-    }
+    }*/
 
     //사이트 모든 이용자 출력
     public List<UserDTO> showAllUser(int site_id){
         try{
             List<UserDTO> allUser =userMapper.showAllUser(site_id);
+            System.out.println("Mapper result : " +allUser );
             return allUser;
         } catch (Exception e) {
             System.out.println("출력 실패"+e.getMessage());
@@ -96,7 +97,6 @@ public class UserSvc {
             return "회원 탈퇴 실패"+e.getMessage();
         }
     }
-
     // 사용자 정보 조회
     public UserDTO searchUser(int site_id, String email) {
         try {

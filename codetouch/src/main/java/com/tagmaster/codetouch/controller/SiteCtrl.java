@@ -1,6 +1,5 @@
 package com.tagmaster.codetouch.controller;
 
-import com.tagmaster.codetouch.domain.SiteDTO;
 import com.tagmaster.codetouch.domain.SiteUpdateDTO;
 import com.tagmaster.codetouch.exception.BadRequestException;
 import com.tagmaster.codetouch.service.SiteSvc;
