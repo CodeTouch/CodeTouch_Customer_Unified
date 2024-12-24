@@ -43,5 +43,13 @@ public class PostCtrl {
             throw new BadRequestException("");
         }
     }
-
+    @ResponseBody
+    @GetMapping("/상품/후기/검색/{site_id}/{keyword}")
+    public String readProductSearch(@ModelAttribute int site_id, @ModelAttribute String content) {
+        try {
+            return productSvc.readProductReviewSearch(site_id, content);
+        } catch (Exception e) {
+            throw new BadRequestException("");
+        }
+    }
 }
