@@ -18,7 +18,7 @@ public class MailCtrl {
 
     public String MailSendCtrl(@ModelAttribute MailSendDTO mailSendDTO) {
         try{
-            return mailSvc.updateDesign(mailSendDTO);
+            return mailSvc.mailSend(mailSendDTO);
         } catch (Exception e) {
             throw new BadRequestException("");
         }

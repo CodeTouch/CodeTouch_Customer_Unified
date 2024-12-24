@@ -24,8 +24,8 @@ public class UserDTO {
     private LocalDate birth;
     private int gender;
     private String address;
-    private String role;
-    private int mileage;
+    private String role = "USER";
+    private int mileage = 0;
     private int agree;
     // private int business_num;
     // private int report_num;
