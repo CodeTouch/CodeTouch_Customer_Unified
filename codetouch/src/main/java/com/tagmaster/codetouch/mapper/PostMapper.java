@@ -1,6 +1,8 @@
 package com.tagmaster.codetouch.mapper;
 
 import com.tagmaster.codetouch.domain.PostDTO;
+import com.tagmaster.codetouch.domain.ProductReviewDTO;
+import com.tagmaster.codetouch.domain.ProductReviewInfoDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -37,5 +39,5 @@ public interface PostMapper {
     //별점 낮은 순으로 게시글 가져오기
     @Select("SELECT pd_id, type, user_id, content, image FROM post WHERE pd_id=#{pd_id} ORDER BY rating ASC")
     List<PostDTO> getPostsByLowRated(int pd_id);
- //join 으로 이메일 뽑아오기 //todo
+
 }

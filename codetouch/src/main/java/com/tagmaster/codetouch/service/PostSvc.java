@@ -1,21 +1,29 @@
 package com.tagmaster.codetouch.service;
 
-import com.tagmaster.codetouch.domain.PostDTO;
+import com.tagmaster.codetouch.domain.*;
+import com.tagmaster.codetouch.mapper.PayHistoryMapper;
 import com.tagmaster.codetouch.mapper.PostMapper;
+import com.tagmaster.codetouch.mapper.ProductMapper;
 import com.tagmaster.codetouch.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PostSvc {
     PostMapper postMapper;
+    ProductMapper productMapper;
+    PayHistoryMapper payHistoryMapper;
 
     @Autowired
-    public PostSvc(PostMapper postMapper) {
+    public PostSvc(PostMapper postMapper, ProductMapper productMapper, PayHistoryMapper payHistoryMapper) {
         this.postMapper = postMapper;
+        this.productMapper = productMapper;
+        this.payHistoryMapper = payHistoryMapper;
+
     }
     // 게시글 생성
     public String savePost(PostDTO dto) {
@@ -82,5 +90,31 @@ public class PostSvc {
             System.err.println("조회 실패: " + e.getMessage());
             return Collections.emptyList();
         }
+    }
+//    public String reviewCreate(ProductReviewCreateDTO productReviewCreateDTO) {
+//       PayHistoryDTO payHistoryDTO = payHistoryMapper.getPayHistory(productReviewCreateDTO.getPay_id);
+//       PayHistoryDetailsDTO receipts = productMapper.getPayHistoryDetails(payHistoryDTO.getPay_id());
+//       PostDTO postDTO = new PostDTO();
+//       postDTO.setPd_id(receipts.getPd_id());
+//       postDTO.setUser_id(receipts.getUser_id());
+//       postDTO.setSite_id(receipts.getSite_id());
+//       postDTO.setPd_image();
+//       postDTO.setContent(dto.getContent());
+//       postDTO.setTitle(dto.getTitle());
+//       postDTO.setImage(dto.getImage());
+//       postDTO.setPd_image(productDTO);
+//        return (productMapper.getPayHistoryDetails(dto.get) > 0)
+//    }
+    public List<PostDTO> readProductReview(ProductReviewDTO dto){
+        return postMapper.getPostsBySiteId(dto.getSite_id(), dto.getUser_id());
+    }
+    public List<PostDTO> searchProductReview(String content){
+        return postMapper.getPostsByKeyword(content);
+    }
+    public String deleteProductReview(int post_id) {
+        if (postMapper.deletePostById(post_id)>0){
+            return "성공하였습니다.";
+        }
+        return "실패하였습니다.";
     }
 }

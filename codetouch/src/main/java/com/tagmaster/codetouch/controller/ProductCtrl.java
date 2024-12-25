@@ -1,9 +1,8 @@
 package com.tagmaster.codetouch.controller;
 
-import com.tagmaster.codetouch.domain.ProductDTO;
-import com.tagmaster.codetouch.domain.RegisterProductDTO;
-import com.tagmaster.codetouch.domain.SalesDTO;
+import com.tagmaster.codetouch.domain.*;
 import com.tagmaster.codetouch.exception.BadRequestException;
+import com.tagmaster.codetouch.service.PostSvc;
 import com.tagmaster.codetouch.service.ProductSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +14,11 @@ import java.util.List;
 @RequestMapping("/고객")
 public class ProductCtrl {
     private final ProductSvc productSvc;
+    private final PostSvc postSvc;
     @Autowired
-    public ProductCtrl(ProductSvc productSvc) {
+    public ProductCtrl(ProductSvc productSvc, PostSvc postSvc) {
         this.productSvc = productSvc;
+        this.postSvc = postSvc;
     }
     @ResponseBody
     @PostMapping("/상품/등록")
@@ -30,13 +31,14 @@ public class ProductCtrl {
     }
     @ResponseBody
     @PostMapping("/상품리스트/조회")
-    public List<String> readProduct(@ModelAttribute int site_id) {
+    public List<ProductDTO> readProduct(@ModelAttribute int site_id) {
         try{
             return productSvc.readProducts(site_id);
         } catch (Exception e) {
             throw new BadRequestException("");
         }
     }
+
     @ResponseBody
     @GetMapping("/상품/삭제/{pd_id}")
     public String deleteProduct(@ModelAttribute int pd_id) {
@@ -55,38 +57,48 @@ public class ProductCtrl {
             throw new BadRequestException("");
         }
     }
+    //카테고리로 나눠 설정맞추기
     @ResponseBody
-    @GetMapping("/상품/카테고리/{site_id}/{category}")
-    public String readProductCategory(@ModelAttribute int site_id, @ModelAttribute String category) {
+    @GetMapping("/상품/카테고리/{category}")
+    public ProductDTO readProductCategory(@ModelAttribute String category) {
         try{
-            return productSvc.readByCategory(site_id, category);
+            return productSvc.readByCategory(category);
         } catch (Exception e) {
             throw new BadRequestException("");
         }
     }
     @ResponseBody
-    @GetMapping("/상품/후기/{site_id}")
-    public String readProductReview(@ModelAttribute int site_id) {
+    @PostMapping("/상품/후기")
+    public List<PostDTO> readProductReview(@ModelAttribute ProductReviewDTO productReviewDTO) {
         try {
-            return productSvc.readProductReview(site_id);
+            return postSvc.readProductReview(productReviewDTO);
         } catch (Exception e) {
             throw new BadRequestException("");
         }
     }
     @ResponseBody
-    @GetMapping("/상품/후기/검색/{site_id}/{keyword}")
-    public String searchProduct(@ModelAttribute int site_id, @ModelAttribute String content) {
+    @PostMapping("/상품/후기/생성")
+    public String createProductReview(@ModelAttribute ProductReviewCreateDTO productReviewCreateDTO) {
         try {
-            return productSvc.searchProduct(site_id, content);
+            return postSvc.reviewCreate(productReviewCreateDTO);
         } catch (Exception e) {
             throw new BadRequestException("");
         }
     }
     @ResponseBody
-    @GetMapping("/상품/후기/삭제/{site_id}/{post_id}")
-    public String deleteProduct(@ModelAttribute int site_id, @ModelAttribute int post_id) {
+    @GetMapping("/상품/후기/검색/{keyword}")
+    public List<PostDTO> searchProductReview(@ModelAttribute String content) {
         try {
-            return productSvc.deleteProduct(site_id, post_id);
+            return postSvc.searchProductReview(content);
+        } catch (Exception e) {
+            throw new BadRequestException("");
+        }
+    }
+    @ResponseBody
+    @GetMapping("/상품/후기/삭제/{post_id}")
+    public String deleteProductReview(@ModelAttribute int post_id) {
+        try {
+            return postSvc.deleteProductReview(post_id);
         } catch (Exception e) {
             throw new BadRequestException("");
         }

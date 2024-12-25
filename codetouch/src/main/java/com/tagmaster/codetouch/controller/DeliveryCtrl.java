@@ -2,8 +2,7 @@ package com.tagmaster.codetouch.controller;
 
 import com.tagmaster.codetouch.domain.DeliveryDTO;
 import com.tagmaster.codetouch.exception.BadRequestException;
-import lombok.Getter;
-import lombok.Setter;
+import com.tagmaster.codetouch.service.DeliverySvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +20,7 @@ public class DeliveryCtrl {
     @PostMapping("/주문/옵션설정")
     public String deliveryOptionSetting(@ModelAttribute DeliveryDTO deliveryDTO){
         try{
-            return deliverySvc.optionSetting(deliveryDTO);
+            return deliverySvc.updateSetting(deliveryDTO);
         } catch (Exception e) {
             throw new BadRequestException("");
         }
