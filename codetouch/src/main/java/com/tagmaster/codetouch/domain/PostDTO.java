@@ -16,10 +16,9 @@ public class PostDTO {
     private int pd_id;
     private int user_id;
     private int site_id;
-    private String title;
-    private String type;
-    //private String title; //추가
-    //private String writer; //추가
+    private String title; //추가
+    private String nickname; //추가
+    private String type; // ??? 진짜 기억이 안나 (카테고리? 게시물 타입 )
     private String content;
     private String image;
     private int rating;

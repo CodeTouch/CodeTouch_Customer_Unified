@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.*;
 public class SiteCtrl {
     private final SiteSvc siteSvc;
 
+
     @Autowired
     public SiteCtrl(SiteSvc siteSvc) {
         this.siteSvc = siteSvc;
     }
+
+    //@PreAuthorize("hasAuthority('ADMIN,USER')")
     @PostMapping("/사이트/수정")
     public String updateSite(SiteUpdateDTO dto) {
         try{

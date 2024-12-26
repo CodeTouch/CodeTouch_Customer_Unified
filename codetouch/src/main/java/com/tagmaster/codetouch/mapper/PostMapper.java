@@ -20,8 +20,8 @@ public interface PostMapper {
     @Select("SELECT pd_id, user_id, type, content, image, rating FROM post WHERE post_id=#{post_id}")
     PostDTO getPostById(int post_id);
     //사이트 아이디로 전체 게시글들 찾기
-    @Select("SELECT pd_id, type, content, image, rating FROM post WHERE site_id=#{site_id} And user_id=#{user_id}")
-    List<PostDTO> getPostsBySiteId(int site_id, int user_id);
+    @Select("SELECT pd_id, user_id, type, content, image, rating FROM post WHERE site_id=#{site_id}")
+    List<PostDTO> getAllPost(int site_id);
     //유저 아이디로 게시글 찾기
     @Select("SELECT pd_id, type, content, image, rating FROM post WHERE user_id=#{user_id}")
     List<PostDTO> getPostsByUserId(int user_id);
