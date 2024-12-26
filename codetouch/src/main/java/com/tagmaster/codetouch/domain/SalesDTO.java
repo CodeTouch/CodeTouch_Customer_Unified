@@ -9,7 +9,9 @@ import java.time.LocalDate;
 @Setter
 public class SalesDTO {
     private int site_id;
-    private String sales_event_name;
-    private LocalDate sales_date;
     private int pd_id;
+    private String sale_name; //추가필요
+    private LocalDate sale_date; //추가필요
+    private Integer sale_percentage;
+
 }

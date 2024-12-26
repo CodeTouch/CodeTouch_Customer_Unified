@@ -1,6 +1,8 @@
 package com.tagmaster.codetouch.service;
 
 import com.tagmaster.codetouch.domain.ProductDTO;
+import com.tagmaster.codetouch.domain.ProductReviewDTO;
+import com.tagmaster.codetouch.domain.SalesDTO;
 import com.tagmaster.codetouch.mapper.ProductMapper;
 import com.tagmaster.codetouch.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,6 @@ public class ProductSvc {
             return "저장 실패 " + e.getMessage();
         }
     }
-
     // 상품 정보 수정
     public String updateProduct(ProductDTO dto) {
         try {
@@ -68,6 +69,24 @@ public class ProductSvc {
             System.err.println("조회 실패: " + e.getMessage());
             return null;
         }
+    }
+
+    public ProductDTO readByCategory(String category) {
+        try {
+            return productMapper.findProductSettingByCategory(category);
+        } catch (Exception e) {
+            System.err.println("조회 실패: " + e.getMessage());
+            return null;
+        }
+    }
+    public List<ProductDTO> readProducts(int site_id) {
+        return productMapper.findAllById(site_id);
+    }
+    public String setSales(SalesDTO salesDTO){
+        if (productMapper.updateProductSaleSetting(salesDTO.getPd_id())> 0){
+            return "설정 성공";
+        }
+        return "설정 실패";
     }
 }
 

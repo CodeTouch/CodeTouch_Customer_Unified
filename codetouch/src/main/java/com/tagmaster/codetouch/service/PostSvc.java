@@ -1,8 +1,9 @@
 package com.tagmaster.codetouch.service;
 
+import com.tagmaster.codetouch.mapper.PayHistoryMapper;
 import com.tagmaster.codetouch.domain.PostDTO;
-import com.tagmaster.codetouch.domain.PostAllReadDTO;
 import com.tagmaster.codetouch.mapper.PostMapper;
+import com.tagmaster.codetouch.mapper.ProductMapper;
 import com.tagmaster.codetouch.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,15 @@ import java.util.List;
 @Service
 public class PostSvc {
     PostMapper postMapper;
+    ProductMapper productMapper;
+    PayHistoryMapper payHistoryMapper;
 
     @Autowired
-    public PostSvc(PostMapper postMapper) {
+    public PostSvc(PostMapper postMapper, ProductMapper productMapper, PayHistoryMapper payHistoryMapper) {
         this.postMapper = postMapper;
+        this.productMapper = productMapper;
+        this.payHistoryMapper = payHistoryMapper;
+
     }
     // 게시글 생성
     public String savePost(PostDTO dto) {
@@ -43,9 +49,9 @@ public class PostSvc {
     }
 
     // 게시글 삭제
-    public String deletePost(int postId) {
+    public String deletePost(int site_id, int postId) {
         try {
-            int result = postMapper.deletePostById(postId);
+            int result = postMapper.deletePostById(site_id, postId);
             return "삭제 성공";
         } catch (Exception e) {
             return "삭제 실패: " + e.getMessage();
@@ -53,7 +59,7 @@ public class PostSvc {
     }
 
     // 전체 게시글
-    public List<String> 
+    //public List<String>
 
 
 
@@ -80,9 +86,9 @@ public class PostSvc {
     }
 
     // 키워드로 게시글 조회
-    public List<PostDTO> getPostsByKeyword(String keyword) {
+    public List<PostDTO> getPostsByKeyword(int site_id, String keyword) {
         try {
-            List<PostDTO> posts = postMapper.getPostsByKeyword(keyword);
+            List<PostDTO> posts = postMapper.getPostsByKeyword(site_id, keyword);
             return Util.checkNull(posts);
         } catch (Exception e) {
             System.err.println("조회 실패: " + e.getMessage());
