@@ -43,7 +43,7 @@ public class ProductCtrl {
     @GetMapping("/상품/삭제/{pd_id}")
     public String deleteProduct(@ModelAttribute int pd_id) {
         try{
-            return productSvc.deleteProduct(pd_id);
+            return reviewSvc.deleteProduct(pd_id);
         } catch (Exception e) {
             throw new BadRequestException("");
         }
@@ -63,42 +63,6 @@ public class ProductCtrl {
     public ProductDTO readProductCategory(@ModelAttribute String category) {
         try{
             return productSvc.readByCategory(category);
-        } catch (Exception e) {
-            throw new BadRequestException("");
-        }
-    }
-    @ResponseBody
-    @PostMapping("/상품/후기")
-    public List<PostDTO> readProductReview(@ModelAttribute ProductReviewDTO productReviewDTO) {
-        try {
-            return postSvc.readProductReview(productReviewDTO);
-        } catch (Exception e) {
-            throw new BadRequestException("");
-        }
-    }
-    @ResponseBody
-    @PostMapping("/상품/후기/생성")
-    public String createProductReview(@ModelAttribute ProductReviewCreateDTO productReviewCreateDTO) {
-        try {
-            return postSvc.reviewCreate(productReviewCreateDTO);
-        } catch (Exception e) {
-            throw new BadRequestException("");
-        }
-    }
-    @ResponseBody
-    @GetMapping("/상품/후기/검색/{keyword}")
-    public List<PostDTO> searchProductReview(@ModelAttribute String content) {
-        try {
-            return postSvc.searchProductReview(content);
-        } catch (Exception e) {
-            throw new BadRequestException("");
-        }
-    }
-    @ResponseBody
-    @GetMapping("/상품/후기/삭제/{post_id}")
-    public String deleteProductReview(@ModelAttribute int post_id) {
-        try {
-            return postSvc.deleteProductReview(post_id);
         } catch (Exception e) {
             throw new BadRequestException("");
         }

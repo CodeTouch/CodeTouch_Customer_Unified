@@ -50,9 +50,9 @@ public class PostSvc {
     }
 
     // 게시글 삭제
-    public String deletePost(int postId) {
+    public String deletePost(int site_id, int postId) {
         try {
-            int result = postMapper.deletePostById(postId);
+            int result = postMapper.deletePostById(site_id, postId);
             return "삭제 성공";
         } catch (Exception e) {
             return "삭제 실패: " + e.getMessage();
@@ -82,39 +82,13 @@ public class PostSvc {
     }
 
     // 키워드로 게시글 조회
-    public List<PostDTO> getPostsByKeyword(String keyword) {
+    public List<PostDTO> getPostsByKeyword(int site_id, String keyword) {
         try {
-            List<PostDTO> posts = postMapper.getPostsByKeyword(keyword);
+            List<PostDTO> posts = postMapper.getPostsByKeyword(site_id, keyword);
             return Util.checkNull(posts);
         } catch (Exception e) {
             System.err.println("조회 실패: " + e.getMessage());
             return Collections.emptyList();
         }
-    }
-//    public String reviewCreate(ProductReviewCreateDTO productReviewCreateDTO) {
-//       PayHistoryDTO payHistoryDTO = payHistoryMapper.getPayHistory(productReviewCreateDTO.getPay_id);
-//       PayHistoryDetailsDTO receipts = productMapper.getPayHistoryDetails(payHistoryDTO.getPay_id());
-//       PostDTO postDTO = new PostDTO();
-//       postDTO.setPd_id(receipts.getPd_id());
-//       postDTO.setUser_id(receipts.getUser_id());
-//       postDTO.setSite_id(receipts.getSite_id());
-//       postDTO.setPd_image();
-//       postDTO.setContent(dto.getContent());
-//       postDTO.setTitle(dto.getTitle());
-//       postDTO.setImage(dto.getImage());
-//       postDTO.setPd_image(productDTO);
-//        return (productMapper.getPayHistoryDetails(dto.get) > 0)
-//    }
-    public List<PostDTO> readProductReview(ProductReviewDTO dto){
-        return postMapper.getPostsBySiteId(dto.getSite_id(), dto.getUser_id());
-    }
-    public List<PostDTO> searchProductReview(String content){
-        return postMapper.getPostsByKeyword(content);
-    }
-    public String deleteProductReview(int post_id) {
-        if (postMapper.deletePostById(post_id)>0){
-            return "성공하였습니다.";
-        }
-        return "실패하였습니다.";
     }
 }
