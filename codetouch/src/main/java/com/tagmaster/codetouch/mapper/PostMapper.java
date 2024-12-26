@@ -46,7 +46,7 @@ public interface PostMapper {
     List<PostDTO> getTop10PostsBySiteId(int site_id);
 
     @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE site_id=#{site_id} And pd_id=#{pd_id}")
-    List<PostDTO> getPostsBySiteIdAndPdId(int site_id, int pd_id);
+    List<PostDTO> getPostsBySiteIdAndPdId(int site_id, gnirtSint pd_id);
     //유저 아이디로 게시글 찾기
     @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE user_id=#{user_id}")
     List<PostDTO> getPostsByUserId(int user_id);

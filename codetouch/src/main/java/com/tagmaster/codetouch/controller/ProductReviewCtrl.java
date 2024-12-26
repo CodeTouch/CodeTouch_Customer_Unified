@@ -2,7 +2,8 @@ package com.tagmaster.codetouch.controller;
 
 import com.tagmaster.codetouch.domain.PostDTO;
 import com.tagmaster.codetouch.domain.ProductReviewCreateDTO;
-import com.tagmaster.codetouch.domain.ReviewReadDTO;
+import com.tagmaster.codetouch.domain.ProductReviewReadDTO;
+import com.tagmaster.codetouch.domain.ProductsReviewReadDTO;
 import com.tagmaster.codetouch.exception.BadRequestException;
 import com.tagmaster.codetouch.service.PostSvc;
 import com.tagmaster.codetouch.service.ReviewSvc;
@@ -17,6 +18,8 @@ import java.util.List;
 public class ProductReviewCtrl {
     private final PostSvc postSvc;
     private final ReviewSvc reviewSvc;
+
+
     @Autowired
     public ProductReviewCtrl(PostSvc postSvc, ReviewSvc reviewSvc) {
         this.postSvc = postSvc;
@@ -25,7 +28,7 @@ public class ProductReviewCtrl {
 
     @ResponseBody
     @PostMapping("/상품/후기/전체조회")
-    public List<PostDTO> readProductsReview(@ModelAttribute ReviewReadDTO dto) {
+    public List<PostDTO> readProductsReview(@ModelAttribute ProductsReviewReadDTO dto) {
         try {
             return reviewSvc.readProductsReview(dto);
         } catch (Exception e) {
@@ -34,9 +37,9 @@ public class ProductReviewCtrl {
     }
     @ResponseBody
     @PostMapping("/상품/후기/조회/{site_id}/{pd_id}")
-    public List<PostDTO> readProductReview(@ModelAttribute int site_id, @ModelAttribute int pd_id) {
+    public List<PostDTO> readProductReview(@ModelAttribute ProductReviewReadDTO dto) {
         try {
-            return reviewSvc.readProductReview(site_id, pd_id);
+            return reviewSvc.readProductReview(dto);
         } catch (Exception e) {
             throw new BadRequestException("");
         }

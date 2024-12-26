@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SiteSvc {
-    SiteMapper siteMapper;
+    private final SiteMapper siteMapper;
     @Autowired
     public SiteSvc(SiteMapper siteMapper){
         this.siteMapper=siteMapper;

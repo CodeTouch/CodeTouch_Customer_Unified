@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ReviewReadDTO {
+public class ProductsReviewReadDTO {
     private int site_id;
     private String type;
     private int check;
