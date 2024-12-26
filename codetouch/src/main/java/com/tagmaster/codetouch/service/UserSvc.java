@@ -1,5 +1,6 @@
 package com.tagmaster.codetouch.service;
 
+import com.tagmaster.codetouch.domain.AdminUpdateDTO;
 import com.tagmaster.codetouch.domain.SignupDTO;
 import com.tagmaster.codetouch.domain.UpdateDTO;
 import com.tagmaster.codetouch.domain.UpdateRoleDTO;
@@ -25,15 +26,15 @@ public class UserSvc {
     //String addressJson = Util.objectToJson(dto.getAddress());
     // JSON 변환된 address를 dto에 다시 세팅
     //dto.setAddress(addressJson);
-    public String SaveUser(SignupDTO dto) {
-        try {
-            int save = userMapper.insertUser(dto);
-            System.out.println("Mapper result: " + save);
-            return "회원가입 성공";
-        } catch (Exception e) {
-            return "회원가입 실패 "+e.getMessage();
-        }
-    }
+//    public String SaveUser(SignupDTO dto) {
+//        try {
+//            int save = userMapper.insertUser(dto);
+//            System.out.println("Mapper result: " + save);
+//            return "회원가입 성공";
+//        } catch (Exception e) {
+//            return "회원가입 실패 "+e.getMessage();
+//        }
+//    }
 
     // 사용자 개인정보 수정
     public String updateUser(UserDTO dto){
@@ -104,21 +105,21 @@ public class UserSvc {
     }
 
     //회원 탈퇴
-    public String deleteUser(int site_id,String email){
-        try{
-            userMapper.deleteUser(site_id,email);
+    public String deleteUser(int site_id, String email) {
+        try {
+            userMapper.deleteUser(site_id, email);
             return "회원 탈퇴 완료";
         } catch (Exception e) {
-            return "회원 탈퇴 실패"+e.getMessage();
+            return "회원 탈퇴 실패" + e.getMessage();
         }
     }
     // 사용자 정보 조회
     public UserDTO searchUser(int site_id, String email) {
         try {
-            UserDTO dto=userMapper.searchUser(site_id,email);
+            UserDTO dto = userMapper.searchUser(site_id, email);
             return dto;
         } catch (Exception e) {
-            System.out.println("사용자 조회 실패"+e.getMessage());
+            System.out.println("사용자 조회 실패" + e.getMessage());
             return null;
         }
     }

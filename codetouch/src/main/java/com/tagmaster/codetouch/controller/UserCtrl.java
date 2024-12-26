@@ -19,21 +19,21 @@ public class UserCtrl {
         this.userSvc = userSvc;
     }
 
-    // 사용자 생성
-    @PostMapping("/회원/회원가입")
-    @ResponseBody
-    public String saveUser(@ModelAttribute SignupDTO dto) {
-        try {
-            return userSvc.SaveUser(dto);
-        } catch (Exception e) {
-            throw new BadRequestException("");
-        }
-    }
+//    // 사용자 생성
+//    @PostMapping("/회원/회원가입")
+//    @ResponseBody
+//    public String saveUser(@ModelAttribute SignupDTO dto) {
+//        try {
+//            return userSvc.SaveUser(dto);
+//        } catch (Exception e) {
+//            throw new BadRequestException("");
+//        }
+//    }
 
     // 사용자 정보 수정
     @PostMapping("/회원/수정")
     @ResponseBody
-    public String updateUser(@ModelAttribute UserDTO dto) {
+    public String updateUser(@ModelAttribute AdminUpdateDTO dto) {
         try {
             return userSvc.updateUser(dto);
 
