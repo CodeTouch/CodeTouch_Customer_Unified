@@ -38,7 +38,7 @@ public class UserSvc {
     // 사용자 개인정보 수정
     public String updateUser(UserDTO dto){
     try{
-             UserDTO update = userMapper.searchUser(dto.getSite_id(), dto.getEmail());
+             UserDTO update = userMapper.searchUser(dto.getSite_id(),dto.getEmail());
              String addressJson = Util.objectToJson(dto.getAddress());
              update.setAddress(addressJson);
              int alter =userMapper.updateUser(update);
@@ -51,13 +51,16 @@ public class UserSvc {
 
     //권한 수정
     // 이메일 존재 체크 매퍼 : 존재 t.F else 예외
-    public String updateRole(int site_id, String email, String role) {
+    public String updateRole(int site_id,String email) {
         try{
-                UserDTO update = userMapper.updateRole(site_id, email, role);
-                update.setSite_id(site_id);
-                update.setEmail(email);
-                //update.setRole(role);
-                int alter = userMapper.updateUser(update);
+            UserDTO dto = userMapper.searchUser(site_id,email);
+            String role= null;
+            if(dto.getRole().equals("USER")){
+                role="ADMIN,USER";
+            }else{
+                role="USER";
+            }
+            UserDTO alter =userMapper.updateRole(email,role);
                 System.out.println("Mapper result : " +alter );
                 return "권한 부여 성공";
         } catch (Exception e) {
@@ -88,6 +91,18 @@ public class UserSvc {
         }
     }
 
+    // 모든 관리자 출력
+    public List<UserDTO>showAdminUsers(int site_id){
+        try{
+            List<UserDTO> allAdmin = userMapper.showAdminUsers(site_id);
+            System.out.println("Mapper result (Admins): " + allAdmin);
+            return allAdmin;
+        } catch (Exception e) {
+            System.out.println("출력 실패: " + e.getMessage());
+            return null;
+        }
+    }
+
     //회원 탈퇴
     public String deleteUser(int site_id,String email){
         try{
@@ -100,7 +115,7 @@ public class UserSvc {
     // 사용자 정보 조회
     public UserDTO searchUser(int site_id, String email) {
         try {
-            UserDTO dto=userMapper.searchUser(site_id, email);
+            UserDTO dto=userMapper.searchUser(site_id,email);
             return dto;
         } catch (Exception e) {
             System.out.println("사용자 조회 실패"+e.getMessage());

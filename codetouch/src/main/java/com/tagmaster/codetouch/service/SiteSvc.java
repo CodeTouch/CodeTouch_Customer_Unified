@@ -1,13 +1,16 @@
 package com.tagmaster.codetouch.service;
 
 import com.tagmaster.codetouch.domain.SiteUpdateDTO;
+import com.tagmaster.codetouch.domain.UserDTO;
 import com.tagmaster.codetouch.mapper.SiteMapper;
+import com.tagmaster.codetouch.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SiteSvc {
     SiteMapper siteMapper;
+    UserMapper userMapper;
     @Autowired
     public SiteSvc(SiteMapper siteMapper){
         this.siteMapper=siteMapper;
@@ -21,13 +24,19 @@ public class SiteSvc {
          return e.getMessage();
         }
     }*/
+
     // 수정
     public String updateSetting(SiteUpdateDTO siteDTO){
         try{
+            UserDTO admin= userMapper.searchUser(siteDTO.getSite_id(),siteDTO.getEmail());
+            if(!"ADMIN,USER".equals(admin.getRole())){
+                return "권한이 없습니다";
+            }
+
             siteMapper.siteUpdate(siteDTO);
             return "사이트 기본 설정 업데이트 완료";
         } catch (Exception e) {
-            return e.getMessage();
+            return "사이트 설정중 오류발생"+e.getMessage();
         }
     }
 }
