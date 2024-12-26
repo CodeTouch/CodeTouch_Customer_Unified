@@ -27,8 +27,8 @@ public interface UserMapper {
     @Select("SELECT email,name,nickname,phone,gender,birth,role,mileage From USER where email=#{email}")
     UserDTO getUserByEmail(String email);
 
-    @Update("update User set role=#{role} where site_id=#{site_id} and email=#{email}")
-    UserDTO updateRole(int site_id, String email, String role);
+    @Update("update User set role=#{role} where email=#{email}")
+    UserDTO updateRole(String email, String role);
     // 권한 수정
 
     @Update("update User set password=#{password},name=#{name},nickname=#{nickname}," +
@@ -41,16 +41,20 @@ public interface UserMapper {
     List<UserDTO> showAllUser(int site_id);
     // 사이트 모든 이용자 출력
 
+    @Select("SELECT email, name, nickname, phone, gender, birth, role, mileage " +
+            "FROM user WHERE site_id = #{site_id} AND role = 'ADMIN,USER'")
+    List<UserDTO> showAdminUsers(int site_id);
+    // 사이트 모든 관리자 출력
+
     @Select("select email from user where site_id=#{site_id}")
     List<String> sendMail( int site_id);
     // 사이트 모든 이용자 메일발송
-
 
     @Delete("delete from user where site_id=#{site_id} and email=#{email}")
     int deleteUser(int site_id , String email);
     // 회원탈퇴
 
-    @Select("select SQL_NO_CACHE email,name,nickname,phone,birth,gender,address,role,mileage from user where site_id=#{site_id} and email=#{email}")
-    UserDTO searchUser(int site_id , String email);
+    @Select("select SQL_NO_CACHE * from user where email=#{email}")
+    UserDTO searchUser(int site_id, String email);
     //사이트 이용자 조회
 }
