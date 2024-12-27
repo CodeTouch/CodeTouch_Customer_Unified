@@ -1,8 +1,9 @@
 package com.tagmaster.codetouch.service;
 
+import com.tagmaster.codetouch.mapper.PayHistoryMapper;
 import com.tagmaster.codetouch.domain.PostDTO;
-import com.tagmaster.codetouch.domain.PostAllReadDTO;
 import com.tagmaster.codetouch.mapper.PostMapper;
+import com.tagmaster.codetouch.mapper.ProductMapper;
 import com.tagmaster.codetouch.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,10 +18,15 @@ import java.util.List;
 @Service
 public class PostSvc {
     PostMapper postMapper;
+    ProductMapper productMapper;
+    PayHistoryMapper payHistoryMapper;
 
     @Autowired
-    public PostSvc(PostMapper postMapper) {
+    public PostSvc(PostMapper postMapper, ProductMapper productMapper, PayHistoryMapper payHistoryMapper) {
         this.postMapper = postMapper;
+        this.productMapper = productMapper;
+        this.payHistoryMapper = payHistoryMapper;
+
     }
     // 게시글 생성
     public String savePost(PostDTO dto) {
@@ -42,7 +48,7 @@ public class PostSvc {
         }
     }
 
-    // 게시글 삭제
+    // 게시글 제제
     public String deletePost(int site_id,int postId) {
         try {
             postMapper.deletePostById(site_id,postId);
@@ -51,6 +57,7 @@ public class PostSvc {
             return "삭제 실패: " + e.getMessage();
         }
     }
+
 
     // 전체 문의글
     // "문의" inquiry
@@ -63,6 +70,7 @@ public class PostSvc {
             return null;
         }
     }
+
 
     // 키워드로 문의 게시글 조회
     public List<PostDTO> getPostsByKeyword(int site_id,String type,String content,int pageNumber) {
@@ -91,6 +99,15 @@ public class PostSvc {
         try {
             List<PostDTO> posts = postMapper.getPostsByUserId(userId);
             return posts;
+        } catch (Exception e) {
+            System.err.println("조회 실패: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    // 키워드로 게시글 조회
+    public List<PostDTO> getPostsByKeyword(int site_id, String keyword) {
+        try {
+            List<PostDTO> posts = postMapper.getPostsByKeyword(site_id, keyword);
+            return Util.checkNull(posts);
         } catch (Exception e) {
             System.err.println("조회 실패: " + e.getMessage());
             return Collections.emptyList();

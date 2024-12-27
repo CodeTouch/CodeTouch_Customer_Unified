@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -24,5 +23,5 @@ public class PostDTO {
     private String image;
     private int rating;
     private int count;
-    private LocalDateTime created_at; // 시간이 왜 없었지 ㅜㅜ
+    private LocalDateTime create_at;
 }

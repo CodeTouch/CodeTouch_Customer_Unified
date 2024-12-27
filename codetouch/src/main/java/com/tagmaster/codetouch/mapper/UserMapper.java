@@ -2,10 +2,7 @@ package com.tagmaster.codetouch.mapper;
 
 import com.tagmaster.codetouch.domain.SignupDTO;
 import com.tagmaster.codetouch.domain.UserDTO;
-import lombok.Locked;
 import org.apache.ibatis.annotations.*;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
