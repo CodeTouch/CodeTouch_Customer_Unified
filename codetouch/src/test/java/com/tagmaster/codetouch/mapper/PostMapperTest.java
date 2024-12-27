@@ -47,7 +47,7 @@ public class PostMapperTest {
     @Test
     @Rollback(value = false)
     public void deletePostTest() {
-        postMapper.deletePostById(3);
+        postMapper.deletePostById(3,3);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class PostMapperTest {
     @Test
     @Rollback(value = false)
     public void getPostsByKeywordTest(){
-        List<PostDTO> dtoList = postMapper.getPostsByKeyword("응");
+        List<PostDTO> dtoList = postMapper.getPostsByKeyword(1,"문의","응",5,5);
         System.out.println(dtoList);
     }
     @Test

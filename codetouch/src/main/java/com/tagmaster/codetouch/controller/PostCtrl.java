@@ -1,7 +1,7 @@
-/*
 package com.tagmaster.codetouch.controller;
 
 import com.tagmaster.codetouch.domain.PostAllReadDTO;
+import com.tagmaster.codetouch.domain.PostDTO;
 import com.tagmaster.codetouch.domain.PostSearchDTO;
 import com.tagmaster.codetouch.exception.BadRequestException;
 import com.tagmaster.codetouch.service.PostSvc;
@@ -19,20 +19,20 @@ public class PostCtrl {
     }
     @ResponseBody
     @GetMapping("/게시글/전체조회")
-    public List<String> readPost(@ModelAttribute PostAllReadDTO dto) {
+    public List<PostDTO> getAllPosts(@ModelAttribute int site_id, String type, int pageNumber) {
         try{
-            return postSvc.getPostsBySiteId(dto);
+            return postSvc.getAllPosts(site_id,type,pageNumber);
         } catch (Exception e) {
-            throw new BadRequestException("");
+            throw new BadRequestException(e.getMessage()+"");
         }
     }
     @ResponseBody
     @PostMapping("/게시글/조회")
-    public String readPost(@ModelAttribute PostSearchDTO dto) {
+    public List<PostDTO> readPost(@ModelAttribute PostSearchDTO dto, int pageNumber) {
         try{
-            return postSvc.getPostsByKeyword(dto);
+            return postSvc.getPostsByKeyword(dto.getSite_id(),dto.getType(),dto.getContent(),pageNumber);
         } catch (Exception e) {
-            throw new BadRequestException("");
+            throw new BadRequestException(e.getMessage()+"");
         }
     }
     @ResponseBody
@@ -41,8 +41,7 @@ public class PostCtrl {
         try{
             return postSvc.deletePost(site_id, post_id);
         } catch (Exception e) {
-            throw new BadRequestException("");
+            throw new BadRequestException(e.getMessage()+"");
         }
     }
 }
-*/

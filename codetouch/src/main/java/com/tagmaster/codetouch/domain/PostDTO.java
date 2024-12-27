@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -18,9 +19,10 @@ public class PostDTO {
     private int site_id;
     private String title; //추가
     private String nickname; //추가
-    private String type; // ??? 진짜 기억이 안나 (카테고리? 게시물 타입 )
+    private String type; //ENUM "후기", "문의"
     private String content;
     private String image;
     private int rating;
     private int count;
+    private LocalDateTime created_at; // 시간이 왜 없었지 ㅜㅜ
 }

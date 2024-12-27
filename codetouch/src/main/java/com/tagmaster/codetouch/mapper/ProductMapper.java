@@ -27,7 +27,7 @@ public interface ProductMapper {
     List<ProductDTO> findAllProductsByHighPrice(int site_id);
     //낮은 가격순 상품 리스트 출력
     @Select("SELECT site_id, name, category, price, image, description FROM product WHERE site_id=#{site_id} ORDER BY price DESC")
-    List<ProductDTO> findAllProductsByLowPrice(int s);
+    List<ProductDTO> findAllProductsByLowPrice(int site_id);
     //특정 카테고리에 속해 있는 상품 정보 출력
     @Select("SELECT name, category, price, image, description FROM product WHERE category=#{category}")
     List<ProductDTO> findProductByCategory(String category);
