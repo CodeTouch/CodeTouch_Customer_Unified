@@ -1,6 +1,7 @@
 package com.tagmaster.codetouch.controller;
 
 import com.tagmaster.codetouch.exception.BadRequestException;
+import com.tagmaster.codetouch.service.DashboardSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class DashboardCtrl {
     private final DashboardSvc dashboardSvc;
     @Autowired
-    public VisitorCtrl(DashboardSvc dashboardSvc){
+    public DashboardCtrl(DashboardSvc dashboardSvc){
         this.dashboardSvc = dashboardSvc;
     }
 

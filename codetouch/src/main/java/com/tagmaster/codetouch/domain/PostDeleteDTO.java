@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PostSearchDTO {
+public class PostDeleteDTO {
     private int site_id;
     private String type;
-    private String content;// 추가
+    private int post_id;
 }

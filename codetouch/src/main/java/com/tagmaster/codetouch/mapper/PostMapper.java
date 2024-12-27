@@ -1,10 +1,8 @@
 package com.tagmaster.codetouch.mapper;
 
-import com.tagmaster.codetouch.domain.PostDTO;
+import com.tagmaster.codetouch.domain.*;
 import org.apache.ibatis.annotations.*;
-import org.springframework.data.domain.Page;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Mapper
@@ -22,20 +20,17 @@ public interface PostMapper {
     //게시글 아이디로 게시글 찾기
     @Select("SELECT pd_id, user_id, type, content, image, rating FROM post WHERE post_id=#{post_id} and type='문의'")
     PostDTO getPostById(int post_id);
-    
+
     //삭제
-    @Delete("DELETE FROM post WHERE site_id=#{site_id} AND type='후기' And post_id=#{post_id}")
-    int deletePostById(int site_id, int post_id);
+    @Delete("DELETE FROM post WHERE site_id=#{site_id} AND type=#{type} AND post_id=#{post_id}")
+    int deletePostById(PostDeleteDTO dto);
 
     //사이트 아이디로 전체 게시글들 찾기
     @Select("SELECT pd_id, user_id, type, title, content, image, rating " +
             "FROM post WHERE site_id=#{site_id} and type='문의'" +
-            "ORDER BY created_at DESC LIMIT #{limit} OFFSET #{offset}")
-    List<PostDTO> getAllPosts(int site_id, int limit, int offset );
+            "ORDER BY create_at DESC LIMIT #{limit} OFFSET #{offset}")
+    List<PostDTO> getAllPosts(int site_id,  int limit, int offset );
 
-    //유저 아이디로 게시글 찾기
-    @Select("SELECT pd_id, content, image, rating FROM post WHERE user_id=#{user_id} and type='문의'")
-     List<PostDTO> getPostsByUserId(int user_id);
 
     @Select("SELECT p.pd_id, p.user_id, p.type, p.content, p.image, p.rating, p.create_at, " +
             "       pd.name AS product_name, u.email AS user_email " +
@@ -90,10 +85,10 @@ public interface PostMapper {
     //내용에 키워드로 검색해 찾기
     @Select("SELECT title, content, image, create_at FROM post " +
             "WHERE site_id = #{site_id} AND type = '문의' AND content LIKE CONCAT('%', #{content}, '%')")
-    List<PostDTO> getPostsByKeyword(int site_id,String type,String content,int limit , int offset);
+    List<PostDTO> getPostsByKeyword(PostSearchDTO dto, int limit , int offset);
   
     @Select("SELECT pd_id, user_id, type, content, image, rating, create_at FROM post WHERE site_id=#{site_id} AND type='후기' AND content LIKE CONCAT ('%', #{content}, '%')")
-    List<PayHistoryDetailsDTO> getPostsByKeyword(ProductReviewSearchDTO dto);
+    List<PayHistoryDetailsDTO> getReviewByKeyword(PostSearchDTO dto);
 
     //별점 높은 순으로 게시글 가져오기
     @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE pd_id=#{pd_id} ORDER BY rating DESC")
@@ -105,8 +100,6 @@ public interface PostMapper {
 
 //    @Insert("INSERT INTO post (pd_id, site_id, user_id, type, content, image, rating, create_at) VALUES (#{pd_id}, #{site_id}, #{user_id}, #{type}, #{content}, #{image}, #{rating}, now())")
 //    int insertReview(ReviewDTO reviewDTO);
-    @Delete("DELETE FROM post WHERE site_id=#{site_id} AND type='후기' AND post_id=#{post_id}")
-    int deleteReviewById(ProductReviewDeleteDTO dto);
 
 //join 으로 이메일 뽑아오기 //todo
 

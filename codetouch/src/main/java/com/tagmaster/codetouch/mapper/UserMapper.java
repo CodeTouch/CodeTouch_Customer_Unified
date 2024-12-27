@@ -1,6 +1,7 @@
 package com.tagmaster.codetouch.mapper;
 
 import com.tagmaster.codetouch.domain.SignupDTO;
+import com.tagmaster.codetouch.domain.UpdateRoleDTO;
 import com.tagmaster.codetouch.domain.UserDTO;
 import org.apache.ibatis.annotations.*;
 
@@ -8,24 +9,27 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    @Insert("insert into User (site_id,email,name,phone,nickname,password,birth,gender)" +
-            "values(#{site_id},#{email},#{name},#{phone},#{nickname},#{password},#{birth},#{gender})")
+    @Insert("insert into User (site_id, email, name, phone, nickname, password, birth, gender)" +
+            "values(#{site_id}, #{email}, #{name}, #{phone}, #{nickname}, #{password}, #{birth}, #{gender})")
     int insertUser(SignupDTO dto);
     //사용자 생성
 
-    @Update("update User set password=#{password},name=#{name},nickname=#{nickname}," +
-            "phone=#{phone},address=#{address} where site_id=#{site_id} and email=#{email}")
+    @Update("update User set password=#{password}, name=#{name}, nickname=#{nickname}," +
+            "phone=#{phone}, address=#{address} where site_id=#{site_id} and email=#{email}")
     int updateUser(UserDTO dto);
     // 사용자 개인정보 수정
 
-    @Select("SELECT email,name,nickname,phone,gender,birth,role,mileage From USER where email=#{email}")
+    @Select("SELECT email, name, nickname, phone, gender, birth, role, mileage From USER where email=#{email}")
     int existByEmail(String email);
 
-    @Select("SELECT email,name,nickname,phone,gender,birth,role,mileage From USER where email=#{email}")
+    @Select("SELECT email, name, nickname, phone, gender, birth, role, mileage From USER where email=#{email}")
     UserDTO getUserByEmail(String email);
 
-    @Update("update User set role=#{role} where email=#{email}")
-    UserDTO updateRole(String email, String role);
+    @Select("SELECT email, name, nickname, phone, gender, birth, role, mileage From USER where site_id=#{site_id} AND email=#{email}")
+    UserDTO getUserBySiteIdAndEmail(int site_id, String email);
+
+    @Update("update User set role=#{role} where site_id=#{site_id} AND email=#{email}")
+    UserDTO updateRole(UpdateRoleDTO dto);
     // 권한 수정
 
     @Update("update User set password=#{password},name=#{name},nickname=#{nickname}," +
@@ -40,7 +44,7 @@ public interface UserMapper {
 
     @Select("SELECT email, name, nickname, phone, gender, birth, role, mileage " +
             "FROM user WHERE site_id = #{site_id} AND role = 'ADMIN,USER'")
-    List<UserDTO> showAdminUsers(int site_id);
+    List<UserDTO> showAdminUsers(int site_id, String role);
     // 사이트 모든 관리자 출력
 
     @Select("select email from user where site_id=#{site_id}")
@@ -48,10 +52,10 @@ public interface UserMapper {
     // 사이트 모든 이용자 메일발송
 
     @Delete("delete from user where site_id=#{site_id} and email=#{email}")
-    int deleteUser(int site_id , String email);
+    int deleteUser(int site_id, String email);
     // 회원탈퇴
 
-    @Select("select SQL_NO_CACHE * from user where email=#{email}")
+    @Select("select SQL_NO_CACHE * from user where site_id=#{site_id} AND email=#{email}")
     UserDTO searchUser(int site_id, String email);
     //사이트 이용자 조회
 }

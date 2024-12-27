@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PostSearchDTO {
+public class UseProductDTO {
     private int site_id;
-    private String type;
-    private String content;// 추가
+    private int pd_id;
 }

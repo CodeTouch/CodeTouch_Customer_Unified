@@ -52,15 +52,15 @@ public class PayHistorySvc {
         }
     }
 
-    // 특정 장바구니의 결제 내역 가져오기
-    public PayHistoryDTO getPayByCartId(int cartId) {
-        try {
-            return payHistoryMapper.getPayHistoryByCartId(cartId);
-        } catch (Exception e) {
-            System.err.println("결제 내역 조회 실패: " + e.getMessage());
-            return null;
-        }
-    }
+//    // 특정 장바구니의 결제 내역 가져오기
+//    public PayHistoryDTO getPayByCartId(int cartId) {
+//        try {
+//            return payHistoryMapper.getPayHistoryByCartId(cartId);
+//        } catch (Exception e) {
+//            System.err.println("결제 내역 조회 실패: " + e.getMessage());
+//            return null;
+//        }
+//    }
 
     // 시간 순서로 정렬된 결제 내역 가져오기
     public List<PayHistoryDTO> getAllPayByTime() {
