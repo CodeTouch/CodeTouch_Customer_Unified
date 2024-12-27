@@ -10,8 +10,7 @@ import java.time.LocalDate;
 public class SalesDTO {
     private int site_id;
     private int pd_id;
-    private String sale_name; //추가필요
-    private LocalDate sale_date; //추가필요
+    private String sale_name;
+    private LocalDate sale_period;
     private Integer sale_percentage;
-
 }

@@ -5,12 +5,10 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ProductReviewCreateDTO {
+public class ReceiptDTO {
     private int site_id;
     private int pd_id;
     private int user_id;
-    private String type;
-    private String content;
-    private String image;
-    private int rating;
+    private String pd_name;
+    private String email;
 }

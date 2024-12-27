@@ -12,9 +12,9 @@ import java.util.List;
 
 @Service
 public class ReviewSvc {
-    private  ProductMapper productMapper;
-    private  PostMapper postMapper;
-    private  PayHistoryMapper payHistoryMapper;
+    private final ProductMapper productMapper;
+    private final PostMapper postMapper;
+    private final PayHistoryMapper payHistoryMapper;
 
     @Autowired
     public ReviewSvc(ProductMapper productMapper, PostMapper postMapper, PayHistoryMapper payHistoryMapper) {
@@ -22,39 +22,44 @@ public class ReviewSvc {
         this.postMapper = postMapper;
         this.payHistoryMapper = payHistoryMapper;
     }
-    //    public String reviewCreate(ProductReviewCreateDTO productReviewCreateDTO) {
-//        PayHistoryDTO payHistoryDTO = payHistoryMapper.getPayHistory(productReviewCreateDTO.getPay_id);
-//        PayHistoryDetailsDTO receipts = productMapper.getPayHistoryDetails(payHistoryDTO.getPay_id());
-//        PostDTO postDTO = new PostDTO();
-//        postDTO.setPd_id(receipts.getPd_id());
-//        postDTO.setUser_id(receipts.getUser_id());
-//        postDTO.setSite_id(receipts.getSite_id());
-//        postDTO.setPd_image();
-//        postDTO.setContent(dto.getContent());
-//        postDTO.setTitle(dto.getTitle());
-//        postDTO.setImage(dto.getImage());
-//        postDTO.setPd_image(productDTO);
-//        return (productMapper.getPayHistoryDetails(dto.get) > 0);
-//    }
-    public List<PostDTO> readProductsReview(ProductsReviewReadDTO dto){
-        if (dto.getCheck() == 5){
-            return postMapper.getTop5PostsBySiteId(dto.getSite_id());
+
+    public String reviewCreate(ProductReviewCreateDTO productReviewCreateDTO) {
+        PayHistoryDTO payHistoryDTO = payHistoryMapper.getPayHistoryBySiteIdAndPdIdAndUserId(productReviewCreateDTO.getSite_id(), productReviewCreateDTO.getPd_id(), productReviewCreateDTO.getUser_id());
+        ReceiptDTO receipts = productMapper.getPayHistoryDetails(payHistoryDTO.getSite_id(), payHistoryDTO.getPay_id());
+        ReviewDTO reviewDTO = new ReviewDTO();
+        reviewDTO.setPd_id(receipts.getPd_id());
+        reviewDTO.setUser_id(receipts.getUser_id());
+        reviewDTO.setType(productReviewCreateDTO.getType());
+        reviewDTO.setSite_id(receipts.getSite_id());
+        reviewDTO.setContent(productReviewCreateDTO.getContent());
+        reviewDTO.setImage(productReviewCreateDTO.getImage());
+        reviewDTO.setRating(productReviewCreateDTO.getRating());
+        if (productMapper.insertReview(reviewDTO) > 0) {
+            return "후기 등록 성공";
+        } else {
+            return "후기 등록 실패";
         }
-        else if(dto.getCheck() == 10){
-            return postMapper.getTop10PostsBySiteId(dto.getSite_id());
-        }
-        return postMapper.getPostsBySiteId(dto.getSite_id());
     }
 
-    public List<PostDTO> readProductReview(ProductReviewReadDTO dto){
-        if
-        return postMapper.getPostsBySiteIdAndPdId(dto.getSite_id(), dto.getPd_id());
+    public List<PayHistoryDetailsDTO> readProductsReview(ProductsReviewReadDTO dto) {
+        if (dto.getCheck() == 5) {
+            return postMapper.getTop5PostsBySiteIdAndType(dto.getSite_id(), dto.getType());
+        } else if (dto.getCheck() == 10) {
+            return postMapper.getTop10PostsBySiteIdAndType(dto.getSite_id(), dto.getType());
+        }
+        return postMapper.getPostsBySiteIdAndType(dto.getSite_id(), dto.getType());
     }
-    public List<PostDTO> searchProductReview(int site_id, String type, String content){
-        return postMapper.getPostsByKeyword(site_id, content);
+
+    public List<PayHistoryDetailsDTO> readProductReview(ProductReviewReadDTO dto) {
+        return postMapper.getPostsBySiteIdAndTypeAndPdId(dto);
     }
-    public String deleteProductReview(int site_id, int post_id) {
-        if (postMapper.deletePostById(site_id, post_id) > 0){
+
+    public List<PayHistoryDetailsDTO> searchProductReview(ProductReviewSearchDTO dto) {
+        return postMapper.getPostsByKeyword(dto);
+    }
+
+    public String deleteProductReview(ProductReviewDeleteDTO dto) {
+        if (postMapper.deleteReviewById(dto) > 0) {
             return "삭제에 성공하였습니다.";
         }
         return "실패하였습니다.";

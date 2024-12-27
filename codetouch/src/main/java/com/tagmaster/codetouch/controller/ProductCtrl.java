@@ -44,10 +44,10 @@ public class ProductCtrl {
     }
 
     @ResponseBody
-    @GetMapping("/상품/삭제/{pd_id}")
-    public String deleteProduct(@ModelAttribute int pd_id) {
+    @PostMapping("/상품/삭제")
+    public String deleteProduct(@ModelAttribute DeleteProductDTO deleteProductDTO) {
         try{
-            return productSvc.deleteProduct(pd_id);
+            return productSvc.deleteProduct(deleteProductDTO);
         } catch (Exception e) {
             throw new BadRequestException("");
         }

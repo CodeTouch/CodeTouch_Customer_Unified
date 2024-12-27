@@ -1,5 +1,6 @@
 package com.tagmaster.codetouch.service;
 
+import com.tagmaster.codetouch.domain.DeleteProductDTO;
 import com.tagmaster.codetouch.domain.ProductDTO;
 import com.tagmaster.codetouch.domain.ProductReviewDTO;
 import com.tagmaster.codetouch.domain.SalesDTO;
@@ -41,9 +42,9 @@ public class ProductSvc {
     }
 
     // 상품 삭제 // 수정해라
-    public String deleteProduct(int product_id) {
+    public String deleteProduct(DeleteProductDTO deleteProductDTO) {
         try {
-            productMapper.deleteProduct(product_id);
+            productMapper.deleteProduct(deleteProductDTO);
             return "삭제 성공";
         } catch (Exception e) {
             return "삭제 실패 " + e.getMessage();
@@ -62,9 +63,9 @@ public class ProductSvc {
     }
 
     // 키워드로 상품 검색
-    public List<ProductDTO> findByKeyword(String keyword) {
+    public List<ProductDTO> findByKeyword(String name) {
         try {
-            return productMapper.findProductByKeyword(keyword);
+            return productMapper.findProductByKeyword(name);
         } catch (Exception e) {
             System.err.println("조회 실패: " + e.getMessage());
             return null;
@@ -82,8 +83,9 @@ public class ProductSvc {
     public List<ProductDTO> readProducts(int site_id) {
         return productMapper.findAllById(site_id);
     }
+
     public String setSales(SalesDTO salesDTO){
-        if (productMapper.updateProductSaleSetting(salesDTO.getPd_id())> 0){
+        if (productMapper.updateProductSaleSetting(salesDTO.getSite_id(), salesDTO.getPd_id())> 0){
             return "설정 성공";
         }
         return "설정 실패";
