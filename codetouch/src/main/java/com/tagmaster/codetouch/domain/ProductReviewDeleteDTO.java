@@ -3,10 +3,10 @@ package com.tagmaster.codetouch.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class ReviewReadDTO {
+@Setter
+public class ProductReviewDeleteDTO {
     private int site_id;
     private String type;
-    private int check;
+    private int post_id;
 }

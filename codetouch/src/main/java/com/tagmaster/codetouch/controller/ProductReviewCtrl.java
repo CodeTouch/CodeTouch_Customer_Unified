@@ -1,8 +1,6 @@
 package com.tagmaster.codetouch.controller;
 
-import com.tagmaster.codetouch.domain.PostDTO;
-import com.tagmaster.codetouch.domain.ProductReviewCreateDTO;
-import com.tagmaster.codetouch.domain.ReviewReadDTO;
+import com.tagmaster.codetouch.domain.*;
 import com.tagmaster.codetouch.exception.BadRequestException;
 import com.tagmaster.codetouch.service.PostSvc;
 import com.tagmaster.codetouch.service.ReviewSvc;
@@ -17,6 +15,8 @@ import java.util.List;
 public class ProductReviewCtrl {
     private final PostSvc postSvc;
     private final ReviewSvc reviewSvc;
+
+
     @Autowired
     public ProductReviewCtrl(PostSvc postSvc, ReviewSvc reviewSvc) {
         this.postSvc = postSvc;
@@ -25,7 +25,7 @@ public class ProductReviewCtrl {
 
     @ResponseBody
     @PostMapping("/상품/후기/전체조회")
-    public List<PostDTO> readProductsReview(@ModelAttribute ReviewReadDTO dto) {
+    public List<PayHistoryDetailsDTO> readProductsReview(@ModelAttribute ProductsReviewReadDTO dto) {
         try {
             return reviewSvc.readProductsReview(dto);
         } catch (Exception e) {
@@ -33,10 +33,10 @@ public class ProductReviewCtrl {
         }
     }
     @ResponseBody
-    @PostMapping("/상품/후기/조회/{site_id}/{pd_id}")
-    public List<PostDTO> readProductReview(@ModelAttribute int site_id, @ModelAttribute int pd_id) {
+    @PostMapping("/상품/후기/조회")
+    public List<PayHistoryDetailsDTO> readProductReview(@ModelAttribute ProductReviewReadDTO dto) {
         try {
-            return reviewSvc.readProductReview(site_id, pd_id);
+            return reviewSvc.readProductReview(dto);
         } catch (Exception e) {
             throw new BadRequestException("");
         }
@@ -51,19 +51,19 @@ public class ProductReviewCtrl {
         }
     }
     @ResponseBody
-    @GetMapping("/상품/후기/검색/{site_id}/{content}")
-    public List<PostDTO> searchProductReview(@ModelAttribute int site_id, @ModelAttribute String type, @ModelAttribute String content) {
+    @PostMapping("/상품/후기/검색")
+    public List<PayHistoryDetailsDTO> searchProductReview(@ModelAttribute ProductReviewSearchDTO dto) {
         try {
-            return reviewSvc.searchProductReview(site_id, type, content);
+            return reviewSvc.searchProductReview(dto);
         } catch (Exception e) {
             throw new BadRequestException("");
         }
     }
     @ResponseBody
-    @GetMapping("/상품/후기/삭제/{site_id}, {post_id}")
-    public String deleteProductReview(@ModelAttribute int site_id, int post_id) {
+    @PostMapping("/상품/후기/삭제")
+    public String deleteProductReview(@ModelAttribute ProductReviewDeleteDTO productReviewDeleteDTO) {
         try {
-            return reviewSvc.deleteProductReview(site_id, post_id);
+            return reviewSvc.deleteProductReview(productReviewDeleteDTO);
         } catch (Exception e) {
             throw new BadRequestException("");
         }

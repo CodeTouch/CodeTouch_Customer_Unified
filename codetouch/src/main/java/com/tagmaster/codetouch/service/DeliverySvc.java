@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DeliverySvc {
+
     DeliveryMapper deliveryMapper;
 
     @Autowired
@@ -14,15 +15,8 @@ public class DeliverySvc {
         this.deliveryMapper = deliveryMapper;
     }
 
-//    public String insertSetting(DeliveryDTO deliveryDTO) {
-//        if (deliveryMapper.setDeliverySetting(deliveryDTO) > 0) {
-//            return "success";
-//        }
-//        return "error";
-//    }
-
     public String updateSetting(DeliveryDTO deliveryDTO) {
-        if (deliveryMapper.updateDeliverySetting(deliveryDTO) > 0) {
+        if (deliveryMapper.updateDeliverySetting(deliveryDTO.getSite_id()) > 0) {
             return "success";
         }
         return "error";

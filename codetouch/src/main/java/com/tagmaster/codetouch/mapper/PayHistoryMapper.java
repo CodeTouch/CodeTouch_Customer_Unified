@@ -20,8 +20,8 @@ public interface PayHistoryMapper {
     @Select("SELECT pd_id, merchant_id, pay_id FROM pay_history WHERE pay_id=#{pay_id}")
     PayHistoryDTO getPayHistory(int pay_id);
     // 특정 고객의 모든 결제 내역 뽑기 <- join ? userid 사용으로 모든 결제 내역 뽑기 ?
-    @Select("SELECT pd_id, merchant_id, pay_id, site_id FROM pay_history WHERE pd_id=#{pd_id}")
-    PayHistoryDTO getPayHistoryByPdId(int pd_id);//site_id
+    @Select("SELECT pd_id, site_id, merchant_id, pay_id, create_at FROM pay_history WHERE site_id=#{site_id} AND pd_id=#{pd_id} AND user_id=#{user_id}")
+    PayHistoryDTO getPayHistoryBySiteIdAndPdIdAndUserId(int site_id, int pd_id, int user_id);//site_id
     // 시간별 결제 내역 뽑기
     @Select("SELECT pd_id, merchant_id, pay_id FROM pay_history WHERE pd_id=#{pd_id} ORDER BY create_at DESC")
     List<PayHistoryDTO> getPayHistoryDESC();
