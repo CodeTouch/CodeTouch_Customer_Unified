@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,9 +16,9 @@ public class PostDTO {
     private int pd_id;
     private int user_id;
     private int site_id;
-    private String pd_image;
-    private String title;
-    private String type;
+    private String title; //추가
+    private String nickname; //추가
+    private String type; //ENUM "후기", "문의"
     private String content;
     private String image;
     private int rating;
