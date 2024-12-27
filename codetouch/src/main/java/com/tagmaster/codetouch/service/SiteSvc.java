@@ -1,13 +1,16 @@
 package com.tagmaster.codetouch.service;
 
 import com.tagmaster.codetouch.domain.SiteUpdateDTO;
+import com.tagmaster.codetouch.domain.UserDTO;
 import com.tagmaster.codetouch.mapper.SiteMapper;
+import com.tagmaster.codetouch.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SiteSvc {
-    private final SiteMapper siteMapper;
+    SiteMapper siteMapper;
+    UserMapper userMapper;
     @Autowired
     public SiteSvc(SiteMapper siteMapper){
         this.siteMapper=siteMapper;
@@ -21,6 +24,7 @@ public class SiteSvc {
          return e.getMessage();
         }
     }*/
+
     // 수정
     public String updateSetting(SiteUpdateDTO siteDTO){
         try{

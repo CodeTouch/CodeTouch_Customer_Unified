@@ -1,6 +1,6 @@
 package com.tagmaster.codetouch.mapper;
 
-import com.tagmaster.codetouch.domain.*;
+import com.tagmaster.codetouch.domain.PostDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -88,4 +88,5 @@ public interface PostMapper {
     @Delete("DELETE FROM post WHERE site_id=#{site_id} AND type='후기' AND post_id=#{post_id}")
     int deleteReviewById(ProductReviewDeleteDTO dto);
 
+//join 으로 이메일 뽑아오기 //todo
 }

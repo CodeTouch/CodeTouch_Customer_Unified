@@ -45,9 +45,9 @@ public class UserCtrl {
     // 권한 수정
     @PostMapping("/회원/권한수정")
     @ResponseBody
-    public String updateRole(@ModelAttribute UpdateRoleDTO dto) {
+    public String updateRole(@ModelAttribute int site_id,String email) {
         try{
-            return userSvc.updateRole(dto);
+            return userSvc.updateRole(site_id,email);
         } catch (Exception e) {
             throw new BadRequestException("");
         }
@@ -71,7 +71,8 @@ public class UserCtrl {
         try{
         return userSvc.showAllUser(site_id);
     } catch (Exception e) {
-        throw new BadRequestException("");
+            System.out.println(e+"출력 실패");
+        return null;
         }
     }
     @GetMapping("/관리자리스트/{site_id}")

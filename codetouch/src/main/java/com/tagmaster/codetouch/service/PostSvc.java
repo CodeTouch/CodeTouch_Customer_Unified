@@ -1,7 +1,7 @@
 package com.tagmaster.codetouch.service;
 
-import com.tagmaster.codetouch.domain.*;
 import com.tagmaster.codetouch.mapper.PayHistoryMapper;
+import com.tagmaster.codetouch.domain.PostDTO;
 import com.tagmaster.codetouch.mapper.PostMapper;
 import com.tagmaster.codetouch.mapper.ProductMapper;
 import com.tagmaster.codetouch.util.Util;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class PostSvc {
@@ -59,6 +58,11 @@ public class PostSvc {
         }
     }
 
+    // 전체 게시글
+    //public List<String>
+
+
+
     // 게시글 ID로 조회
     public PostDTO getPostById(int postId) {
         try {
@@ -74,7 +78,7 @@ public class PostSvc {
     public List<PostDTO> getPostByUserId(int userId) {
         try {
             List<PostDTO> posts = postMapper.getPostsByUserId(userId);
-            return Util.checkNull(posts);
+            return posts;
         } catch (Exception e) {
             System.err.println("조회 실패: " + e.getMessage());
             return Collections.emptyList();
