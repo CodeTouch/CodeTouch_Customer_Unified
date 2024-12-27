@@ -7,13 +7,9 @@ import lombok.Setter;
 @Setter
 public class RegisterProductDTO {
     private int site_id;
-    private String productName;
-    private String productShortDescription;
-    private String toolbox;
-    private String productDetailDescription;
-    private String AddOptions;
-    private String salePercentage;
-    private String delivery;
+    private String pd_id;
+    private String description;
+    private String sale_percentage;
     private String category;
     private int stock;
 }

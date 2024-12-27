@@ -7,13 +7,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class PayHistoryDetailsDTO {
+public class ReviewDTO {
     private int post_id;
     private int pd_id;
     private int user_id;
     private int site_id;
-    private String user_email;
-    private String product_name;
     private String type;
     private String content;
     private String image;

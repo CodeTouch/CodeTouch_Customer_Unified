@@ -1,8 +1,6 @@
 package com.tagmaster.codetouch.mapper;
 
-import com.tagmaster.codetouch.domain.PayHistoryDetailsDTO;
-import com.tagmaster.codetouch.domain.PostDTO;
-import com.tagmaster.codetouch.domain.ProductDTO;
+import com.tagmaster.codetouch.domain.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -17,8 +15,8 @@ public interface ProductMapper {
     @Update("UPDATE product SET name=#{name}, category=#{category}, price=#{price}, image=#{image}, description=#{description} WHERE pd_id=#{pd_id}")
     int updateProduct(ProductDTO dto);
     //삭제
-    @Delete("DELETE FROM product WHERE pd_id=#{pd_id}")
-    int deleteProduct(int pd_id);
+    @Delete("DELETE FROM product WHERE site_id=#{site_id} AND pd_id=#{pd_id}")
+    int deleteProduct(DeleteProductDTO deleteProductDTO);
     //특정 상품에 대한 모든 정보 출력
     @Select("SELECT site_id, name, category, price, image, description FROM product WHERE site_id=#{site_id}" )
     List<ProductDTO> findAllById(int site_id);
@@ -38,24 +36,25 @@ public interface ProductMapper {
     @Select("SELECT pd_id, name, image, price, category, sale_state, stock, create_at FROM product WHERE category=#{category}")
     ProductDTO findProductSettingByCategory(String category);
     //상품 할인율 설정
-    @Update("UPDATE product SET sale_name=#{sales_name}, sale_date=#{sales_date}, sale_percentage=#{sale_percentage} WHERE pd_id={#pd_id}")
-    int updateProductSaleSetting(int pd_id);
+    @Update("UPDATE product SET sale_name=#{sales_name}, sale_period=#{sales_period}, sale_percentage=#{sale_percentage} WHERE site_id=#{site_id} AND pd_id={#pd_id}")
+    int updateProductSaleSetting(int site_id, int pd_id);
     //키워드로 상품 찾기
     @Select("SELECT site_id, name, category, price, image, description FROM product WHERE name LIKE CONCAT ('%', #{name}, '%')")
     List<ProductDTO> findProductByKeyword(String name);
     @Select("SELECT ph.site_id, " +
             "       ph.pd_id, " +
             "       ph.user_id, " +
-            "       pd.image AS product_image, " +
-            "       u.name AS user_name " +
+            "       pd.name AS product_name, " +  // 상품 이름 추가
+            "       u.email AS user_email " +    // 이메일 추가
             "FROM pay_history ph " +
             "JOIN product pd ON ph.pd_id = pd.pd_id " +
             "JOIN user u ON ph.user_id = u.user_id " +
-            "WHERE ph.pay_id = #{pay_id}")
-    PayHistoryDetailsDTO getPayHistoryDetails(int pay_id);
+            "WHERE ph.site_id=#{site_id} AND ph.pay_id = #{pay_id}")
+    ReceiptDTO getPayHistoryDetails(int site_id, int pay_id);
 
-    @Insert("INSERT INTO post (pd_id, user_id, site_id, pd_image, title, type, content, image, rating) " +
-            "VALUES (#{pd_id}, #{user_id}, #{site_id}, #{pd_image}, #{title}, #{type}, #{content}, #{image}, #{rating})")
-    int insertPost(PostDTO dto);
+
+    @Insert("INSERT INTO post (pd_id, user_id, site_id, content, image, rating, create_at) " +
+            "VALUES (#{pd_id}, #{user_id}, #{site_id}, #{content}, #{image}, #{rating}, now())")
+    int insertReview(ReviewDTO dto);
 
 }

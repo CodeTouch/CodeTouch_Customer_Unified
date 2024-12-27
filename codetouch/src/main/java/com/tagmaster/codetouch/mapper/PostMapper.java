@@ -22,8 +22,9 @@ public interface PostMapper {
     //게시글 아이디로 게시글 찾기
     @Select("SELECT pd_id, user_id, type, content, image, rating FROM post WHERE post_id=#{post_id} and type='문의'")
     PostDTO getPostById(int post_id);
+    
     //삭제
-    @Delete("DELETE FROM post WHERE site_id=#{site_id} And post_id=#{post_id}")
+    @Delete("DELETE FROM post WHERE site_id=#{site_id} AND type='후기' And post_id=#{post_id}")
     int deletePostById(int site_id, int post_id);
 
     //사이트 아이디로 전체 게시글들 찾기
@@ -36,23 +37,47 @@ public interface PostMapper {
     @Select("SELECT pd_id, content, image, rating FROM post WHERE user_id=#{user_id} and type='문의'")
      List<PostDTO> getPostsByUserId(int user_id);
 
-    //5개 뽑기
-    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at " +
-            "FROM post " +
-            "WHERE site_id = #{site_id} " +
-            "ORDER BY rating DESC, create_at DESC " +
-            "LIMIT 5")
-    List<PostDTO> getTop5PostsBySiteId(int site_id);
-    // 10개 뽑기
-    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at " +
-            "FROM post " +
-            "WHERE site_id = #{site_id} " +
-            "ORDER BY rating DESC, create_at DESC " +
-            "LIMIT 10")
-    List<PostDTO> getTop10PostsBySiteId(int site_id);
+    @Select("SELECT p.pd_id, p.user_id, p.type, p.content, p.image, p.rating, p.create_at, " +
+            "       pd.name AS product_name, u.email AS user_email " +
+            "FROM post p " +
+            "JOIN product pd ON p.pd_id = pd.pd_id " +
+            "JOIN user u ON p.user_id = u.user_id " +
+            "WHERE p.site_id = #{site_id} " +
+            "AND p.type = '후기'")
+    List<PayHistoryDetailsDTO> getPostsBySiteIdAndType(int site_id, String type);
 
-    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE site_id=#{site_id} And pd_id=#{pd_id}")
-    List<PostDTO> getPostsBySiteIdAndPdId(int site_id, int pd_id);
+    //5개 뽑기
+    @Select("SELECT p.pd_id, p.user_id, p.type, p.content, p.image, p.rating, p.create_at, " +
+            "       pd.name AS product_name, u.email AS user_email " +
+            "FROM post p " +
+            "JOIN product pd ON p.pd_id = pd.pd_id " +
+            "JOIN user u ON p.user_id = u.user_id " +
+            "WHERE p.site_id = #{site_id} " +
+            "AND p.type = '후기' " +
+            "ORDER BY p.rating DESC, p.create_at DESC " +
+            "LIMIT 5")
+    List<PayHistoryDetailsDTO> getTop5PostsBySiteIdAndType(int site_id, String type);
+    // 10개 뽑기
+    @Select("SELECT p.pd_id, p.user_id, p.type, p.content, p.image, p.rating, p.create_at, " +
+            "       pd.name AS product_name, u.email AS user_email " +
+            "FROM post p " +
+            "JOIN product pd ON p.pd_id = pd.pd_id " +
+            "JOIN user u ON p.user_id = u.user_id " +
+            "WHERE p.site_id = #{site_id} " +
+            "AND p.type = '후기' " +
+            "ORDER BY p.rating DESC, p.create_at DESC " +
+            "LIMIT 10")
+    List<PayHistoryDetailsDTO> getTop10PostsBySiteIdAndType(int site_id, String type);
+
+    @Select("SELECT p.pd_id, p.user_id, p.type, p.content, p.image, p.rating, p.create_at, " +
+            "       pd.name AS product_name, u.email AS user_email " +
+            "FROM post p " +
+            "JOIN product pd ON p.pd_id = pd.pd_id " +
+            "JOIN user u ON p.user_id = u.user_id " +
+            "WHERE p.site_id = #{site_id} " +
+            "AND p.type = '후기' " +
+            "AND p.pd_id = #{pd_id}")
+    List<PayHistoryDetailsDTO> getPostsBySiteIdAndTypeAndPdId(ProductReviewReadDTO dto);
 
     //유저 아이디로 게시글 찾기
     @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE user_id=#{user_id}")
@@ -67,6 +92,9 @@ public interface PostMapper {
             "WHERE site_id = #{site_id} AND type = '문의' AND content LIKE CONCAT('%', #{content}, '%')")
     List<PostDTO> getPostsByKeyword(int site_id,String type,String content,int limit , int offset);
   
+    @Select("SELECT pd_id, user_id, type, content, image, rating, create_at FROM post WHERE site_id=#{site_id} AND type='후기' AND content LIKE CONCAT ('%', #{content}, '%')")
+    List<PayHistoryDetailsDTO> getPostsByKeyword(ProductReviewSearchDTO dto);
+
     //별점 높은 순으로 게시글 가져오기
     @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE pd_id=#{pd_id} ORDER BY rating DESC")
     List<PostDTO> getPostsByHighRated(int pd_id);
@@ -74,5 +102,12 @@ public interface PostMapper {
     //별점 낮은 순으로 게시글 가져오기
     @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE pd_id=#{pd_id} ORDER BY rating ASC")
     List<PostDTO> getPostsByLowRated(int pd_id);
+
+//    @Insert("INSERT INTO post (pd_id, site_id, user_id, type, content, image, rating, create_at) VALUES (#{pd_id}, #{site_id}, #{user_id}, #{type}, #{content}, #{image}, #{rating}, now())")
+//    int insertReview(ReviewDTO reviewDTO);
+    @Delete("DELETE FROM post WHERE site_id=#{site_id} AND type='후기' AND post_id=#{post_id}")
+    int deleteReviewById(ProductReviewDeleteDTO dto);
+
+//join 으로 이메일 뽑아오기 //todo
 
 }

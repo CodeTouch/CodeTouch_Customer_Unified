@@ -4,6 +4,7 @@ import com.tagmaster.codetouch.domain.*;
 import com.tagmaster.codetouch.exception.BadRequestException;
 import com.tagmaster.codetouch.service.PostSvc;
 import com.tagmaster.codetouch.service.ProductSvc;
+import com.tagmaster.codetouch.service.ReviewSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,13 @@ import java.util.List;
 public class ProductCtrl {
     private final ProductSvc productSvc;
     private final PostSvc postSvc;
+    private final ReviewSvc reviewSvc;
+
     @Autowired
-    public ProductCtrl(ProductSvc productSvc, PostSvc postSvc) {
+    public ProductCtrl(ProductSvc productSvc, PostSvc postSvc, ReviewSvc reviewSvc) {
         this.productSvc = productSvc;
         this.postSvc = postSvc;
+        this.reviewSvc = reviewSvc;
     }
     @ResponseBody
     @PostMapping("/상품/등록")
@@ -40,10 +44,10 @@ public class ProductCtrl {
     }
 
     @ResponseBody
-    @GetMapping("/상품/삭제/{pd_id}")
-    public String deleteProduct(@ModelAttribute int pd_id) {
+    @PostMapping("/상품/삭제")
+    public String deleteProduct(@ModelAttribute DeleteProductDTO deleteProductDTO) {
         try{
-            return reviewSvc.deleteProduct(pd_id);
+            return productSvc.deleteProduct(deleteProductDTO);
         } catch (Exception e) {
             throw new BadRequestException("");
         }

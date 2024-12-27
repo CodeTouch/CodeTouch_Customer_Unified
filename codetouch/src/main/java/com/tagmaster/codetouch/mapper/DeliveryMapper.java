@@ -10,7 +10,8 @@ import org.apache.ibatis.annotations.Update;
 public interface DeliveryMapper {
 //    @Insert("INSERT INTO delivery (del_id, min_price, orderAutoExpiry, description ) VALUES ( #{del_id}, #{min_price}, #{orderAutoExpiry}, #{description})")
 //    int setDeliverySetting(DeliveryDTO deliveryDTO);
-    @Update("UPDATE delivery SET min_price=#{min_price}, orderAutoExpiry=#{orderAutoExpiry}, description=#{description} WHERE site_id=#{site_id}")
+    //배송 기본 설정
+    @Update("UPDATE setting SET min_price=#{min_price}, order_auto_cancel=#{order_auto_cancel}, description=#{description}, not_user_order=#{not_user_order} WHERE site_id=#{site_id}")
     int updateDeliverySetting(int site_id);
 //    @Delete("DELETE FROM delivery WHERE del_id=#{del_id}");
 //    int deleteDeliverySetting(int del_id);

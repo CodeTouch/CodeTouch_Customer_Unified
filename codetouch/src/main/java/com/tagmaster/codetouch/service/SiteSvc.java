@@ -28,15 +28,10 @@ public class SiteSvc {
     // 수정
     public String updateSetting(SiteUpdateDTO siteDTO){
         try{
-            UserDTO admin= userMapper.searchUser(siteDTO.getSite_id(),siteDTO.getEmail());
-            if(!"ADMIN,USER".equals(admin.getRole())){
-                return "권한이 없습니다";
-            }
-
             siteMapper.siteUpdate(siteDTO);
             return "사이트 기본 설정 업데이트 완료";
         } catch (Exception e) {
-            return "사이트 설정중 오류발생"+e.getMessage();
+            return e.getMessage();
         }
     }
 }

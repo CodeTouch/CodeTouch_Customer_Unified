@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class PayHistorySvc {
-    PayHistoryMapper payHistoryMapper;
+    private final PayHistoryMapper payHistoryMapper;
 
     @Autowired
     public PayHistorySvc(PayHistoryMapper payHistoryMapper) {
