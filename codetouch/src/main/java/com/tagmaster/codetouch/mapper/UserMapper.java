@@ -47,6 +47,10 @@ public interface UserMapper {
     List<UserDTO> showAdminUsers(int site_id, String role);
     // 사이트 모든 관리자 출력
 
+    @Select("SELECT email, name, nickname, phone, gender, birth, role, mileage " +
+            "FROM user WHERE site_id = #{site_id} AND role = 'ADMIN,USER' AND email=#{email}")
+    UserDTO showAdminUser(UpdateRoleDTO dto);
+
     @Select("select email from user where site_id=#{site_id}")
     List<String> sendMail( int site_id);
     // 사이트 모든 이용자 메일발송

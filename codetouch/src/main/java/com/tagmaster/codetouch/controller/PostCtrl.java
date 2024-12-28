@@ -22,18 +22,18 @@ public class PostCtrl {
     }
     @ResponseBody
     @PostMapping("/게시글/전체조회")
-    public List<PostDTO> getAllPosts(@ModelAttribute int site_id, @ModelAttribute String type, @ModelAttribute int pageNumber) {
+    public List<PostDTO> getAllPosts(@ModelAttribute int site_id, @ModelAttribute String type, @ModelAttribute int page_number) {
         try{
-            return postSvc.getAllPosts(site_id, type, pageNumber);
+            return postSvc.getAllPosts(site_id, type, page_number);
         } catch (Exception e) {
             throw new BadRequestException(e.getMessage()+"");
         }
     }
     @ResponseBody
     @PostMapping("/게시글/조회")
-    public List<PostDTO> readPost(@ModelAttribute PostSearchDTO dto, @ModelAttribute int pageNumber) {
+    public List<PostDTO> readPost(@ModelAttribute PostSearchDTO dto, @ModelAttribute int page_number) {
         try{
-            return postSvc.getPostsByKeyword(dto, pageNumber);
+            return postSvc.getPostsByKeyword(dto, page_number);
         } catch (Exception e) {
             throw new BadRequestException(e.getMessage()+"");
         }

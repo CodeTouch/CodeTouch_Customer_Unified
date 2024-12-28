@@ -42,17 +42,6 @@ public class UserCtrl {
             throw new BadRequestException("");
         }
     }
-//
-//    // 관리자 정보 수정
-//    @PostMapping("/관리자/수정")
-//    @ResponseBody
-//    public String updateAdmin(@ModelAttribute UserDTO userDTO) {
-//        try {
-//            return userSvc.updateAdmin(userDTO);
-//        }catch (Exception e) {
-//            throw new BadRequestException("");
-//        }
-//    }
 
     // 사이트 모든 이용자 출력
     @GetMapping("/회원리스트/{site_id}")
@@ -74,6 +63,15 @@ public class UserCtrl {
             throw new BadRequestException("");
         }
     }
+    @PostMapping("/관리자")
+    @ResponseBody
+    public UserDTO getAdminUser(@ModelAttribute UpdateRoleDTO dto) {
+        try{
+            return userSvc.showAdminUser(dto);
+        } catch (Exception e) {
+            throw new BadRequestException("");
+        }
+    }
 
     // 회원 탈퇴
 //    @PostMapping("/회원/삭제")
@@ -87,8 +85,8 @@ public class UserCtrl {
 //    }
 
     // 사이트 이용자 조회
-    @GetMapping("/회원/조회/{site_id}/{email}")
     @ResponseBody
+    @GetMapping("/회원/조회/{site_id}/{email}")
     public UserDTO getUser(
             @ModelAttribute int site_id,
             @ModelAttribute String email) {

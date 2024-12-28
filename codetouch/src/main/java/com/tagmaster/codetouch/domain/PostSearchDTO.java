@@ -8,5 +8,5 @@ import lombok.Setter;
 public class PostSearchDTO {
     private int site_id;
     private String type;
-    private String content;// 추가
+    private String content;
 }

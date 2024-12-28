@@ -2,6 +2,7 @@ package com.tagmaster.codetouch.service;
 
 import com.tagmaster.codetouch.domain.PostDeleteDTO;
 import com.tagmaster.codetouch.domain.PostSearchDTO;
+import com.tagmaster.codetouch.domain.UserDTO;
 import com.tagmaster.codetouch.mapper.PayHistoryMapper;
 import com.tagmaster.codetouch.domain.PostDTO;
 import com.tagmaster.codetouch.mapper.PostMapper;
@@ -31,29 +32,17 @@ public class PostSvc {
 
     }
     // 게시글 생성
-    public String savePost(PostDTO dto) {
-        try {
-            String contentJson = Util.objectToJson(dto.getContent());
-            dto.setContent(contentJson);
-            postMapper.insertPost(dto);
-            return "저장성공";
-        } catch (Exception e) {
-            return "저장 실패: " + e.getMessage();
-        }
-    }
-
-    // 게시글 수정
-    public String updatePost(PostDTO dto) {
-        try {
-            String contentJson = Util.objectToJson(dto.getContent());
-            dto.setContent(contentJson);
-            postMapper.updatePost(dto);
-            return "수정 성공";
-        } catch (Exception e) {
-            return "수정 실패: " + e.getMessage();
-        }
-    }
-
+//    public String savePost(PostDTO dto) {
+//        try {
+//            String contentJson = Util.objectToJson(dto.getContent());
+//            dto.setContent(contentJson);
+//            postMapper.insertPost(dto);
+//            return "저장성공";
+//        } catch (Exception e) {
+//            return "저장 실패: " + e.getMessage();
+//        }
+//    }
+//
     // 게시글 제제
     public String deletePost(PostDeleteDTO dto) {
         if(postMapper.deletePostById(dto)>0){
@@ -69,7 +58,7 @@ public class PostSvc {
     public List<PostDTO> getAllPosts(int site_id, String type, int pageNumber){
         try{
                 int offset= (pageNumber-1) * 5; //1페이지당 5개씩 불러오기
-                return postMapper.getAllPosts(site_id,5,offset);
+                return postMapper.getAllPosts(site_id,type, 5,offset);
         } catch (Exception e) {
             System.out.println("불러오기 실패"+e.getMessage());
             return null;
@@ -89,24 +78,24 @@ public class PostSvc {
     }
 
     // 게시글 ID로 조회
-    public PostDTO getPostById(int postId) {
-        try {
-            PostDTO post = postMapper.getPostById(postId);
-            return post;
-        } catch (Exception e) {
-            System.out.println("조회 실패");
-            return null;
-        }
-    }
+//    public PostDTO getPostById(int postId) {
+//        try {
+//            PostDTO post = postMapper.getPostById(postId);
+//            return post;
+//        } catch (Exception e) {
+//            System.out.println("조회 실패");
+//            return null;
+//        }
+//    }
 
     // 유저 ID로 게시글 조회
-    public List<PostDTO> getPostByUserId(int userId) {
-        try {
-            List<PostDTO> posts = postMapper.getPostsByUserId(userId);
-            return posts;
-        } catch (Exception e) {
-            System.err.println("조회 실패: " + e.getMessage());
-            return Collections.emptyList();
-        }
-    }
+//    public List<PostDTO> getPostByUserId(int site_id, String type, int user_id) {
+//        try {
+//            List<PostDTO> posts = postMapper.getPostsByUserId(site_id, type, user_id);
+//            return posts;
+//        } catch (Exception e) {
+//            System.err.println("조회 실패: " + e.getMessage());
+//            return Collections.emptyList();
+//        }
+//    }
 }

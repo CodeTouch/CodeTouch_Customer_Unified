@@ -24,7 +24,7 @@ public class ReviewSvc {
     }
 
     public String reviewCreate(ProductReviewCreateDTO productReviewCreateDTO) {
-        PayHistoryDTO payHistoryDTO = payHistoryMapper.getPayHistoryBySiteIdAndPdIdAndUserId(productReviewCreateDTO.getSite_id(), productReviewCreateDTO.getPd_id(), productReviewCreateDTO.getUser_id());
+        PayHistoryFullDTO payHistoryDTO = payHistoryMapper.getPayHistoryBySiteIdAndPdIdAndUserId(productReviewCreateDTO.getSite_id(), productReviewCreateDTO.getUser_id());
         ReceiptDTO receipts = productMapper.getPayHistoryDetails(payHistoryDTO.getSite_id(), payHistoryDTO.getPay_id());
         ReviewDTO reviewDTO = new ReviewDTO();
         reviewDTO.setPd_id(receipts.getPd_id());
