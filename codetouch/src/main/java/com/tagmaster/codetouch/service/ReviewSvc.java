@@ -55,7 +55,7 @@ public class ReviewSvc {
     }
 
     public List<PayHistoryDetailsDTO> searchProductReview(ProductReviewSearchDTO dto) {
-        return postMapper.getPostsByKeyword(dto);
+        return postMapper.getReviewByKeyword(dto);
     }
 
     public String deleteProductReview(ProductReviewDeleteDTO dto) {

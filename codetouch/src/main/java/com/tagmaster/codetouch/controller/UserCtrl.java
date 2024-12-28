@@ -30,17 +30,17 @@ public class UserCtrl {
 //        }
 //    }
 
-    // 사용자 정보 수정
-    @PostMapping("/회원/수정")
-    @ResponseBody
-    public String updateUser(@ModelAttribute AdminUpdateDTO dto) {
-        try {
-            return userSvc.updateUser(dto);
-
-        } catch (Exception e) {
-            throw new BadRequestException("");
-        }
-    }
+//    // 사용자 정보 수정
+//    @PostMapping("/회원/수정")
+//    @ResponseBody
+//    public String updateUser(@ModelAttribute AdminUpdateDTO dto) {
+//        try {
+//            return userSvc.updateUser(dto);
+//
+//        } catch (Exception e) {
+//            throw new BadRequestException("");
+//        }
+//    }
 
     // 권한 수정
     @PostMapping("/회원/권한수정")

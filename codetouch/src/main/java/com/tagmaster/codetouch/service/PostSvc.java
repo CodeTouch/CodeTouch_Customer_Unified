@@ -103,15 +103,7 @@ public class PostSvc {
             System.err.println("조회 실패: " + e.getMessage());
             return Collections.emptyList();
         }
-    // 키워드로 게시글 조회
-    public List<PostDTO> getPostsByKeyword(int site_id, String keyword) {
-        try {
-            List<PostDTO> posts = postMapper.getPostsByKeyword(site_id, keyword);
-            return Util.checkNull(posts);
-        } catch (Exception e) {
-            System.err.println("조회 실패: " + e.getMessage());
-            return Collections.emptyList();
-        }
+
     }
 
 }
