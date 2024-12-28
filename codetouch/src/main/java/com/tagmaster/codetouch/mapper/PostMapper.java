@@ -1,8 +1,9 @@
 package com.tagmaster.codetouch.mapper;
 
-import com.tagmaster.codetouch.domain.PostDTO;
+import com.tagmaster.codetouch.domain.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.data.domain.Page;
+
 
 import java.awt.print.Pageable;
 import java.util.List;
@@ -80,8 +81,8 @@ public interface PostMapper {
     List<PayHistoryDetailsDTO> getPostsBySiteIdAndTypeAndPdId(ProductReviewReadDTO dto);
 
     //유저 아이디로 게시글 찾기
-    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE user_id=#{user_id}")
-   List<PostDTO> getPostsByUserId(int user_id);
+//    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE user_id=#{user_id}")
+//   List<PostDTO> getPostsByUserId(int user_id);
 
     //상품 아이디로 게시글 찾기
     @Select("SELECT pd_id, content, image, rating FROM post WHERE pd_id=#{pd_id} and type='문의'")
@@ -92,8 +93,8 @@ public interface PostMapper {
             "WHERE site_id = #{site_id} AND type = '문의' AND content LIKE CONCAT('%', #{content}, '%')")
     List<PostDTO> getPostsByKeyword(int site_id,String type,String content,int limit , int offset);
   
-    @Select("SELECT pd_id, user_id, type, content, image, rating, create_at FROM post WHERE site_id=#{site_id} AND type='후기' AND content LIKE CONCAT ('%', #{content}, '%')")
-    List<PayHistoryDetailsDTO> getPostsByKeyword(ProductReviewSearchDTO dto);
+    //@Select("SELECT pd_id, user_id, type, content, image, rating, create_at FROM post WHERE site_id=#{site_id} AND type='후기' AND content LIKE CONCAT ('%', #{content}, '%')")
+    List<PayHistoryDetailsDTO> getReviewByKeyword(ProductReviewSearchDTO dto);
 
     //별점 높은 순으로 게시글 가져오기
     @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE pd_id=#{pd_id} ORDER BY rating DESC")

@@ -24,15 +24,15 @@ public class ProductCtrl {
         this.postSvc = postSvc;
         this.reviewSvc = reviewSvc;
     }
-    @ResponseBody
-    @PostMapping("/상품/등록")
-    public String saveProduct(@ModelAttribute RegisterProductDTO registerProductDTO) {
-        try {
-            return productSvc.saveProduct(registerProductDTO);
-        } catch (Exception e) {
-            throw new BadRequestException(e.getMessage());
-        }
-    }
+//    @ResponseBody
+//    @PostMapping("/상품/등록")
+//    public String saveProduct(@ModelAttribute RegisterProductDTO registerProductDTO) {
+//        try {
+//            return productSvc.saveProduct(registerProductDTO);
+//        } catch (Exception e) {
+//            throw new BadRequestException(e.getMessage());
+//        }
+//    }
     @ResponseBody
     @PostMapping("/상품리스트/조회")
     public List<ProductDTO> readProduct(@ModelAttribute int site_id) {
