@@ -32,7 +32,6 @@ public class DesignCtrl {
     public DesignEditDBDTO designReadCtrl(@PathVariable int site_id){
         try {
             DesignEditDBDTO test = designEditSvc.readDesign(site_id);
-
             return test;
         } catch (Exception e) {
             return null;

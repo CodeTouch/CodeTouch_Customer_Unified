@@ -14,5 +14,11 @@ public interface DesignEditMapper {
 
     @Select("select * from design where site_id=#{site_id}")
     DesignEditDBDTO readDesign(int site_id);
+
+    @Update("update design set header=#{header}, page=#{page}, footer=#{footer} where site_id=#{site_id}")
+    int updateDesign(DesignEditDBDTO dto);
+
+    @Select("select site_id from design where site_id=#{site_id}")
+    Integer checkSiteId(int site_id);
 }
 

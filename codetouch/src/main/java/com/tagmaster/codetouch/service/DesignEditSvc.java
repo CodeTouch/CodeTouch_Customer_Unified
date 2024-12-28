@@ -43,4 +43,17 @@ public class DesignEditSvc {
             throw new RuntimeException(e);
         }
     }
+    public DesignEditDTO updateDesign(DesignEditDTO dto){
+        try {
+
+            Integer checkSiteId = designEditMapper.checkSiteId(dto.getSite_id());
+            if(checkSiteId != null){
+                DesignEditDBDTO result = new DesignEditDBDTO();
+                result.setHeader(dto.getHeader());
+                result.setPage(dto.getPage().toString());
+                result.setFooter(dto.getFooter());
+                designEditMapper.updateDesign(result);
+            }
+        }
+    }
 }
