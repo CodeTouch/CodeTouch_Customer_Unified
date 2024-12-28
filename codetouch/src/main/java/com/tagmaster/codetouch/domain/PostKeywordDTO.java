@@ -5,7 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DeleteProductDTO {
-    private int site_id;
-    private int pd_id;
+public class PostKeywordDTO {
+    int site_id;
+    String type;
+    String content;
 }

@@ -26,7 +26,7 @@ public class UserDTO {
     private String address;
     private String role;
     private int mileage;
-// private int agree;
-// private int business_num;
-// private int report_num;
+    private int agree;
+    private int business_num;
+    private int report_num;
 }

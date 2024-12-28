@@ -24,7 +24,7 @@ public class ReviewSvc {
     }
 
     public String reviewCreate(ProductReviewCreateDTO productReviewCreateDTO) {
-        PayHistoryDTO payHistoryDTO = payHistoryMapper.getPayHistoryBySiteIdAndPdIdAndUserId(productReviewCreateDTO.getSite_id(), productReviewCreateDTO.getPd_id(), productReviewCreateDTO.getUser_id());
+        PayHistoryFullDTO payHistoryDTO = payHistoryMapper.getPayHistoryBySiteIdAndPdIdAndUserId(productReviewCreateDTO.getSite_id(), productReviewCreateDTO.getUser_id());
         ReceiptDTO receipts = productMapper.getPayHistoryDetails(payHistoryDTO.getSite_id(), payHistoryDTO.getPay_id());
         ReviewDTO reviewDTO = new ReviewDTO();
         reviewDTO.setPd_id(receipts.getPd_id());
@@ -54,12 +54,12 @@ public class ReviewSvc {
         return postMapper.getPostsBySiteIdAndTypeAndPdId(dto);
     }
 
-    public List<PayHistoryDetailsDTO> searchProductReview(ProductReviewSearchDTO dto) {
+    public List<PayHistoryDetailsDTO> searchProductReview(PostSearchDTO dto) {
         return postMapper.getReviewByKeyword(dto);
     }
 
-    public String deleteProductReview(ProductReviewDeleteDTO dto) {
-        if (postMapper.deleteReviewById(dto) > 0) {
+    public String deleteProductReview(PostDeleteDTO dto) {
+        if (postMapper.deletePostById(dto) > 0) {
             return "삭제에 성공하였습니다.";
         }
         return "실패하였습니다.";

@@ -2,9 +2,6 @@ package com.tagmaster.codetouch.mapper;
 
 import com.tagmaster.codetouch.domain.*;
 import org.apache.ibatis.annotations.*;
-import org.springframework.data.domain.Page;
-
-
 import java.awt.print.Pageable;
 import java.util.List;
 
@@ -12,31 +9,23 @@ import java.util.List;
 public interface PostMapper {
     //생성
 
-    @Insert("INSERT INTO post (pd_id, user_id, title, type, content, image, rating, created_at) VALUES (#{pd_id}, #{user_id}, #{title}, #{type}, #{content}, #{image}, #{rating}, #{created_at})")
+    @Insert("INSERT INTO post (pd_id, user_id, title, type, content, image, rating) VALUES (#{pd_id}, #{user_id}, #{title}, #{type}, #{content}, #{image}, #{rating})")
     int insertPost(PostDTO dto);
 
-    //수정
-    @Update("UPDATE post SET pd_id=#{pd_id}, type=#{type}, content=#{content}, image=#{image}, rating=#{rating} WHERE post_id=#{post_id}")
-    int updatePost(PostDTO dto);
-
-
     //게시글 아이디로 게시글 찾기
-    @Select("SELECT pd_id, user_id, type, content, image, rating FROM post WHERE post_id=#{post_id} and type='문의'")
+    @Select("SELECT u.email AS email, p.content, p.image, p.rating FROM post p JOIN user u on u.user_id = p.user_id WHERE p.post_id=#{post_id} and p.type='문의'")
     PostDTO getPostById(int post_id);
-    
+
     //삭제
-    @Delete("DELETE FROM post WHERE site_id=#{site_id} AND type='후기' And post_id=#{post_id}")
-    int deletePostById(int site_id, int post_id);
+    @Delete("DELETE FROM post WHERE site_id=#{site_id} AND type=#{type} AND post_id=#{post_id}")
+    int deletePostById(PostDeleteDTO dto);
 
-    //사이트 아이디로 전체 게시글들 찾기
-    @Select("SELECT pd_id, user_id, type, title, content, image, rating " +
-            "FROM post WHERE site_id=#{site_id} and type='문의'" +
-            "ORDER BY created_at DESC LIMIT #{limit} OFFSET #{offset}")
-    List<PostDTO> getAllPosts(int site_id, int limit, int offset );
+    //사이트 아이디로 전체 게시글들 찾기 - 수정 필요 (user email 찾아야함...) 완
+    @Select("SELECT u.email, p.title, p.content, p.create_at " +
+            "FROM post p JOIN user u ON p.user_id = u.user_id WHERE p.site_id=#{site_id} and p.type='문의'" +
+            "ORDER BY create_at DESC LIMIT #{limit} OFFSET #{offset}")
+    List<PostDTO> getAllPosts(int site_id, String type, int limit, int offset );
 
-    //유저 아이디로 게시글 찾기
-    @Select("SELECT pd_id, content, image, rating FROM post WHERE user_id=#{user_id} and type='문의'")
-     List<PostDTO> getPostsByUserId(int user_id);
 
     @Select("SELECT p.pd_id, p.user_id, p.type, p.content, p.image, p.rating, p.create_at, " +
             "       pd.name AS product_name, u.email AS user_email " +
@@ -81,33 +70,30 @@ public interface PostMapper {
     List<PayHistoryDetailsDTO> getPostsBySiteIdAndTypeAndPdId(ProductReviewReadDTO dto);
 
     //유저 아이디로 게시글 찾기
-//    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE user_id=#{user_id}")
-//   List<PostDTO> getPostsByUserId(int user_id);
+//    @Select("SELECT u.email, p.content, p.image, p.title, p.rating, p.create_at FROM post p JOIN user u ON u.user_id = p.user_Id WHERE p.site_id=#{site_id} AND type='문의' AND p.user_id=#{user_id}")
+//   List<PostDTO> getPostsByUserId(int site_id, String type, int user_id);
 
     //상품 아이디로 게시글 찾기
     @Select("SELECT pd_id, content, image, rating FROM post WHERE pd_id=#{pd_id} and type='문의'")
-    List<PostDTO> getPostsByProductId(int pd_id);
+    List<PostDTO> getPostsByProductId(int pd_id, String type);
 
     //내용에 키워드로 검색해 찾기
-    @Select("SELECT title, content, image, create_at FROM post " +
-            "WHERE site_id = #{site_id} AND type = '문의' AND content LIKE CONCAT('%', #{content}, '%')")
-    List<PostDTO> getPostsByKeyword(int site_id,String type,String content,int limit , int offset);
+    @Select("SELECT u.email, title, content, image, create_at FROM post p JOIN user u ON p.user_id=u.user_id " +
+            "WHERE p.site_id = #{site_id} AND p.type = '문의' AND content LIKE CONCAT('%', #{content}, '%')")
+    List<PostDTO> getPostsByKeyword(PostSearchDTO dto, int limit , int offset);
   
-    //@Select("SELECT pd_id, user_id, type, content, image, rating, create_at FROM post WHERE site_id=#{site_id} AND type='후기' AND content LIKE CONCAT ('%', #{content}, '%')")
-    List<PayHistoryDetailsDTO> getReviewByKeyword(ProductReviewSearchDTO dto);
-
+    @Select("SELECT pd_id, user_id, type, content, image, rating, create_at FROM post WHERE site_id=#{site_id} AND type='후기' AND content LIKE CONCAT ('%', #{content}, '%')")
+    List<PayHistoryDetailsDTO> getReviewByKeyword(PostSearchDTO dto);
     //별점 높은 순으로 게시글 가져오기
-    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE pd_id=#{pd_id} ORDER BY rating DESC")
-    List<PostDTO> getPostsByHighRated(int pd_id);
-
+//    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE pd_id=#{pd_id} ORDER BY rating DESC")
+//    List<PostDTO> getPostsByHighRated(int pd_id);
+//
     //별점 낮은 순으로 게시글 가져오기
-    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE pd_id=#{pd_id} ORDER BY rating ASC")
-    List<PostDTO> getPostsByLowRated(int pd_id);
+//    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE pd_id=#{pd_id} ORDER BY rating ASC")
+//    List<PostDTO> getPostsByLowRated(int pd_id);
 
 //    @Insert("INSERT INTO post (pd_id, site_id, user_id, type, content, image, rating, create_at) VALUES (#{pd_id}, #{site_id}, #{user_id}, #{type}, #{content}, #{image}, #{rating}, now())")
 //    int insertReview(ReviewDTO reviewDTO);
-    @Delete("DELETE FROM post WHERE site_id=#{site_id} AND type='후기' AND post_id=#{post_id}")
-    int deleteReviewById(ProductReviewDeleteDTO dto);
 
 //join 으로 이메일 뽑아오기 //todo
 
