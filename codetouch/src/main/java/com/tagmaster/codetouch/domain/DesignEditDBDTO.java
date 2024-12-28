@@ -6,8 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DesignEditDBDTO {
-    private int design_id;
-    private int site_id;
+    private int siteId;
     private String header;
     private String page;
     private String footer;

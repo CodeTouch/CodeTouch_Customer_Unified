@@ -3,6 +3,7 @@ package com.tagmaster.codetouch.controller;
 
 import com.tagmaster.codetouch.domain.DesignEditDBDTO;
 import com.tagmaster.codetouch.domain.DesignEditDTO;
+import com.tagmaster.codetouch.domain.DesignPostDTO;
 import com.tagmaster.codetouch.exception.BadRequestException;
 import com.tagmaster.codetouch.service.DesignEditSvc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class DesignCtrl {
     public void designEditCtrl(@RequestBody DesignEditDTO dto) {
         System.out.println("테스트용");
         try{
-            designEditSvc.insertDesign(dto);
+            designEditSvc.updateDesign(dto);
         } catch (Exception e) {
-            throw new BadRequestException("");
+            throw new BadRequestException("디자인 저장/업데이트 실패:"+e.getMessage());
         }
     }
 
@@ -39,4 +40,12 @@ public class DesignCtrl {
         }
     }
 
+    @PostMapping("/페이지게시")
+    public void postDesignCtrl(@RequestBody int site_id){
+        try{
+            designEditSvc.insertPostDesign(site_id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
