@@ -1,9 +1,6 @@
 package com.tagmaster.codetouch.service;
 
-import com.tagmaster.codetouch.domain.DeleteProductDTO;
-import com.tagmaster.codetouch.domain.ProductDTO;
-import com.tagmaster.codetouch.domain.ProductReviewDTO;
-import com.tagmaster.codetouch.domain.SalesDTO;
+import com.tagmaster.codetouch.domain.*;
 import com.tagmaster.codetouch.mapper.ProductMapper;
 import com.tagmaster.codetouch.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +28,7 @@ public class ProductSvc {
         }
     }
     // 상품 정보 수정
-    public String updateProduct(ProductDTO dto) {
+    public String updateProduct(UpdateProductDTO dto) {
         try {
             // 상품 설명 JSON 처리
             productMapper.updateProduct(dto);
@@ -42,9 +39,9 @@ public class ProductSvc {
     }
 
     // 상품 삭제 // 수정해라
-    public String deleteProduct(DeleteProductDTO deleteProductDTO) {
+    public String deleteProduct(UseProductDTO dto) {
         try {
-            productMapper.deleteProduct(deleteProductDTO);
+            productMapper.deleteProduct(dto);
             return "삭제 성공";
         } catch (Exception e) {
             return "삭제 실패 " + e.getMessage();
@@ -63,7 +60,7 @@ public class ProductSvc {
     }
 
     // 키워드로 상품 검색
-    public List<ProductDTO> findByKeyword(String name) {
+    public List<ProductDTO> findProductByKeyword(String name) {
         try {
             return productMapper.findProductByKeyword(name);
         } catch (Exception e) {
@@ -72,16 +69,16 @@ public class ProductSvc {
         }
     }
 
-    public ProductDTO readByCategory(String category) {
+    public ProductDTO readByCategory(CategoryDTO categoryDTO) {
         try {
-            return productMapper.findProductSettingByCategory(category);
+            return productMapper.findProductSettingByCategory(categoryDTO);
         } catch (Exception e) {
             System.err.println("조회 실패: " + e.getMessage());
             return null;
         }
     }
-    public List<ProductDTO> readProducts(int site_id) {
-        return productMapper.findAllById(site_id);
+    public List<ProductDTO> readProducts(UseProductDTO useProductDTO) {
+        return productMapper.findAllById(useProductDTO);
     }
 
     public String setSales(SalesDTO salesDTO){

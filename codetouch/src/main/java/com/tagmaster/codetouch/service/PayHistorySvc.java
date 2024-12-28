@@ -27,31 +27,38 @@ public class PayHistorySvc {
         }
     }
 
-    // 결제 내역 수정
-    public String updatePay(PayHistoryDTO dto) {
-        try {
-            int updated = payHistoryMapper.updatePayHistory(dto);
-            return updated > 0 ? "결제 내역 수정 성공" : "결제 내역 수정 실패";
-        } catch (Exception e) {
-            return "결제 내역 수정 실패: " + e.getMessage();
-        }
+    public PayHistoryDTO readPay(int site_id, int user_id, int pay_id){
+        return payHistoryMapper.getPayHistory(site_id, user_id, pay_id);
+    }
+    public List<PayHistoryDTO> readPayList(int site_id, int user_id){
+        return payHistoryMapper.getPayHistoryList(site_id, user_id);
     }
 
+
+    // 결제 내역 수정
+//    public String updatePay(PayHistoryDTO dto) {
+//        try {
+//            int updated = payHistoryMapper.updatePayHistory(dto);
+//            return updated > 0 ? "결제 내역 수정 성공" : "결제 내역 수정 실패";
+//        } catch (Exception e) {
+//            return "결제 내역 수정 실패: " + e.getMessage();
+//        }
+//    }
+
     // 결제 내역 삭제
-    public String deletePay(int pay_id) {
-        try {
-            PayHistoryDTO payResult = payHistoryMapper.getPayHistory(pay_id);
-            if (payResult != null) {
-                payHistoryMapper.deletePayHistory(pay_id);
-                return "결제 내역 삭제 성공";
-            } else {
-                return "결제 내역 삭제 실패";
-            }
-        } catch (Exception e) {
-            return "결제 내역 삭제 에러: " + e.getMessage();
-        }
-    }
-//
+//    public String deletePay(int pay_id) {
+//        try {
+//            PayHistoryDTO payResult = payHistoryMapper.getPayHistory(pay_id);
+//            if (payResult != null) {
+//                payHistoryMapper.deletePayHistory(pay_id);
+//                return "결제 내역 삭제 성공";
+//            } else {
+//                return "결제 내역 삭제 실패";
+//            }
+//        } catch (Exception e) {
+//            return "결제 내역 삭제 에러: " + e.getMessage();
+//        }
+//    }
 //    // 특정 장바구니의 결제 내역 가져오기
 //    public PayHistoryDTO getPayByCartId(int cartId) {
 //        try {

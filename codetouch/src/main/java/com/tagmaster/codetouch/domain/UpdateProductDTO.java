@@ -1,17 +1,13 @@
 package com.tagmaster.codetouch.domain;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-@Data
-@Getter
+
 @Setter
-@NoArgsConstructor
-public class ProductDTO {
-    private int site_id;
+@Getter
+public class UpdateProductDTO {
     private String name;
     private String category;
     private Integer price;

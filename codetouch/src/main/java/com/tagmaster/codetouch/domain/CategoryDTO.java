@@ -3,10 +3,9 @@ package com.tagmaster.codetouch.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
-public class ProductReviewDeleteDTO {
+@Getter
+public class CategoryDTO {
     private int site_id;
-    private String type;
-    private int post_id;
+    private String category;
 }
