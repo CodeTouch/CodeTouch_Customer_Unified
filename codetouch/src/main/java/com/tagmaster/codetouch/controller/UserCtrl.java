@@ -18,8 +18,6 @@ public class UserCtrl {
     public UserCtrl(UserSvc userSvc) {
         this.userSvc = userSvc;
     }
-
-
     // 사용자 정보 수정
     @PostMapping("/회원/수정")
     @ResponseBody

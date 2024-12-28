@@ -2,7 +2,7 @@ package com.tagmaster.codetouch.mapper;
 
 import com.tagmaster.codetouch.domain.*;
 import org.apache.ibatis.annotations.*;
-
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Mapper
@@ -84,7 +84,6 @@ public interface PostMapper {
   
     @Select("SELECT pd_id, user_id, type, content, image, rating, create_at FROM post WHERE site_id=#{site_id} AND type='후기' AND content LIKE CONCAT ('%', #{content}, '%')")
     List<PayHistoryDetailsDTO> getReviewByKeyword(PostSearchDTO dto);
-
     //별점 높은 순으로 게시글 가져오기
 //    @Select("SELECT pd_id, user_id, type, content, image, title, rating, pd_image, create_at FROM post WHERE pd_id=#{pd_id} ORDER BY rating DESC")
 //    List<PostDTO> getPostsByHighRated(int pd_id);

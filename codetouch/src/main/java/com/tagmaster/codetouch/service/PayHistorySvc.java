@@ -59,7 +59,6 @@ public class PayHistorySvc {
 //            return "결제 내역 삭제 에러: " + e.getMessage();
 //        }
 //    }
-
 //    // 특정 장바구니의 결제 내역 가져오기
 //    public PayHistoryDTO getPayByCartId(int cartId) {
 //        try {

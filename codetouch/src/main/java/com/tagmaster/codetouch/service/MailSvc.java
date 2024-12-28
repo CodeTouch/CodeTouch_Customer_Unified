@@ -33,7 +33,6 @@ public class MailSvc {
                 // 실제 메일 발송 로직 추가
             }
 
-
             dto.setSend_at(LocalDateTime.now());
             return "단체 메일 발송 완료";
         } catch (Exception e) {
