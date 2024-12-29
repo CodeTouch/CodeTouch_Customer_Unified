@@ -50,15 +50,8 @@ public class DesignCtrl {
         }
     }
 
-    @GetMapping("/잘모르겠어요")
-    public String htmlCtrl (String url, Model model){
-        try{
-
-            //게시된 페이지를 보여주기 -> read posted
-            //url 사이트에 있는지 없는지 -> check  => if else : 그냥 조회인가?
-            return "html 이름";
-        } catch (Exception e) {
-            return "실패"+e.getMessage();
-        }
+    @GetMapping("/사이트편집")
+    public String htmlCtrl (){
+        return "editSite";
     }
 }

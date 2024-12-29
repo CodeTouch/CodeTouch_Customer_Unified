@@ -1,5 +1,5 @@
-const URL_TO_CUSTOMER = "http://192.168.5.72:9999"
-//const URL_TO_CUSTOMER = "http://localhost:9999"
+//const URL_TO_CUSTOMER = "http://192.168.5.72:9999"
+const URL_TO_CUSTOMER = "http://localhost:9999"
 const URL_TO_COMPANY = "http://192.168.5.15:8888"
 // 기본 패치 함수 정의
 async function fetchRequest(url, options = {}) {

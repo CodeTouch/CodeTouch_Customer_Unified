@@ -1,6 +1,6 @@
-import {fetchGet, fetchPost} from "../Fetch/FetchServer.js";
-import {cloneBodyChild, initialize} from "./headerSettingInitialize.js";
-import {setSite} from "../Manager/pageManager.js";
+import {fetchGet, fetchPost} from "/JS/Fetch/FetchServer.js";
+import {cloneBodyChild, initialize} from '/JS/Init/headerSettingInitialize.js';
+import {setSite} from "/JS/Manager/pageManager.js";
 
 window.isSetting = true;
 
