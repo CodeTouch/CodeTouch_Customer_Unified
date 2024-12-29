@@ -1,0 +1,23 @@
+.offcanvas-bottom {
+    height: 40% !important; /* Offcanvas 높이 */
+    transition: transform 0.5s ease; /* 슬라이드 애니메이션 */
+    z-index: 1; /* 슬라이드가 다른 요소 위로 올라오게 설정 */
+    position: fixed; /* 화면에 고정 */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* width: 90%; */
+    background-color: #FCF5FD;
+  }
+
+  .sync-btn {
+    position: fixed; /* 화면에 고정 */
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px; /* 초기 버튼 위치 (화면 하단) */
+    z-index: 2; /* 버튼이 슬라이드 위로 보이게 설정 */
+    transition: bottom 0.5s ease; /* 버튼 이동 애니메이션 */
+  }
+
+ 
+

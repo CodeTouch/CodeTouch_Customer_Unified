@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>편집 페이지</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/CSS/allStyle.css">
+    <link rel="stylesheet" href="../static/CSS/headerSetting.css">
+
+<style>
+    a {
+        text-decoration: none; /* 밑줄 제거 */
+        color: inherit; /* 부모 요소의 색상 상속 */
+        display: inline-block; /* 블록 레벨 요소와 유사하게 작동 */
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Nanum Gothic', sans-serif;
+        height: 100%;
+        overflow-x: hidden; /* 좌우 스크롤 방지 */
+        flex-direction: column;
+        display: flex;
+    }
+
+    .setting-btn {
+        display: block;
+        width: 50px;
+        height: 20px;
+        background-color: #E9D1F3; /* 버튼 배경색 */
+        color: white; /* 텍스트 색상 */
+        border: none; /* 테두리 제거 */
+        border-radius: 5px; /* 모서리 둥글게 */
+        font-size: 8px; /* 글자 크기 */
+        font-weight: bold; /* 글자 굵게 */
+        cursor: pointer; /* 마우스 올릴 때 포인터로 변경 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+        transition: background-color 0.3s, transform 0.2s; /* 배경색 및 크기 변화 애니메이션 */
+        z-index: 999; /* 버튼이 위로 나타나도록 설정 */
+    }
+
+    .setting-btn:hover {
+        background-color: #C181DA; /* 호버 시 배경색 */
+        transform: scale(1.05); /* 호버 시 크기 증가 */
+    }
+
+    .round-button {
+        width: 50px;
+        height: 50px;
+        border: none;
+        border-radius: 50%;
+        background-color: #E9D1F3;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .round-button:hover {
+        background-color: #C181DA;
+        transform: scale(1.1);
+    }
+
+    .round-button:focus {
+        outline: none; /* 클릭 시 외곽선 제거 */
+    }
+
+    .wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column; /* 자식 요소 수직 배치 */
+        box-sizing: border-box;
+        overflow: visible; /* 내부 스크롤 제거 */
+        height: auto; /* 자식 요소에 따라 높이 자동 조정 */
+    }
+
+</style>
+</head>
+<body id="body">
+<div id="top_button" style="display: flex; justify-content: flex-end;">
+    <button id="postSiteButton" class="setting-btn">게시</button>
+    <button id="headerSettingButton" class="setting-btn">셋팅</button>
+    <button id="allSaveButton" class="setting-btn">저장</button>
+</div>
+
+<header id="header"></header>
+<div id="wrapper" class="wrapper">
+    <div id="main-page" class="section-wrapper" style="width: 100%; display: flex; flex-direction: column;">
+        <section class="section" id="section1">
+            <button class="section-setting-btn setting-btn">셋팅</button>
+            <button class="section-setting-end-btn setting-btn" style="display: none">저장</button>
+        </section>
+    </div>
+</div>
+<div class="addSectionButtonWrapper" style="display: flex; justify-content: center; align-items: center; height: 100px;">
+    <button id="addSectionButton" class="round-button">
+        +
+    </button>
+</div>
+
+<div id="setting" class="setting"></div>
+<footer id="footer" style="padding-bottom: 200px">풋터 확인용</footer>
+
+</body>
+
+<script type="module">
+    import {InitEditSite} from "../static/JS/Init/EditSiteInitialize.js";
+
+    InitEditSite();
+</script>
+<script src="../static/JS/Manager/sectionManager.js"></script>
+<script src="../static/JS/Fetch/fetchHTML.js"></script> <!-- html 불러오는 함수 -->
+<script src="../static/JS/widget/slideBottom.js"></script> <!-- 슬라이드 동작 함수 -->
+<script src="../static/JS/widget/widget_template.js"></script> <!-- 위젯/템플릿 페이징 -->
+<script src="../static/JS/widget/widget_setting.js"></script> <!-- 위젯 동작 함수 -->
+<script src="../static/JS/widget/settings_container.js"></script><!-- 기본 설정창 작동 함수-->
+<script>
+    //위젯이 필요한 곳에 무조건 작성해야함
+    fetchHTMLtoBody('./slideBottom.html', slideBottom,function() {initializeWidgetSettings('set-widget');});
+    //section 진입 시 setting창 불러오는 함수
+    fetchHTMLtoSetting('./basic_setting.html', function() {settingElements('set-widget');});
+    // HTML이 로드된 후 settingElements를 호출
+</script>
+<script src="../static/JS/widget/scrollBar.js"></script> <!-- 제일 하단에 존재 해야함 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</html>
