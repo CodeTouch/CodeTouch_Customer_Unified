@@ -30,7 +30,7 @@ public class DesignEditSvc {
             ObjectMapper objectMapper = new ObjectMapper();
             String pageJson = objectMapper.writeValueAsString(dto.getPage());
             DesignEditDBDTO insertDB = new DesignEditDBDTO();
-            insertDB.setSiteId(dto.getSite_id());
+            insertDB.setSite_id(dto.getSite_id());
             insertDB.setPage(pageJson);
             insertDB.setHeader(dto.getHeader());
             insertDB.setFooter(dto.getFooter());
@@ -58,7 +58,7 @@ public class DesignEditSvc {
             String pageJson = objectMapper.writeValueAsString(dto.getPage());
 
             DesignEditDBDTO result = new DesignEditDBDTO();
-            result.setSiteId(dto.getSite_id());
+            result.setSite_id(dto.getSite_id());
             result.setPage(pageJson);
             result.setHeader(dto.getHeader());
             result.setFooter(dto.getFooter());
@@ -82,7 +82,7 @@ public class DesignEditSvc {
             DesignEditDBDTO getDesign = designEditMapper.readDesign(site_id);
 
             DesignPostDTO result = new DesignPostDTO();
-            result.setSite_id(getDesign.getSiteId());
+            result.setSite_id(getDesign.getSite_id());
             result.setPage(getDesign.getPage());
             result.setHeader(getDesign.getHeader());
             result.setFooter(getDesign.getFooter());
@@ -95,5 +95,20 @@ public class DesignEditSvc {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+
+    // public String readPostDesign (String url){
+    // url 사이트 테이블에 있는지 없는지
+    // 있으면 게시된 페이지 보여주고
+    // 없으면 ???
+    // 게시된거니까 게시DTO겠지?
+    // designPostMapper.checkPostSiteId()
+    // return  null;
+    //}
+
+    public DesignPostDTO readDesignPost(int site_id){
+        DesignPostDTO getSite = designPostMapper.readPostDesign(site_id);
+        return getSite;
     }
 }

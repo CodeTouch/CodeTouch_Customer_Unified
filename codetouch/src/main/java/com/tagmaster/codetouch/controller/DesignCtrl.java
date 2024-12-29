@@ -8,6 +8,7 @@ import com.tagmaster.codetouch.exception.BadRequestException;
 import com.tagmaster.codetouch.service.DesignEditSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -46,6 +47,18 @@ public class DesignCtrl {
             designEditSvc.insertPostDesign(site_id);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    @GetMapping("/잘모르겠어요")
+    public String htmlCtrl (String url, Model model){
+        try{
+
+            //게시된 페이지를 보여주기 -> read posted
+            //url 사이트에 있는지 없는지 -> check  => if else : 그냥 조회인가?
+            return "html 이름";
+        } catch (Exception e) {
+            return "실패"+e.getMessage();
         }
     }
 }

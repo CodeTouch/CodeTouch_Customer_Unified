@@ -10,4 +10,7 @@ public interface SiteMapper {
     @Update("Update Site set site_name=#{site_name}, favicon=#{favicon}, main_image=#{main_image}" +
             " WHERE site_id=#{site_id} And user_id=#{user_id}")
     int siteUpdate(SiteUpdateDTO updateDTO);
+
+    @Select("select site_id from site where url=#{url}")
+    int findSiteByUrl(String url);
 }

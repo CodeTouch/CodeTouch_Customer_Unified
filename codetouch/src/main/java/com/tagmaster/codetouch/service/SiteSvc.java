@@ -34,4 +34,12 @@ public class SiteSvc {
             return e.getMessage();
         }
     }
+
+    public int findSite(String url){
+        try{
+            return siteMapper.findSiteByUrl(url);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }
