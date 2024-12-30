@@ -28,7 +28,8 @@ document.getElementById('addSectionButton').addEventListener("click", () => {
 })
 
 document.getElementById('postSiteButton').addEventListener("click", () => {
-    fetchPost("customer", "/고객/페이지게시", 1)
+    fetchPost("customer", "/고객/페이지게시", site_id)
+    window.alert("편집 내용이 게시되었습니다.");
 })
 
 document.getElementById("headerSettingButton").addEventListener("click", () => {
@@ -67,4 +68,5 @@ document.getElementById("allSaveButton").addEventListener("click", () => {
     };
 
     fetchPost("customer", "/고객/디자인저장", siteData);
+    window.alert("편집 내용이 저장되었습니다.");
 })

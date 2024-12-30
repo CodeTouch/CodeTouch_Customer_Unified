@@ -54,11 +54,10 @@ export async function setViewSite(){
 
 export async function setSite(){
     const siteUrl = window.location.pathname.split("/")[3];
-    const data = await fetchGet("customer", `/고객/디자인불러오기/${url}`);
+    const data = await fetchGet("customer", `/고객/디자인불러오기/${siteUrl}`);
 
+    console.log(data)
     site_id = data.site_id;
-    console.log(site_id);
-    console.log(data.site_id);
 
     const wrapper = document.getElementById('wrapper');
 
