@@ -17,7 +17,7 @@ public interface DashboardMapper {
             "FROM pay_history " +
             "WHERE site_id = #{siteId} " +
             "GROUP BY period")
-    Map<String, Integer> getSalesByPeriod(@Param("siteId") int siteId);
+    Map<String, Integer> getSalesByPeriod(@Param("site_id") int site_id);
 
     // 인기 상품 데이터를 가져오는 메서드
     // - 결과: 특정 사이트에서 결제된 상품을 판매 수량 기준으로 내림차순 정렬하여 상위 10개를 반환
@@ -29,5 +29,5 @@ public interface DashboardMapper {
             "GROUP BY pd_id " +
             "ORDER BY sales_count DESC " +
             "LIMIT 10")
-    Map<String, Integer> getPopularProducts(@Param("siteId") int siteId);
+    Map<String, Integer> getPopularProducts(@Param("site_id") int site_id);
 }

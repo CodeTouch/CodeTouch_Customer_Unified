@@ -12,6 +12,7 @@ public class SiteUpdateDTO {
     private String site_name;
     private String favicon;
     private String main_image;
+
 }
 
 

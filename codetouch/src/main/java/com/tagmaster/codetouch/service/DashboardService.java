@@ -33,7 +33,7 @@ public class DashboardService {
 
         // 총 매출 계산
         // - 기간별 매출 데이터를 기준으로 모든 매출 합계를 계산하여 `totalSales`에 저장
-        stats.setTotalSales(stats.getSalesByPeriod().values().stream().mapToInt(Integer::intValue).sum());
+        stats.setTotal_price(stats.getSalesByPeriod().values().stream().mapToInt(Integer::intValue).sum());
 
         return stats; // 최종 통계 데이터를 반환
     }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>편집 페이지</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/CSS/allStyle.css">
+    <link rel="stylesheet" href="/CSS/headerSetting.css">
+    <link rel="stylesheet" href="/CSS/editSite.css">
+
+<style>
+    a {
+        text-decoration: none; /* 밑줄 제거 */
+        color: inherit; /* 부모 요소의 색상 상속 */
+        display: inline-block; /* 블록 레벨 요소와 유사하게 작동 */
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Nanum Gothic', sans-serif;
+        height: 100%;
+        overflow-x: hidden; /* 좌우 스크롤 방지 */
+        flex-direction: column;
+        display: flex;
+    }
+</style>
+</head>
+<body id="body">
+<div id="top_button" style="display: flex; justify-content: flex-end;">
+    <button id="headerSettingButton" class="setting-btn">셋팅</button>
+    <button id="postSiteButton" class="setting-btn">게시</button>
+    <button id="allSaveButton" class="setting-btn">저장</button>
+</div>
+
+<header id="header"></header>
+<div id="wrapper" class="wrapper">
+    <div id="main-page" class="section-wrapper" style="width: 100%; display: flex; flex-direction: column;">
+        <section class="section" id="section1">
+            <button class="section-setting-btn setting-btn">셋팅</button>
+            <button class="section-setting-end-btn setting-btn" style="display: none">저장</button>
+        </section>
+    </div>
+</div>
+<div class="addSectionButtonWrapper" style="display: flex; justify-content: center; align-items: center; height: 100px;">
+    <button id="addSectionButton" class="round-button">
+        +
+    </button>
+</div>
+
+<div id="setting" class="setting"></div>
+<footer id="footer" style="padding-bottom: 200px">풋터 확인용</footer>
+
+</body>
+
+<script type="module">
+    import {InitEditSite} from "/JS/Init/EditSiteInitialize.js";
+
+    InitEditSite();
+</script>
+<script src="/JS/Manager/sectionManager.js"></script>
+<script src="/JS/Fetch/fetchHTML.js"></script> <!-- html 불러오는 함수 -->
+<script src="/JS/widget/slideBottom.js"></script> <!-- 슬라이드 동작 함수 -->
+<script src="/JS/widget/widget_template.js"></script> <!-- 위젯/템플릿 페이징 -->
+<script src="/JS/widget/widget_setting.js"></script> <!-- 위젯 동작 함수 -->
+<script src="/JS/widget/settings_container.js"></script><!-- 기본 설정창 작동 함수-->
+<script>
+    //위젯이 필요한 곳에 무조건 작성해야함
+    fetchHTMLtoBody('/html/slideBottom.html', slideBottom,function() {initializeWidgetSettings('set-widget');});
+    //section 진입 시 setting창 불러오는 함수
+    fetchHTMLtoSetting('/html/basic_setting.html', function() {settingElements('set-widget');});
+    // HTML이 로드된 후 settingElements를 호출
+</script>
+<script src="/JS/widget/scrollBar.js"></script> <!-- 제일 하단에 존재 해야함 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</html>
