@@ -36,8 +36,16 @@ public interface ProductMapper {
     @Select("SELECT name, category, price, sale_percentage, sale_name, sale_period, image, description, create_at, update_at FROM product WHERE category=#{category}")
     ProductDTO findProductSettingByCategory(CategoryDTO category);
     //상품 할인율 설정
-    @Update("UPDATE product SET sale_name=#{sale_name}, sale_period=#{sale_period}, sale_percentage=#{sale_percentage} WHERE site_id=#{site_id} AND pd_id=#{pd_id}")
-    int updateProductSaleSetting(int site_id, int pd_id);
+    @Update("""
+    UPDATE product
+    SET 
+        sale_name = #{sale_name},
+        sale_period = #{sale_period},
+        sale_percentage = #{sale_percentage},
+        price = price - (price * #{sale_percentage} / 100)
+    WHERE site_id = #{site_id} AND pd_id = #{pd_id}
+""")
+    int updateProductSaleSetting(SalesDTO salesDTO);
     //키워드로 상품 찾기
     @Select("SELECT name, category, price, image, description FROM product WHERE name LIKE CONCAT ('%', #{name}, '%')")
     List<ProductDTO> findProductByKeyword(String name);

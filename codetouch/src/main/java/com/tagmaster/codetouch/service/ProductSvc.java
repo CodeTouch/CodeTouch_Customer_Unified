@@ -82,7 +82,8 @@ public class ProductSvc {
     }
 
     public String setSales(SalesDTO salesDTO){
-        if (productMapper.updateProductSaleSetting(salesDTO.getSite_id(), salesDTO.getPd_id())> 0){
+
+        if (productMapper.updateProductSaleSetting(salesDTO)> 0){
             return "설정 성공";
         }
         return "설정 실패";
