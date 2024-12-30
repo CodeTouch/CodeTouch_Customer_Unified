@@ -24,10 +24,10 @@ public interface ProductMapper {
     @Select("SELECT name, price FROM product WHERE pd_id=#{pd_id}")
     ProductDTO findProductById(int pd_id);
     //높은 가격순 상품 리스트 출력
-    @Select("SELECT site_id, name, category, price, image, description FROM product WHERE site_id=#{site_id} ORDER BY price ASC")
+    @Select("SELECT name, category, price, image, description FROM product WHERE site_id=#{site_id} ORDER BY price ASC")
     List<ProductDTO> findAllProductsByHighPrice(int site_id);
     //낮은 가격순 상품 리스트 출력
-    @Select("SELECT site_id, name, category, price, image, description FROM product WHERE site_id=#{site_id} ORDER BY price DESC")
+    @Select("SELECT name, category, price, image, description FROM product WHERE site_id=#{site_id} ORDER BY price DESC")
     List<ProductDTO> findAllProductsByLowPrice(int site_id);
     //특정 카테고리에 속해 있는 상품 정보 출력
     @Select("SELECT name, category, price, image, description FROM product WHERE category=#{category}")
@@ -36,15 +36,12 @@ public interface ProductMapper {
     @Select("SELECT name, category, price, sale_percentage, sale_name, sale_period, image, description, create_at, update_at FROM product WHERE category=#{category}")
     ProductDTO findProductSettingByCategory(CategoryDTO category);
     //상품 할인율 설정
-    @Update("UPDATE product SET sale_name=#{sale_name}, sale_period=#{sale_period}, sale_percentage=#{sale_percentage} WHERE site_id=#{site_id} AND pd_id={#pd_id}")
+    @Update("UPDATE product SET sale_name=#{sale_name}, sale_period=#{sale_period}, sale_percentage=#{sale_percentage} WHERE site_id=#{site_id} AND pd_id=#{pd_id}")
     int updateProductSaleSetting(int site_id, int pd_id);
     //키워드로 상품 찾기
-    @Select("SELECT site_id, name, category, price, image, description FROM product WHERE name LIKE CONCAT ('%', #{name}, '%')")
+    @Select("SELECT name, category, price, image, description FROM product WHERE name LIKE CONCAT ('%', #{name}, '%')")
     List<ProductDTO> findProductByKeyword(String name);
-    @Select("SELECT ph.site_id, " +
-            "       ph.pd_id, " +
-            "       ph.user_id, " +
-            "       pd.name AS product_name, " +  // 상품 이름 추가
+    @Select("SELECT pd.name AS product_name, " +  // 상품 이름 추가
             "       u.email AS user_email " +    // 이메일 추가
             "FROM pay_history ph " +
             "JOIN product pd ON ph.pd_id = pd.pd_id " +
