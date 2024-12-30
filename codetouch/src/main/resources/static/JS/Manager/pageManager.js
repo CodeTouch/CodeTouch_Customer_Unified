@@ -45,10 +45,7 @@ export async function setViewSite(){
         }
 
         window.setPageList(page);
-        console.log(page.id)
     })
-
-    console.log("페이지 리스트 테스트", pageList)
 
 }
 
@@ -56,7 +53,6 @@ export async function setSite(){
     const siteUrl = window.location.pathname.split("/")[3];
     const data = await fetchGet("customer", `/고객/디자인불러오기/${siteUrl}`);
 
-    console.log(data)
     site_id = data.site_id;
 
     const wrapper = document.getElementById('wrapper');
@@ -93,16 +89,12 @@ export async function setSite(){
         if (page.id === "main-page") {
             wrapper.innerHTML = page.content;
         }
-        const addDragButtonEvents = document.querySelectorAll('.set-widget')
-        addDragButtonEvents.forEach(elem => {
-            window.addDragEvent(elem);
-        })
+        // const addDragButtonEvents = document.querySelectorAll('.set-widget')
+        // addDragButtonEvents.forEach(elem => {
+        //     window.addDragEvent(elem);
+        // })
         window.setPageList(page);
-        console.log(page.id)
     })
-
-    console.log("페이지 리스트 테스트", pageList)
-
 
 }
 
@@ -145,8 +137,6 @@ window.setPageList = (page) => {
     }else{
         pageList.set(page.id, page.content)
     }
-
-    console.log("페이지 저장 완료. 저장된 페이지 : ", pageList.get(page.id))
 }
 
 // 안씀
@@ -164,12 +154,9 @@ function createPage(id) {
 
 export function scheduleDelete(pageId){
     deleteList.push(pageId);
-    console.log("삭제된 페이지 id: ", pageId);
-    console.log("삭제 예약 리스트", deleteList);
 }
 
 export function deletePage(){
-    console.log("삭제 예약 전부 실행");
     deleteList.forEach(pageId => {
         pageList.delete(pageId);
 
@@ -182,20 +169,12 @@ export function deletePage(){
 
     // 삭제 리스트 초기화
     deleteList.length = 0;
-    console.log("삭제 예약 전부 실행후 페이지 리스트: ", pageList);
-    console.log("삭제 예약 전부 실행후 삭제 예약 리스트: ", deleteList);
 }
 
 window.getPageByKey = function(key) {
-    console.log("페이지불러올 때 Key" , key)
-    console.log("페이지불러올 때 list" , pageList)
-    console.log("불러온 list" , pageList.get(key))
     if (pageList.has(key)){
-        console.log("페이지 있음")
-        console.log(pageList.get(key))
         return pageList.get(key);
     }else{
-        console.warn("페이지 없음");
         return null;
     }
 }
@@ -213,7 +192,7 @@ export function movePage(pageId) {
         event.stopPropagation(); // 버블링 방지
         const wrapper = document.getElementById('wrapper');
         if (window.isSetting === false){
-            
+        
             return;
         }
         

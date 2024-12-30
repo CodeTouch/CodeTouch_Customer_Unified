@@ -77,7 +77,6 @@ export async function fetchPost(to, endPoint, data) {
 
     const url = (to === "company" ? URL_TO_COMPANY : URL_TO_CUSTOMER) + endPoint;
 
-    console.log(url)
     // 데이터를 처리하여 bodyData에 할당
     let bodyData;
     if (typeof data === "number") {
@@ -103,7 +102,6 @@ export async function fetchPost(to, endPoint, data) {
         });
         console.log('POST 응답 데이터:', response);
     } catch (error) {
-        console.log(JSON.stringify(bodyData))
         console.error('POST 요청 에러:', error);
     }
 }

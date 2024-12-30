@@ -36,7 +36,6 @@ document.getElementById("headerSettingButton").addEventListener("click", () => {
     if(isSetting === true){
         cloneBodyChild()
         initialize("isTop");
-        console.log(pageList);
         window.isSetting = !window.isSetting;
     }
 });
@@ -59,7 +58,6 @@ document.getElementById("allSaveButton").addEventListener("click", () => {
     const sendHeader = document.getElementById('header').outerHTML;
     const sendFooter = document.getElementById('footer').outerHTML;
 
-    console.log(site_id)
     const siteData = {
         "site_id": site_id, // 사이트 아이디
         "header": sendHeader, // HTML 문자열을 그대로 사용

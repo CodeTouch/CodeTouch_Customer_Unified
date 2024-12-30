@@ -3,7 +3,6 @@
 const wrapper = document.querySelector('.wrapper');
 
 window.addEventListener('load', () =>{
-    console.log("sectionManager loaded");
     // 기존 섹션을 옵저버에 추가하는 예시
     document.querySelectorAll('.section-wrapper').forEach(section => {
         observeSectionWrapper(section);
@@ -14,14 +13,12 @@ window.addEventListener('load', () =>{
     })
 
     document.querySelectorAll('.section-setting-btn').forEach(button => {
-        console.log(button.parentElement);
         button.addEventListener('click', (e) => {
             sectionSettingStart(button.parentElement);
         })
     })
 
     document.querySelectorAll('.section-setting-end-btn').forEach(button => {
-        console.log(button.parentElement);
         button.addEventListener('click', (e) => {
             sectionSettingEnd(button.parentElement);
         })
@@ -34,12 +31,10 @@ const wrapperObserver = new MutationObserver((mutationsList) => {
             // section-wrapper 추가 감지
             mutation.addedNodes.forEach(node => {
                 if (node.classList && node.classList.contains('section-wrapper')) {
-                    console.log('새로운 section-wrapper 추가됨:', node);
 
                     // section-wrapper 내부의 모든 section 탐색
                     const sections = node.querySelectorAll('.section');
                     sections.forEach(section => {
-                        console.log('section-wrapper 내부의 section 발견:', section);
 
                         // 각 section에 observer 추가
                         observeSection(section);
@@ -70,7 +65,6 @@ function observeSectionWrapper(sectionWrapper) {
                 // 자식 노드 추가 감지
                 mutation.addedNodes.forEach(node => {
                     if (node.classList && node.classList.contains('section')) {
-                        console.log('새로운 section 추가됨:', node);
 
                         // section 내부의 변화 감지 추가
                         observeSection(node);
@@ -92,10 +86,6 @@ function observeSection(section) {
         for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
                 mutation.addedNodes.forEach(node => {
-                    console.log('새로운 div 추가됨:', node);
-                    console.log('추가된 div의 ID:', node.id);
-                    console.log('추가된 div가 포함된 section:', section);
-
                     window.setPageList(section.parentElement);
                 });
             }
@@ -149,7 +139,6 @@ function sectionSettingStart(node){
     startButton.style.display = 'none';
 
     const endButton = node.querySelector('.section-setting-end-btn');
-    console.log(endButton)
     endButton.style.display = 'block';
 }
 

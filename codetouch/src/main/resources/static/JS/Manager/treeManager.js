@@ -3,7 +3,6 @@
 // Proxy 핸들러와 treeStep 정의
 const nodeHandler = {
     set(target, property, value) {
-        console.log(`노드 ${target.id}의 ${property}가 ${target[property]}에서 ${value}로 변경되었습니다.`);
         target[property] = value;
         showTreeStep(); // UI 갱신
         return true;
@@ -17,12 +16,10 @@ const treeStepHandler = {
         } else {
             target[property] = value;
         }
-        console.log(`treeStep의 ${property} 레벨이 변경되었습니다.`);
         showTreeStep();
         return true;
     },
     deleteProperty(target, property) {
-        console.log(`treeStep의 ${property} 레벨이 삭제되었습니다.`);
         delete target[property];
         showTreeStep();
         return true;
@@ -39,15 +36,15 @@ function addNode(level, node) {
 }
 
 function deleteNode(level, nodeId) {
-    if (!treeStep[level]) return console.error(`레벨 ${level}에 노드가 없습니다.`);
+    if (!treeStep[level]) return;
     const index = treeStep[level].findIndex(node => node.id === nodeId);
-    if (index === -1) return console.error(`노드 ID ${nodeId}를 찾을 수 없습니다.`);
+    if (index === -1) return;
     treeStep[level].splice(index, 1);
 }
 
 function updateNode(level, nodeId, updates) {
     const node = treeStep[level]?.find(node => node.id === nodeId);
-    if (!node) return console.error(`노드 ID ${nodeId}를 찾을 수 없습니다.`);
+    if (!node) return;
     Object.assign(node, updates);
 }
 
@@ -63,7 +60,6 @@ function resetTreeStep(newTreeStep = []) {
         treeStep[index] = level.map(node => new Proxy(node, nodeHandler));
     });
 
-    console.log("treeStep이 초기화되었습니다.", treeStep);
     showTreeStep();
 }
 
@@ -84,7 +80,6 @@ function hasChildren(nodeId) {
 
 // 자신의 부모 id 확인
 export function findParentNode(nodeId){
-    console.log("트리 노드 체크: ", treeStep)
     for (const level of treeStep){
         if (level){
             const currentNode = level.find(node => node.id === nodeId);

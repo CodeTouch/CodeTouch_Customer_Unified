@@ -41,23 +41,34 @@ const templateVariations = [
     { id: "template4", text: "Detailed", style: "custom-tpl tpl-4" }
 ];
 
-const templateVariations1 = [
-    { id: "template1", text: "Grid Layout", style: "custom-tpl tpl-1" },
-    { id: "template2", text: "List Layout", style: "custom-tpl tpl-2" },
-    { id: "template3", text: "Minimal", style: "custom-tpl tpl-3" },
-    { id: "template4", text: "Detailed", style: "custom-tpl tpl-4" },
-    { id: "template1", text: "Grid Layout", style: "custom-tpl tpl-1" },
-    { id: "template2", text: "List Layout", style: "custom-tpl tpl-2" },
-    { id: "template3", text: "Minimal", style: "custom-tpl tpl-3" },
-    { id: "template4", text: "Detailed", style: "custom-tpl tpl-4" }
+const textVariations = [
+    { id: "text", text: "Text Box", style: "set-widget custom-text text-1" },
+    // { id: "template2", text: "List Layout", style: "custom-tpl tpl-2" },
+    // { id: "template3", text: "Minimal", style: "custom-tpl tpl-3" },
+    // { id: "template4", text: "Detailed", style: "custom-tpl tpl-4" },
+    // { id: "template1", text: "Grid Layout", style: "custom-tpl tpl-1" },
+    // { id: "template2", text: "List Layout", style: "custom-tpl tpl-2" },
+    // { id: "template3", text: "Minimal", style: "custom-tpl tpl-3" },
+    // { id: "template4", text: "Detailed", style: "custom-tpl tpl-4" }
+];
+
+const imageVariations = [
+    { id: "image", text: "", style: "set-widget custom-img img-1" },
+    // { id: "template2", text: "List Layout", style: "custom-tpl tpl-2" },
+    // { id: "template3", text: "Minimal", style: "custom-tpl tpl-3" },
+    // { id: "template4", text: "Detailed", style: "custom-tpl tpl-4" },
+    // { id: "template1", text: "Grid Layout", style: "custom-tpl tpl-1" },
+    // { id: "template2", text: "List Layout", style: "custom-tpl tpl-2" },
+    // { id: "template3", text: "Minimal", style: "custom-tpl tpl-3" },
+    // { id: "template4", text: "Detailed", style: "custom-tpl tpl-4" }
 ];
 
 const variationData = {
     //위젯
-    "🖼 이미지" : templateVariations,
-    "📄 텍스트" : templateVariations1,
+    "🖼 이미지" : imageVariations,
+    "📄 텍스트" : textVariations,
     "🔍 버튼" : templateVariations,
-    "🌢 아이콘" : templateVariations1,
+    "🌢 아이콘" : templateVariations,
     "🌍 지도" : templateVariations,
     "🎞️ 동영상" : templateVariations,
     "✋ 여백" : templateVariations,

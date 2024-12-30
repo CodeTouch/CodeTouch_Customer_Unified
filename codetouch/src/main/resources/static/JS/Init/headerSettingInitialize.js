@@ -42,7 +42,6 @@ export function cloneBodyChild(){
     const body = document.getElementById("body");
     const page = body.querySelector(".section-wrapper");
     if(page){
-        console.log("페이지 저장함.", page)
         window.setPageList(page);
     }
 
@@ -140,10 +139,7 @@ function initializeButtons() {
             // 2.1 자식 확인: 자식이 없는 경우에만 childButton 추가
             const hasChildren = treeStep[level + 1]?.some(childNode => childNode.parentId === node.id);
             if (!hasChildren) {
-                //addChildButton(nodeElement);
                 const childButton = createButton('tree-btn child-btn', '+', addChildNode);
-                //nodeElement.appendChild(childButton);
-                //console.log(nodeElement.firstElementChild)
                 nodeElement.firstElementChild.appendChild(childButton);
             }
         });
@@ -154,7 +150,6 @@ function initializeButtons() {
             if (lastNode) {
                 const lastNodeElement = document.getElementById(lastNode.id);
                 if (lastNodeElement) {
-                    //addNeighborButton(lastNodeElement);
                     const neighborBtn = createButton('tree-btn neighbor-btn', '+', addNeighborNode);
                     lastNodeElement.appendChild(neighborBtn);
                 }
@@ -515,7 +510,6 @@ export function saveDomAsHtml() {
                 try {
                     wrapper.removeChild(child); // wrapper에서 child 삭제
                 } catch (e) {
-                    console.log("에러난 아이디", child);
                 }
             }
 
@@ -583,9 +577,7 @@ function displayTree(level, parentId = null) {
 
     // 자식 노드가 없는 경우
     if (currentNodes.length === 0) {
-        console.log("No nodes to display.");
         if (level > 0) {
-            console.log("현재 노드 출력의 레벨", level)
             displayTree(level - 1, parentId); // 이전 레벨 표시
         }
         return;
@@ -670,9 +662,6 @@ function addSiblingNode(button) {
 
     siblingNode.appendChild(container);
     siblingNode.insertAdjacentHTML('beforeend', movePage(pageId));
-
-    console.log(pageList);
-
 
     document.getElementById('menu').appendChild(siblingNode);
 
@@ -921,7 +910,6 @@ function deleteNodeToId(nodeId) {
     const nodeParent = nodeElement.parentElement;
     const nodeGrandParent = nodeParent.parentElement;
 
-    console.log(nodeParent)
     const pageElement = nodeElement.querySelector('.page-btn');
     if (pageElement){
         const pageId = pageElement.dataset.pageId;
@@ -939,10 +927,8 @@ function deleteNodeToId(nodeId) {
         // 부모의 페이지 이동 에서 다시 포인터 이벤트 활성화
 
         const pageMove = nodeGrandParent.querySelector('.page-btn');
-        console.log(nodeGrandParent)
         if (pageMove) {
             pageMove.style.pointerEvents = 'auto';
-            console.log("동작확인2")
         }
     }
 
