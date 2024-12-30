@@ -45,6 +45,11 @@ const wrapperObserver = new MutationObserver((mutationsList) => {
                         observeSection(section);
                         // section 설정 버튼과 설정추가
                         addSectionSettingEvent(section);
+
+                        const addDragButtonEvents = document.querySelectorAll('.set-widget')
+                        addDragButtonEvents.forEach(elem => {
+                            window.addDragEvent(elem);
+                        })
                     });
 
                     // section-wrapper 내부를 감지하는 Observer 추가

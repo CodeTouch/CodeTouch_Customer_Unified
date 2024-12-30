@@ -1,12 +1,13 @@
 import {fetchGet} from "/JS/Fetch/FetchServer.js";
 
 window.pageList = new Map();
+export let site_id = 0;
 const deleteList = [];
 
 export async function setViewSite(){
-    const siteUrl = window.location.pathname.split("/")[3];
+    const siteUrl = window.location.pathname.split("/")[1];
 
-    const data = await fetchGet("customer", `/고객/사이트/${siteUrl}/정보`);
+    const data = await fetchGet("customer", `/${siteUrl}/정보`);
 
     const wrapper = document.getElementById('wrapper');
 
@@ -52,7 +53,12 @@ export async function setViewSite(){
 }
 
 export async function setSite(){
-    const data = await fetchGet("customer", "/고객/디자인불러오기/1");
+    const siteUrl = window.location.pathname.split("/")[3];
+    const data = await fetchGet("customer", `/고객/디자인불러오기/${url}`);
+
+    site_id = data.site_id;
+    console.log(site_id);
+    console.log(data.site_id);
 
     const wrapper = document.getElementById('wrapper');
 
@@ -88,12 +94,16 @@ export async function setSite(){
         if (page.id === "main-page") {
             wrapper.innerHTML = page.content;
         }
-
+        const addDragButtonEvents = document.querySelectorAll('.set-widget')
+        addDragButtonEvents.forEach(elem => {
+            window.addDragEvent(elem);
+        })
         window.setPageList(page);
         console.log(page.id)
     })
 
     console.log("페이지 리스트 테스트", pageList)
+
 
 }
 

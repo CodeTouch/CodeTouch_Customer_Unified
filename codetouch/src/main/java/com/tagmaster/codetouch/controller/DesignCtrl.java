@@ -31,11 +31,11 @@ public class DesignCtrl {
     }
 
     @ResponseBody
-    @GetMapping("/디자인불러오기/{site_id}")
-    public DesignEditDBDTO designReadCtrl(@PathVariable int site_id){
+    @GetMapping("/디자인불러오기/{url}")
+    public DesignEditDBDTO designReadCtrl(@PathVariable String url){
         try {
-            DesignEditDBDTO test = designEditSvc.readDesign(site_id);
-            return test;
+            DesignEditDBDTO design = designEditSvc.readDesign(url);
+            return design;
         } catch (Exception e) {
             return null;
         }
@@ -50,7 +50,7 @@ public class DesignCtrl {
         }
     }
 
-    @GetMapping("/사이트편집")
+    @GetMapping("/사이트편집/{url}")
     public String htmlCtrl (){
         return "editSite";
     }

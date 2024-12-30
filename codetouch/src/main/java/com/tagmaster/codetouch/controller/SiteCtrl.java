@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/고객")
 public class SiteCtrl {
     private final SiteSvc siteSvc;
     private final DesignEditSvc designEditSvc;
@@ -22,24 +21,24 @@ public class SiteCtrl {
         this.siteSvc = siteSvc;
         this.designEditSvc =  designEditSvc;
     }
+//
+//    //@PreAuthorize("hasAuthority('ADMIN,USER')")
+//    @PostMapping("/사이트/수정")
+//    @ResponseBody
+//    public String updateSite(@RequestBody SiteUpdateDTO dto) {
+//        try{
+//            return siteSvc.updateSetting(dto);
+//        } catch (Exception e) {
+//            throw new BadRequestException("");
+//        }
+//    }
 
-    //@PreAuthorize("hasAuthority('ADMIN,USER')")
-    @PostMapping("/사이트/수정")
-    @ResponseBody
-    public String updateSite(@RequestBody SiteUpdateDTO dto) {
-        try{
-            return siteSvc.updateSetting(dto);
-        } catch (Exception e) {
-            throw new BadRequestException("");
-        }
-    }
-
-    @GetMapping("/사이트/{url}")
+    @GetMapping("/{url}")
     public String showSite(@PathVariable String url){
         return "postSite";
     }
 
-    @GetMapping("/사이트/{url}/정보")
+    @GetMapping("/{url}/정보")
     @ResponseBody
     public DesignPostDTO getSiteData(@PathVariable String url){
         int site_id = siteSvc.findSite(url);

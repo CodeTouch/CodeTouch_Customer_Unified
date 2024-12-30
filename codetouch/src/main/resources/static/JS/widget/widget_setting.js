@@ -66,7 +66,7 @@ function initializeWidgetSettings(data){
             div.innerHTML = `<button class="${item.style}">${item.text}</button>`;
 
             // 이벤트 추가
-            addDragEvent(div);
+            window.addDragEvent(div);
             variationContainer.appendChild(div);
         });
 
@@ -171,7 +171,7 @@ function initializeWidgetSettings(data){
                             });
 
                             targetSection.appendChild(newDiv);
-                            addDragEvent(newDiv); // 복제된 요소에 드래그 이벤트 추가
+                            window.addDragEvent(newDiv); // 복제된 요소에 드래그 이벤트 추가
                             settingElements(data);
                             }
                     }
@@ -184,7 +184,7 @@ function initializeWidgetSettings(data){
             }
         });
 
-    function addDragEvent(element) {
+    window.addDragEvent = (element) => {
         let isElementDragging = false;
         let elementOffsetX, elementOffsetY;
 

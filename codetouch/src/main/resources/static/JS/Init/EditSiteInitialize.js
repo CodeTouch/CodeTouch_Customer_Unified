@@ -1,6 +1,6 @@
 import {fetchGet, fetchPost} from "/JS/Fetch/FetchServer.js";
 import {cloneBodyChild, initialize} from '/JS/Init/headerSettingInitialize.js';
-import {setSite} from "/JS/Manager/pageManager.js";
+import {setSite, site_id} from "/JS/Manager/pageManager.js";
 
 window.isSetting = true;
 
@@ -58,14 +58,13 @@ document.getElementById("allSaveButton").addEventListener("click", () => {
     const sendHeader = document.getElementById('header').outerHTML;
     const sendFooter = document.getElementById('footer').outerHTML;
 
+    console.log(site_id)
     const siteData = {
-        "site_id": "1", // 사이트 아이디
+        "site_id": site_id, // 사이트 아이디
         "header": sendHeader, // HTML 문자열을 그대로 사용
         "page": pages, // 페이지 객체 배열을 그대로 사용
         "footer": sendFooter, // HTML 문자열을 그대로 사용
     };
-
-    console.log(JSON.stringify(pages));
 
     fetchPost("customer", "/고객/디자인저장", siteData);
 })

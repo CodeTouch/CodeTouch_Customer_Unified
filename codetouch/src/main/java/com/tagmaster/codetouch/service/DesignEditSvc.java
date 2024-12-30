@@ -6,23 +6,27 @@ import com.tagmaster.codetouch.domain.DesignEditDTO;
 import com.tagmaster.codetouch.domain.DesignPostDTO;
 import com.tagmaster.codetouch.mapper.DesignEditMapper;
 import com.tagmaster.codetouch.mapper.DesignPostMapper;
+import com.tagmaster.codetouch.mapper.SiteMapper;
 import com.tagmaster.codetouch.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 @Service
 public class DesignEditSvc {
+    private final SiteMapper siteMapper;
     DesignEditMapper designEditMapper;
     DesignPostMapper designPostMapper;
 
     @Autowired
-    public DesignEditSvc(DesignEditMapper designEditMapper,DesignPostMapper designPostMapper) {
+    public DesignEditSvc(DesignEditMapper designEditMapper, DesignPostMapper designPostMapper, SiteMapper siteMapper) {
         this.designEditMapper = designEditMapper;
         this.designPostMapper =designPostMapper;
+        this.siteMapper = siteMapper;
     }
 
     public String insertDesign(DesignEditDTO dto) {
@@ -41,8 +45,9 @@ public class DesignEditSvc {
         }
     }
 
-    public DesignEditDBDTO readDesign(int site_id) {
+    public DesignEditDBDTO readDesign(String url) {
         try {
+            int site_id = siteMapper.findSiteByUrl(url);
             DesignEditDBDTO result = designEditMapper.readDesign(site_id);
             return result;
         } catch (Exception e) {
@@ -83,7 +88,7 @@ public class DesignEditSvc {
 
             DesignPostDTO result = new DesignPostDTO();
             result.setSite_id(getDesign.getSite_id());
-            result.setPage(getDesign.getPage());
+            result.setPage(deleteButton(getDesign.getPage()));
             result.setHeader(getDesign.getHeader());
             result.setFooter(getDesign.getFooter());
 
@@ -110,5 +115,15 @@ public class DesignEditSvc {
     public DesignPostDTO readDesignPost(int site_id){
         DesignPostDTO getSite = designPostMapper.readPostDesign(site_id);
         return getSite;
+    }
+
+    public String deleteButton(String page) {
+        // 삭제할 버튼 HTML 문자열
+        String deleteWord = "<button class=\\\"section-setting-btn setting-btn\\\">셋팅</button>";
+
+        // 정규 표현식으로 삭제
+        String cleanedPage = page.replaceAll(Pattern.quote(deleteWord), "");
+
+        return cleanedPage;
     }
 }

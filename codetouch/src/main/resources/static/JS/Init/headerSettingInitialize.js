@@ -51,6 +51,7 @@ export function cloneBodyChild(){
     document.getElementById('addSectionButton').style.display = 'none';
     document.getElementById('headerSettingButton').style.display = 'none';
     document.getElementById('allSaveButton').style.display = 'none';
+    document.getElementById('postSiteButton').style.display = 'none';
     // header를 제외한 모든 자식 요소를 클론
     // Array.from(body.children).forEach(child => {
     //     if (child.tagName.toLowerCase() !== "header") {
@@ -546,6 +547,7 @@ function buttonDisplay(){
     document.getElementById('addSectionButton').style.display = 'block';
     document.getElementById('headerSettingButton').style.display = 'block';
     document.getElementById('allSaveButton').style.display = 'block';
+    document.getElementById('postSiteButton').style.display = 'block';
 }
 
 function removeButtonTags(htmlString) {
