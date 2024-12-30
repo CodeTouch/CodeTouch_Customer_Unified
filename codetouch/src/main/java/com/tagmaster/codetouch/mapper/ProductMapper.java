@@ -53,8 +53,8 @@ public interface ProductMapper {
     ReceiptDTO getPayHistoryDetails(int site_id, int pay_id);
 
 
-    @Insert("INSERT INTO post (pd_id, user_id, site_id, content, image, rating, create_at) " +
-            "VALUES (#{pd_id}, #{user_id}, #{site_id}, #{content}, #{image}, #{rating}, now())")
+    @Insert("INSERT INTO post (pd_id, user_id, site_id, content, image, rating) " +
+            "VALUES (#{pd_id}, #{user_id}, #{site_id}, #{content}, #{image}, #{rating})")
     int insertReview(ReviewDTO dto);
 
 }

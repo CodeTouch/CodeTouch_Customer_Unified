@@ -1,6 +1,9 @@
 package com.tagmaster.codetouch.jwt;
 
 import com.tagmaster.codetouch.domain.CustomUserDetails;
+import com.tagmaster.codetouch.domain.VisitorCountDTO;
+import com.tagmaster.codetouch.service.DashboardSvc;
+import com.tagmaster.codetouch.service.UserSvc;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,11 +25,12 @@ import java.util.Iterator;
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
-
+    private final UserSvc userSvc;
     private final JWTUtil jwtUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+    public LoginFilter(AuthenticationManager authenticationManager, UserSvc userSvc, JWTUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
+        this.userSvc = userSvc;
         this.jwtUtil = jwtUtil;
         setFilterProcessesUrl("/고객/회원/로그인");
     }
@@ -70,6 +74,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
             String name = userDetails.getName();
             String nickname = userDetails.getNickname();
             String phone = userDetails.getPhone();
+//            userSvc.findUser(email);
+
 
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();//collection 에서 authority를 뽑아낸다
             Iterator<? extends GrantedAuthority> iterator = authorities.iterator(); //iterator 를 통해서 반복을 시켜서 내부 객체를 뽑아 낸다

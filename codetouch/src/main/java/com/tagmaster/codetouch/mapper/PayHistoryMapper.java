@@ -19,16 +19,16 @@ public interface PayHistoryMapper {
     @Delete("DELETE FROM pay_history WHERE site_id=#{site_id} AND pay_id=#{pay_id}")
     int deletePayHistory(int site_id, int pay_id);
     // 결제 내역 뽑기
-    @Select("SELECT p.name, p.price, u.email, ph.merchant_id , ph.create_at FROM pay_history ph JOIN product p ON ph.pd_id = p.pd_id JOIN user u ON ph.user_id = u.user_id WHERE ph.site_id=#{site_id} AND ph.user_id=#{user_id} AND pay_id=#{pay_id}")
+    @Select("SELECT p.name, p.price, ph.quantity, u.email, ph.merchant_id, ph.create_at FROM pay_history ph JOIN product p ON ph.pd_id = p.pd_id JOIN user u ON ph.user_id = u.user_id WHERE ph.site_id=#{site_id} AND ph.user_id=#{user_id} AND pay_id=#{pay_id}")
     PayHistoryDTO getPayHistory(int site_id, int user_id, int pay_id);
-    @Select("SELECT p.name, p.price, u.email, ph.merchant_id , ph.create_at FROM pay_history ph JOIN product p ON ph.pd_id = p.pd_id JOIN user u ON ph.user_id = u.user_id WHERE ph.site_id=#{site_id} AND ph.user_id=#{user_id}")
+    @Select("SELECT p.name, p.price, ph.quantity, u.email, ph.merchant_id, ph.create_at FROM pay_history ph JOIN product p ON ph.pd_id = p.pd_id JOIN user u ON ph.user_id = u.user_id WHERE ph.site_id=#{site_id} AND ph.user_id=#{user_id}")
     List<PayHistoryDTO> getPayHistoryList(int site_id, int user_id);
     // 특정 고객의 모든 결제 내역 뽑기 <- join ? userid 사용으로 모든 결제 내역 뽑기 ?
-    @Select("SELECT pay_id, pd_id, site_id, merchant_id, create_at FROM pay_history WHERE site_id=#{site_id} AND user_id=#{user_id}")
+    @Select("SELECT p.name, p.price, ph.quantity, u.email, ph.merchant_id, ph.create_at FROM pay_history ph JOIN product p ON ph.pd_id = p.pd_id JOIN user u ON ph.user_id = u.user_id WHERE ph.site_id=#{site_id} AND ph.user_id=#{user_id}")
     PayHistoryFullDTO getPayHistoryBySiteIdAndPdIdAndUserId(int site_id, int user_id);//site_id
     // 시간별 결제 내역 뽑기
-    @Select("SELECT pd_id, merchant_id, pay_id FROM pay_history WHERE pd_id=#{pd_id} ORDER BY create_at DESC")
-    List<PayHistoryDTO> getPayHistoryDESC();
+    @Select("SELECT p.name, p.price, ph.quantity, u.email, ph.merchant_id, ph.create_at FROM pay_history ph JOIN product p ON ph.pd_id = p.pd_id JOIN user u ON ph.user_id = u.user_id WHERE ph.site_id=#{site_id} ORDER BY create_at DESC")
+    List<PayHistoryDTO> getPayHistoryDESC(int site_id);
 
     //join으로 영수증 뽑아주기
 //    @Select("""

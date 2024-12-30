@@ -70,12 +70,12 @@ public class PayHistorySvc {
 //    }
 
     // 시간 순서로 정렬된 결제 내역 가져오기
-    public List<PayHistoryDTO> getAllPayByTime() {
-        try {
-            return payHistoryMapper.getPayHistoryDESC();
-        } catch (Exception e) {
-            System.err.println("결제 내역 조회 실패: " + e.getMessage());
-            return null;
-        }
-    }
+//    public List<PayHistoryDTO> getAllPayByTime(int site_id) {
+//        try {
+//            return payHistoryMapper.getPayHistoryDESC(site_id);
+//        } catch (Exception e) {
+//            System.err.println("결제 내역 조회 실패: " + e.getMessage());
+//            return null;
+//        }
+//    }
 }

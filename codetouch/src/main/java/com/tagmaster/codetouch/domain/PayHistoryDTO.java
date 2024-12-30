@@ -15,5 +15,6 @@ public class PayHistoryDTO {
     private int pd_id;
     private int user_id;
     private int site_id;
+    private int quantity;
     private Integer merchant_id;
 }

@@ -4,9 +4,10 @@ import com.tagmaster.codetouch.domain.SiteUpdateDTO;
 import com.tagmaster.codetouch.exception.BadRequestException;
 import com.tagmaster.codetouch.service.SiteSvc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/고객")
 public class SiteCtrl {
     private final SiteSvc siteSvc;
@@ -18,6 +19,7 @@ public class SiteCtrl {
     }
 
     //@PreAuthorize("hasAuthority('ADMIN,USER')")
+
     @PostMapping("/사이트/수정")
     public String updateSite(SiteUpdateDTO dto) {
         try{

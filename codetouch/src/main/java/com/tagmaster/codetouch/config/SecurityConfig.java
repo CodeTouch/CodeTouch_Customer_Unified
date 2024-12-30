@@ -3,6 +3,9 @@ package com.tagmaster.codetouch.config;
 import com.tagmaster.codetouch.jwt.JWTFilter;
 import com.tagmaster.codetouch.jwt.JWTUtil;
 import com.tagmaster.codetouch.jwt.LoginFilter;
+import com.tagmaster.codetouch.mapper.VisitorMapper;
+import com.tagmaster.codetouch.service.DashboardSvc;
+import com.tagmaster.codetouch.service.UserSvc;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +28,12 @@ import java.util.Collections;
 public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
-
+    private final UserSvc userSvc;
     private final JWTUtil jwtUtil;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil) {
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, UserSvc userSvc, JWTUtil jwtUtil) {
         this.authenticationConfiguration = authenticationConfiguration;
+        this.userSvc = userSvc;
         this.jwtUtil = jwtUtil;
     }
 
@@ -44,7 +48,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, VisitorMapper visitorMapper, DashboardSvc dashboardSvc, UserSvc userSvc) throws Exception {
         http
                 .cors((corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
                     @Override
@@ -75,7 +79,7 @@ public class SecurityConfig {
         http
                 .addFilterAfter(new JWTFilter(jwtUtil), LoginFilter.class); //로그인 필터 앞에 넣어준다 -> jwt 필터는 생성자에서 확인해보면 jwtutil 클래스 객체를 주입받았기 때문에 넣어준다.
         http
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class); //filter생성해주기, 위치 어디로? authentication manager 메서드 갖고 와서 사용
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), userSvc, jwtUtil), UsernamePasswordAuthenticationFilter.class); //filter생성해주기, 위치 어디로? authentication manager 메서드 갖고 와서 사용
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)); //stateless 상태로 만들어주기

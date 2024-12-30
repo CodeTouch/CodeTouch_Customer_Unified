@@ -1,11 +1,8 @@
 package com.tagmaster.codetouch.service;
 
-import com.tagmaster.codetouch.domain.AdminUpdateDTO;
-import com.tagmaster.codetouch.domain.SignupDTO;
-import com.tagmaster.codetouch.domain.UpdateDTO;
-import com.tagmaster.codetouch.domain.UpdateRoleDTO;
-import com.tagmaster.codetouch.domain.UserDTO;
+import com.tagmaster.codetouch.domain.*;
 import com.tagmaster.codetouch.mapper.UserMapper;
+import com.tagmaster.codetouch.mapper.VisitorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tagmaster.codetouch.util.Util;
@@ -15,11 +12,15 @@ import java.util.List;
 
 @Service
 public class UserSvc {
+    private final VisitorMapper visitorMapper;
     UserMapper userMapper;
+    DashboardSvc dashboardSvc;
 
     @Autowired
-    public UserSvc(UserMapper userMapper) {
+    public UserSvc(UserMapper userMapper, VisitorMapper visitorMapper, DashboardSvc dashboardSvc) {
         this.userMapper = userMapper;
+        this.visitorMapper = visitorMapper;
+        this.dashboardSvc = dashboardSvc;
     }
 
     // 사용자 생성
@@ -129,5 +130,11 @@ public class UserSvc {
             return null;
         }
     }
+//    public void findUser(String email){
+//        UserDTO dto = userMapper.getUserByEmail(email);
+//        VisitorCountDTO visitorCountDTO = new VisitorCountDTO();
+//        visitorCountDTO.setUser_id(dto.getUser_id());
+//        dashboardSvc.insertVisitorCount(visitorCountDTO);
+//    }
 
 }

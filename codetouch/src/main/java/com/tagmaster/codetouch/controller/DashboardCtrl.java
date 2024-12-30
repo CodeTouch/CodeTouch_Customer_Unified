@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/고객")
 public class DashboardCtrl {
@@ -21,9 +24,13 @@ public class DashboardCtrl {
 
     @ResponseBody
     @PostMapping("/관리자/대시보드")
-    public String saveProduct(@ModelAttribute int site_id) {
+    public List<Object> saveProduct(@ModelAttribute int site_id) {
         try {
-            return dashboardSvc.dashboard(site_id);
+            List<Object> dashboard = new ArrayList<>();
+            dashboard.add(dashboardSvc.getDashboardStatistics(site_id));
+            dashboard.add(dashboardSvc.getDashboardStatistics(site_id));
+            dashboard.add(dashboardSvc.countVisitor(site_id));
+            return dashboard;
         } catch (Exception e) {
             throw new BadRequestException(e.getMessage());
         }

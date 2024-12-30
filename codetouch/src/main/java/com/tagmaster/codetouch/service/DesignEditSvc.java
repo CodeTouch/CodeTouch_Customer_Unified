@@ -54,6 +54,9 @@ public class DesignEditSvc {
                 result.setFooter(dto.getFooter());
                 designEditMapper.updateDesign(result);
             }
+            return null;
+        } catch (Exception e) {
+            return null;
         }
     }
 }
