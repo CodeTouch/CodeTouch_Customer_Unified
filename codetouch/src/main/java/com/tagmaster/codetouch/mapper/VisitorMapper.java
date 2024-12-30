@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface VisitorMapper {
-    @Insert("INSERT INTO visitor_count (user_id, site_id, create_at) VALUES (#{user_id}, #{site_id}, now() )")
+    @Insert("INSERT INTO visitor_count (user_id, site_id) VALUES (#{user_id}, #{site_id})")
     VisitorCountDTO insertVisitorCount(VisitorCountDTO visitorCountDTO);
 
     @Select("SELECT create_at, count(user_id) FROM visitor_count WHERE site_id=#{site_id} GROUP BY create_at ORDER BY create_at")

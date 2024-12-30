@@ -130,11 +130,12 @@ public class UserSvc {
             return null;
         }
     }
-//    public void findUser(String email){
-//        UserDTO dto = userMapper.getUserByEmail(email);
-//        VisitorCountDTO visitorCountDTO = new VisitorCountDTO();
-//        visitorCountDTO.setUser_id(dto.getUser_id());
-//        dashboardSvc.insertVisitorCount(visitorCountDTO);
-//    }
+    public void findUser(String email, int site_id) {
+        UserDTO dto = userMapper.getUserByEmail(email);
+        VisitorCountDTO visitorCountDTO = new VisitorCountDTO();
+        visitorCountDTO.setUser_id(dto.getUser_id());
+        visitorCountDTO.setSite_id(site_id);
+        dashboardSvc.insertVisitorCount(visitorCountDTO);
+    }
 
 }

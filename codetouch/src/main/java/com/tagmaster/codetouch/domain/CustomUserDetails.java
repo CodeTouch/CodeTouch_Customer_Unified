@@ -64,4 +64,7 @@ public class CustomUserDetails implements UserDetails {
     public String getPhone() {
         return userDTO.getPhone();
     }
+    public int getSiteId() {
+         return userDTO.getSite_id();
+    }
 }

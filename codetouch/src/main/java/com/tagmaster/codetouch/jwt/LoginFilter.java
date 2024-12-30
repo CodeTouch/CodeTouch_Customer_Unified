@@ -74,8 +74,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
             String name = userDetails.getName();
             String nickname = userDetails.getNickname();
             String phone = userDetails.getPhone();
-//            userSvc.findUser(email);
-
+            int site_id = userDetails.getSiteId();
+            userSvc.findUser(email, site_id);
 
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();//collection 에서 authority를 뽑아낸다
             Iterator<? extends GrantedAuthority> iterator = authorities.iterator(); //iterator 를 통해서 반복을 시켜서 내부 객체를 뽑아 낸다
