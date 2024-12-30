@@ -1,4 +1,4 @@
-function initializeWidgetSettings(data){
+function initializeWidgetSettings(){
     const widgetBtn = document.getElementById("widgetBtn");
     const templateBtn = document.getElementById("templateBtn");
     const pagination = document.getElementById("pagination");
@@ -44,7 +44,7 @@ function initializeWidgetSettings(data){
     // let eventInitialized = false;
 
     function loadVariations(type) {
-        console.log(type, "누른 위젯 요소 이름");
+
 
         // variationContainer 비우기
         variationContainer.innerHTML = "";
@@ -66,7 +66,7 @@ function initializeWidgetSettings(data){
             div.innerHTML = `<button class="${item.style}">${item.text}</button>`;
 
             // 이벤트 추가
-            window.addDragEvent(div);
+            addDragEvent(div);
             variationContainer.appendChild(div);
         });
 
@@ -92,9 +92,9 @@ function initializeWidgetSettings(data){
     });
 
     widgetBtn.addEventListener("click", () => loadPagination(widgetElements)
-    , console.log("위젯 페이징 처리") );
+    , console.log() );
     templateBtn.addEventListener("click", () => loadPagination(templateElements, true)
-    , console.log("템플릿 페이징 처리"));
+    , console.log());
 
     loadPagination(widgetElements);
 
@@ -150,12 +150,12 @@ function initializeWidgetSettings(data){
                             event.clientY > sectionRect.top &&
                             event.clientY < sectionRect.bottom
                         );
-
+                       
                         if (isInsideSection) {
                             const newDiv = document.createElement("div");
+                            const timestamp = Date.now();
                             const cloneClass = draggingClone.classList[0]; // 복사본의 첫 번째 클래스 이름 추출
                             newDiv.classList.add(cloneClass); // 동적으로 클래스 추가
-
                             newDiv.style.width = `${draggingClone.offsetWidth}px`;
                             newDiv.style.height = `${draggingClone.offsetHeight}px`;
                             newDiv.style.position = "absolute";
@@ -167,27 +167,73 @@ function initializeWidgetSettings(data){
                             // 자식 요소 복제 (버튼, 이미지, 입력창 포함)
                             const childNodes = draggingClone.childNodes;
                             childNodes.forEach(node => {
+                                const tagName = node.tagName;
+                                const nodeAddClassName = `clone-${timestamp}`;
+                                node.classList.add(nodeAddClassName);
+                                node.id = `${tagName.toLowerCase()}-${timestamp}`;
                                 newDiv.appendChild(node.cloneNode(true));
                             });
 
                             targetSection.appendChild(newDiv);
-                            window.addDragEvent(newDiv); // 복제된 요소에 드래그 이벤트 추가
-                            settingElements(data);
-                            }
+                            addDragEvent(newDiv); // 복제된 요소에 드래그 이벤트 추가
+                            document.body.removeChild(draggingClone);
+                            newDiv.addEventListener("click", (e)=> {
+                                settingElements(newDiv);
+                            })
+                            newDiv.addEventListener('contextmenu',(e)=>{
+                                    e.preventDefault();  // 기본 우클릭 메뉴 방지
+                                    const targetElement = newDiv;
+                                    const deleteButton = document.createElement('button');
+                                    deleteButton.textContent = '삭제';
+                                    deleteButton.classList.add('delete-button');
+
+                                    // 우클릭 위치에 버튼 위치 설정
+                                    deleteButton.style.left = `${e.pageX + 100}px`;  // 우클릭한 요소 바로 오른쪽에 버튼 위치
+                                    deleteButton.style.top = `${e.pageY+100}px`;  // 우클릭한 위치에 버튼을 표시
+
+                                    targetElement.appendChild(deleteButton);  // body에 버튼 추가
+
+                                    // 삭제 버튼 클릭 시 삭제 확인
+                                    deleteButton.addEventListener('click', () => {
+                                        if (confirm("정말 이 태그를 삭제하시겠습니까?")) {
+                                            targetElement.remove();  // 해당 태그 삭제
+                                        }
+                                        deleteButton.remove();  // 삭제 후 버튼 제거
+                                    });
+
+                                    // 다른 곳을 클릭하면 삭제 버튼 숨기기
+                                    document.addEventListener('click', () => {
+                                        deleteButton.remove();  // 다른 곳을 클릭하면 버튼 제거
+                                    }, { once: true });  // 한번만 실행되도록 설정
+                            })
+                        }
                     }
-
-
                     // 복사본 제거
-                    document.body.removeChild(draggingClone);
                     draggingClone = null;
                 }
             }
         });
 
-    window.addDragEvent = (element) => {
+    // 동적으로 추가된 요소에 대한 설정을 적용하는 함수
+    section.addEventListener('click', (e) => {
+        const target = e.target;
+
+        // 클릭된 요소가 특정 클래스(예: 'button')를 가졌을 때만 처리
+        if (target.classList.contains('set-widget')) {
+            applySettingsToWidget(target);
+        }
+    });
+
+    function applySettingsToWidget(widget) {
+        // 여기서 설정을 적용하는 메서드 실행
+        // 예시로 settingElements을 호출
+        settingElements(`clone-${widget.id}`);
+    }
+
+
+    function addDragEvent(element) {
         let isElementDragging = false;
         let elementOffsetX, elementOffsetY;
-
         element.addEventListener("mousedown", (event) => {
             if (event.target.closest(".setting")) return;
 
@@ -221,9 +267,9 @@ function initializeWidgetSettings(data){
 
     // WidgetAddEvent 함수 추가 -> 다양한 id 기반 이벤트 처리
     function WidgetAddEvent(elem) {
-        console.log(elem,"위젯 이벤트 추가 함수");
+       
             const originalWidgets = document.querySelectorAll(`[id^="${elem}"]`);
-            console.log("이벤트 추가된 요소 리스트",originalWidgets);
+           
             originalWidgets.forEach((element) => {
                 element.addEventListener("mousedown", (event) => {
                     isDragging = true; // 드래그 상태 활성화
@@ -232,7 +278,7 @@ function initializeWidgetSettings(data){
                     offsetY = event.clientY - element.getBoundingClientRect().top;
 
                     draggingClone = element.cloneNode(true);
-                    console.log(element,"다운 이벤트 요소 복사1");
+                    
                     draggingClone.classList.add("dragging");
                     draggingClone.id = ""; // ID 제거하여 중복 방지
                     document.body.appendChild(draggingClone);
