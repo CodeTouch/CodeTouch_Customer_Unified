@@ -1,0 +1,24 @@
+package com.tagmaster.codetouch.service;
+
+import com.tagmaster.codetouch.domain.DeliveryDTO;
+import com.tagmaster.codetouch.mapper.DeliveryMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class DeliverySvc {
+    DeliveryMapper deliveryMapper;
+
+    @Autowired
+    public DeliverySvc(DeliveryMapper deliveryMapper) {
+        this.deliveryMapper = deliveryMapper;
+    }
+
+    public String updateSetting(DeliveryDTO deliveryDTO) {
+        if (deliveryMapper.updateDeliverySetting(deliveryDTO.getSite_id()) > 0) {
+            return "성공";
+        }
+        return "실패";
+    }
+}
+
